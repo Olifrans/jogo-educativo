@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Estudos - Vestibulares Brasil</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #10b981;
+            --error: #ef4444;
+            --bg: #f3f4f6;
+            --card-bg: #ffffff;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --enem: #f59e0b;
+            --usp: #dc2626;
+            --unicamp: #059669;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header e Stats */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Filtros */
+        .filters {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #e5e7eb;
+            background: var(--card-bg);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: var(--text-light);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .filter-btn[data-filter="ENEM"].active { background: var(--enem); border-color: var(--enem); }
+        .filter-btn[data-filter="USP"].active { background: var(--usp); border-color: var(--usp); }
+        .filter-btn[data-filter="UNICAMP"].active { background: var(--unicamp); border-color: var(--unicamp); }
+
+        /* Card da Questão */
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .badge-enem { background: var(--enem); }
+        .badge-usp { background: var(--usp); }
+        .badge-unicamp { background: var(--unicamp); }
+
+        .materia {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        /* Opções */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 15px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .option:hover:not(.disabled) {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .option-letter {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .option.correct {
+            border-color: var(--success);
+            background: #d1fae5;
+        }
+
+        .option.correct .option-letter {
+            background: var(--success);
+            color: white;
+        }
+
+        .option.incorrect {
+            border-color: var(--error);
+            background: #fee2e2;
+        }
+
+        .option.incorrect .option-letter {
+            background: var(--error);
+            color: white;
+        }
+
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        /* Feedback e Justificativa Melhorada */
+        .feedback {
+            margin-top: 25px;
+            border-radius: 10px;
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback .justificativa {
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 10px;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .feedback .justificativa::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .feedback .justificativa::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+
+        /* Estilos para as justificativas melhoradas (Mini-aulas) */
+        .study-block {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .study-section {
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .study-section h4 {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .study-section p, .study-section li {
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .study-section ul {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+
+        .study-section li {
+            margin-bottom: 6px;
+        }
+
+        .study-section.concept {
+            background: #eff6ff;
+            border-color: #3b82f6;
+        }
+        .study-section.concept h4 { color: #1e40af; }
+
+        .study-section.correct-box {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .study-section.correct-box h4 { color: #065f46; }
+
+        .study-section.incorrect-box {
+            background: #fef3c7;
+            border-color: #f59e0b;
+        }
+        .study-section.incorrect-box h4 { color: #92400e; }
+
+        .study-section.tip {
+            background: #f3e8ff;
+            border-color: #a855f7;
+        }
+        .study-section.tip h4 { color: #6b21a8; }
+
+        /* Botões de Ação */
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: #e5e7eb;
+            color: var(--text);
+        }
+
+        .btn-secondary:hover {
+            background: #d1d5db;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Tela de Conclusão */
+        .completion-screen {
+            text-align: center;
+            padding: 40px;
+            display: none;
+        }
+
+        .completion-screen.show {
+            display: block;
+        }
+
+        .completion-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .stats-bar { gap: 15px; }
+            .question-card { padding: 20px; }
+            .actions { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>📚 Sistema de Estudos Vestibulares</h1>
+        <p style="color: var(--text-light);">ENEM • USP (FUVEST) • Unicamp</p>
+    </header>
+
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-value" id="score">0</div>
+            <div class="stat-label">Acertos</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value" id="answered-count">0</div>
+            <div class="stat-label">Respondidas</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value" id="remaining-count">0</div>
+            <div class="stat-label">Restantes</div>
+        </div>
+        <div class="stat-item">
+            <button class="btn btn-secondary" onclick="resetProgress()" style="padding: 8px 16px; font-size: 0.85rem;">
+                🔄 Resetar
+            </button>
+        </div>
+    </div>
+
+    <div class="filters">
+        <button class="filter-btn active" data-filter="TODOS" onclick="setFilter('TODOS')">Todas</button>
+        <button class="filter-btn" data-filter="ENEM" onclick="setFilter('ENEM')">ENEM</button>
+        <button class="filter-btn" data-filter="USP" onclick="setFilter('USP')">USP</button>
+        <button class="filter-btn" data-filter="UNICAMP" onclick="setFilter('UNICAMP')">Unicamp</button>
+    </div>
+
+    <div id="quiz-container">
+        <div class="question-card" id="question-card">
+            <div class="question-header">
+                <span class="badge" id="vestibular-badge">ENEM</span>
+                <span class="materia" id="materia-label">Matéria</span>
+            </div>
+            
+            <div class="question-text" id="question-text">
+                Carregando questão...
+            </div>
+
+            <div class="options" id="options-container">
+                <!-- Opções geradas via JS -->
+            </div>
+
+            <div class="feedback" id="feedback">
+                <div class="justificativa" id="justificativa-text"></div>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-secondary" onclick="skipQuestion()">Pular Questão</button>
+                <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()" disabled>Próxima Questão →</button>
+            </div>
+        </div>
+
+        <div class="question-card completion-screen" id="completion-screen">
+            <div class="completion-icon">🎉</div>
+            <h2>Parabéns!</h2>
+            <p style="margin: 15px 0; color: var(--text-light);">
+                Você respondeu todas as questões disponíveis neste filtro.
+            </p>
+            <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 20px;">
+                Pontuação Total: <span id="final-score">0</span> / <span id="total-questions">0</span>
+            </p>
+            <button class="btn btn-primary" onclick="resetProgress()">Reiniciar Estudos</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ==========================================
+    // BANCO DE QUESTÕES COM JUSTIFICATIVAS DETALHADAS
+    // ==========================================
+    const questionBank = [
+        {
+            id: 1,
+            vestibular: "ENEM",
+            materia: "História",
+            pergunta: "A Consolidação das Leis do Trabalho (CLT), promulgada em 1943, foi um marco na história social brasileira. Uma de suas principais características foi:",
+            opcoes: [
+                "A extinção dos sindicatos e a proibição total de greves.",
+                "A regulamentação das relações de trabalho, incorporando demandas históricas do movimento operário, mas sob forte controle estatal.",
+                "A adoção imediata do salário mínimo em níveis que garantiam plena dignidade ao trabalhador.",
+                "A total independência da Justiça do Trabalho em relação ao Poder Executivo.",
+                "A exclusão dos trabalhadores rurais de qualquer tipo de proteção legal."
+            ],
+            correta: 1,
+            justificativa: `
+                <div class="study-block">
+                    <div class="study-section concept">
+                        <h4>📚 Conceito-Chave: O que é a CLT e o contexto do Estado Novo?</h4>
+                        <p>A <strong>CLT</strong> foi criada em 1943 por Getúlio Vargas, durante o <strong>Estado Novo (1937-1945)</strong>. Ela reuniu em um único documento toda a legislação trabalhista existente no Brasil, em um contexto de acelerada industrialização e crescimento da classe operária.</p>
+                    </div>
+                    <div class="study-section correct-box">
+                        <h4>✅ Por que a alternativa B está correta?</h4>
+                        <p>A CLT regulamentou direitos (jornada de 8h, férias, carteira de trabalho) que já eram reivindicados pelo movimento operário. Porém, fez isso sob <strong>forte controle do Estado</strong> (sindicalismo pelego/corporativista), garantindo que a imagem dos direitos estivesse ligada a Vargas, o "Pai dos Pobres".</p>
+                    </div>
+                    <div class="study-section incorrect-box">
+                        <h4>❌ Por que as outras estão erradas?</h4>
+                        <ul>
+                            <li><strong>A:</strong> Sindicatos não foram extintos, mas oficializados e controlados pelo Estado.</li>
+                            <li><strong>C:</strong> O salário mínimo era muito baixo e não garantia "plena dignidade".</li>
+                            <li><strong>D:</strong> A Justiça do Trabalho não era independente; Vargas controlava o Executivo.</li>
+                            <li><strong>E:</strong> Trabalhadores rurais foram excluídos de muitos direitos, mas não de "qualquer tipo" de proteção.</li>
+                        </ul>
+                    </div>
+                    <div class="study-section tip">
+                        <h4>💡 Dica para a prova</h4>
+                        <p>O ENEM adora a ambiguidade do <strong>"trabalhismo"</strong>: Vargas deu direitos, mas em troca pediu obediência política. Lembre-se: "nada de direitos sem deveres".</p>
+                    </div>
+                </div>
+            `
+        },
+        {
+            id: 2,
+            vestibular: "USP",
+            materia: "Matemática",
+            pergunta: "Um reservatório de água tem a forma de um cilindro circular reto com 2 m de raio e 5 m de altura. Se o reservatório está com 40% de sua capacidade total, qual é o volume de água, em metros cúbicos, presente no reservatório? (Considere π = 3)",
+            opcoes: ["12", "24", "30", "48", "60"],
+            correta: 1,
+            justificativa: `
+                <div class="study-block">
+                    <div class="study-section concept">
+                        <h4>📚 Conceito-Chave: Volume do Cilindro</h4>
+                        <p>A fórmula do volume é: <strong>V = π · r² · h</strong>. O volume é a Área da Base (círculo) multiplicada pela Altura.</p>
+                    </div>
+                    <div class="study-section correct-box">
+                        <h4>✅ Resolução passo a passo</h4>
+                        <p>1. Dados: r = 2 m, h = 5 m, π = 3.<br>
+                        2. Volume Total: V = 3 · (2)² · 5 = 3 · 4 · 5 = <strong>60 m³</strong>.<br>
+                        3. Volume de água (40%): 0,40 × 60 = <strong>24 m³</strong>.</p>
+                    </div>
+                    <div class="study-section incorrect-box">
+                        <h4>❌ Análise dos distratores</h4>
+                        <ul>
+                            <li><strong>60 (E):</strong> É o volume TOTAL. Erro clássico de quem esquece de aplicar os 40%.</li>
+                            <li><strong>30 (C):</strong> Seria 50% da capacidade.</li>
+                        </ul>
+                    </div>
+                    <div class="study-section tip">
+                        <h4>💡 Dica para a prova</h4>
+                        <p>Na FUVEST, leia a questão duas vezes. Muitas vezes ela dá o volume total e pede uma fração dele. Fique atento às unidades de medida!</p>
+                    </div>
+                </div>
+            `
+        },
+        {
+            id: 3,
+            vestibular: "UNICAMP",
+            materia: "Geografia",
+            pergunta: "O processo de favelização nas grandes metrópoles brasileiras está intrinsecamente ligado:",
+            opcoes: [
+                "À política de valorização do espaço urbano periférico pelo Estado.",
+                "À especulação imobiliária e à falta de políticas públicas de habitação popular.",
+                "Ao êxodo rural, que foi completamente revertido nas últimas duas décadas.",
+                "À diminuição da população total das regiões metropolitanas.",
+                "Às leis de zoneamento que obrigam a construção de moradias de baixo custo no centro."
+            ],
+            correta: 1,
+            justificativa: `
+                <div class="study-block">
+                    <div class="study-section concept">
+                        <h4>📚 Conceito-Chave: Segregação Socioespacial</h4>
+                        <p>O Brasil urbanizou-se de forma desordenada. A <strong>especulação imobiliária</strong> encarece o solo nas áreas centrais, empurrando a população de baixa renda para periferias distantes ou áreas de risco (encostas, margens de rios).</p>
+                    </div>
+                    <div class="study-section correct-box">
+                        <h4>✅ Por que a alternativa B está correta?</h4>
+                        <p>A favelização é o resultado direto da combinação entre a lógica do mercado imobiliário (que visa o lucro e ignora a função social da propriedade) e a histórica <strong>falta de políticas habitacionais</strong> eficazes por parte do Estado.</p>
+                    </div>
+                    <div class="study-section incorrect-box">
+                        <h4>❌ Por que as outras estão erradas?</h4>
+                        <ul>
+                            <li><strong>A:</strong> O Estado historicamente abandonou a periferia, não a valorizou.</li>
+                            <li><strong>C:</strong> O êxodo rural NÃO foi revertido; o Brasil é mais de 85% urbano.</li>
+                            <li><strong>E:</strong> Não há leis que "obriguem" moradias populares no centro de forma efetiva.</li>
+                        </ul>
+                    </div>
+                    <div class="study-section tip">
+                        <h4>💡 Dica para a prova</h4>
+                        <p>A Unicamp adora geografia urbana crítica. Pense sempre na cidade como uma mercadoria e lembre-se de conceitos como <strong>gentrificação</strong> e <strong>macrocefalia urbana</strong>.</p>
+                    </div>
+                </div>
+            `
+        },
+        {
+            id: 4,
+            vestibular: "ENEM",
+            materia: "Biologia",
+            pergunta: "A vacinação em massa é uma estratégia de saúde pública que visa principalmente:",
+            opcoes: [
+                "Erradicar imediatamente todos os patógenos de um ambiente.",
+                "Aumentar a imunidade de rebanho, protegendo indiretamente indivíduos não vacinados.",
+                "Substituir a necessidade de saneamento básico.",
+                "Garantir imunidade vitalícia contra todas as variantes de um vírus.",
+                "Eliminar a necessidade de uso de antibióticos."
+            ],
+            correta: 1,
+            justificativa: `
+                <div class="study-block">
+                    <div class="study-section concept">
+                        <h4>📚 Conceito-Chave: Imunidade Coletiva</h4>
+                        <p>A <strong>imunidade de rebanho</strong> ocorre quando uma porcentagem alta da população está imunizada, dificultando a circulação do patógeno e protegendo indiretamente quem não pode ser vacinado (alérgicos, imunossuprimidos).</p>
+                    </div>
+                    <div class="study-section correct-box">
+                        <h4>✅ Por que a alternativa B está correta?</h4>
+                        <p>É o principal objetivo de saúde pública. Por exemplo, o sarampo exige ~95% de cobertura vacinal para interromper a transmissão, criando um "escudo" protetor para toda a comunidade.</p>
+                    </div>
+                    <div class="study-section incorrect-box">
+                        <h4>❌ Por que as outras estão erradas?</h4>
+                        <ul>
+                            <li><strong>A:</strong> Erradicação é lenta e difícil (só conseguimos com a varíola até hoje).</li>
+                            <li><strong>C:</strong> Vacina e saneamento são complementares, não substitutos.</li>
+                            <li><strong>D:</strong> Poucas vacinas são vitalícias; muitas exigem reforços ou atualização (ex: gripe).</li>
+                            <li><strong>E:</strong> Antibióticos tratam bactérias; a maioria das vacinas é contra vírus. São coisas diferentes.</li>
+                        </ul>
+                    </div>
+                    <div class="study-section tip">
+                        <h4>💡 Dica para a prova</h4>
+                        <p>Relacione vacinação com atualidades: os movimentos antivacina e a queda na cobertura vacinal são as causas diretas do retorno do sarampo no Brasil.</p>
+                    </div>
+                </div>
+            `
+        },
+        {
+            id: 5,
+            vestibular: "USP",
+            materia: "Literatura",
+            pergunta: "Em 'Memórias Póstumas de Brás Cubas', Machado de Assis utiliza o 'delírio' do protagonista para:",
+            opcoes: [
+                "Confirmar a sanidade mental do narrador.",
+                "Fazer uma sátira à filosofia humanitista e às convenções sociais da época.",
+                "Demonstrar a influência exclusiva do Romantismo em sua obra.",
+                "Enaltecer o progresso científico do século XIX sem críticas.",
+                "Mostrar a superioridade da ciência médica sobre a filosofia."
+            ],
+            correta: 1,
+            justificativa: `
+                <div class="study-block">
+                    <div class="study-section concept">
+                        <h4>📚 Conceito-Chave: Realismo Machadiano</h4>
+                        <p>Machado rompe com o idealismo romântico. Seu narrador (um defunto-autor) usa a ironia fina e o pessimismo para expor as hipocrisias da burguesia carioca do século XIX.</p>
+                    </div>
+                    <div class="study-section correct-box">
+                        <h4>✅ Por que a alternativa B está correta?</h4>
+                        <p>O "delírio" (capítulo "O Delírio") apresenta o <strong>Humanitismo</strong>, uma pseudofilosofia criada por Machado para satirizar o otimismo cego do positivismo e do evolucionismo social, mostrando que a "luta pela vida" muitas vezes serve apenas para justificar o egoísmo e a exploração.</p>
+                    </div>
+                    <div class="study-section incorrect-box">
+                        <h4>❌ Por que as outras estão erradas?</h4>
+                        <ul>
+                            <li><strong>C:</strong> Machado é o grande crítico e superador do Romantismo, não seu seguidor.</li>
+                            <li><strong>D:</strong> Ele critica duramente as pretensões de "progresso" de uma sociedade que mantinha a escravidão.</li>
+                        </ul>
+                    </div>
+                    <div class="study-section tip">
+                        <h4>💡 Dica para a prova</h4>
+                        <p>Na FUVEST, procure sempre por: <strong>ironia, metalinguagem, pessimismo antropológico</strong> e crítica social velada nas obras de Machado.</p>
+                    </div>
+                </div>
+            `
+        },
+        {
+            id: 6,
+            vestibular: "UNICAMP",
+            materia: "Física",
+            pergunta: "Um carro se move em uma estrada reta com velocidade constante de 72 km/h. Ao avistar um obstáculo, o motorista freia, imprimindo uma desaceleração constante de 5 m/s². Qual a distância percorrida pelo carro até parar completamente?",
+            opcoes: ["20 m", "30 m", "40 m", "50 m", "60 m"],
+            correta: 2,
+            justificativa: `
+                <div class="study-block">
+                    <div class="study-section concept">
+                        <h4>📚 Conceito-Chave: Equação de Torricelli</h4>
+                        <p>Usada no Movimento Uniformemente Variado (MUV) quando <strong>não temos o tempo</strong>: <strong>v² = v₀² + 2·a·Δs</strong>.</p>
+                    </div>
+                    <div class="study-section correct-box">
+                        <h4>✅ Resolução passo a passo</h4>
+                        <p>1. Converter unidade: 72 km/h ÷ 3,6 = <strong>20 m/s</strong>.<br>
+                        2. Dados: v₀ = 20 m/s, v = 0 (parou), a = -5 m/s² (freando).<br>
+                        3. Aplicando: 0² = (20)² + 2·(-5)·Δs<br>
+                        0 = 400 - 10·Δs → 10·Δs = 400 → <strong>Δs = 40 m</strong>.</p>
+                    </div>
+                    <div class="study-section incorrect-box">
+                        <h4>❌ Erro clássico</h4>
+                        <p>Esquecer de converter km/h para m/s. Se usar 72 direto na fórmula, o resultado será completamente errado.</p>
+                    </div>
+                    <div class="study-section tip">
+                        <h4>💡 Dica para a prova</h4>
+                        <p>Memorize estas conversões: 36 km/h = 10 m/s | 72 km/h = 20 m/s | 108 km/h = 30 m/s. Isso economiza minutos valiosos na prova.</p>
+                    </div>
+                </div>
+            `
+        },
+        {
+            id: 7,
+            vestibular: "ENEM",
+            materia: "Química",
+            pergunta: "O fenômeno da chuva ácida está principalmente associado à emissão na atmosfera de:",
+            opcoes: [
+                "Monóxido de carbono (CO) e metano (CH4).",
+                "Dióxido de enxofre (SO2) e óxidos de nitrogênio (NOx).",
+                "Clorofluorcarbonos (CFCs) e ozônio (O3).",
+                "Material particulado e fuligem.",
+                "Vapor d'água e dióxido de carbono (CO2) natural."
+            ],
+            correta: 1,
+            justificativa: `
+                <div class="study-block">
+                    <div class="study-section concept">
+                        <h4>📚 Conceito-Chave: Poluição Atmosférica</h4>
+                        <p>A chuva ácida ocorre quando poluentes reagem com a água da atmosfera, formando ácidos fortes (pH < 5,6), causando corrosão em monumentos e acidificação de lagos.</p>
+                    </div>
+                    <div class="study-section correct-box">
+                        <h4>✅ Por que a alternativa B está correta?</h4>
+                        <p>O <strong>SO₂</strong> (da queima de carvão/diesel) forma ácido sulfúrico (H₂SO₄). Os <strong>NOx</strong> (de motores de combustão em alta temperatura) formam ácido nítrico (HNO₃). São os dois principais vilões.</p>
+                    </div>
+                    <div class="study-section incorrect-box">
+                        <h4>❌ Por que as outras estão erradas?</h4>
+                        <ul>
+                            <li><strong>A:</strong> CO e CH₄ são gases do efeito estufa, não formam chuva ácida.</li>
+                            <li><strong>C:</strong> CFCs destroem a camada de ozônio, um problema ambiental diferente.</li>
+                            <li><strong>E:</strong> O CO₂ natural torna a chuva levemente ácida (pH 5,6), o que é normal. A chuva ácida poluente é muito mais ácida.</li>
+                        </ul>
+                    </div>
+                    <div class="study-section tip">
+                        <h4>💡 Dica para a prova</h4>
+                        <p>Não confunda os problemas ambientais: <strong>Chuva ácida</strong> (SO₂/NOx) ≠ <strong>Efeito Estufa</strong> (CO₂/CH₄) ≠ <strong>Buraco na Camada de Ozônio</strong> (CFCs).</p>
+                    </div>
+                </div>
+            `
+        }
+    ];
+
+    // ==========================================
+    // ESTADO DA APLICAÇÃO
+    // ==========================================
+    let currentState = {
+        filter: 'TODOS',
+        answeredQuestions: [], // IDs das questões já respondidas
+        score: 0,
+        currentQuestionIndex: 0
+    };
+
+    // ==========================================
+    // FUNÇÕES DE LOCALSTORAGE
+    // ==========================================
+    function loadState() {
+        const saved = localStorage.getItem('vestibularStudyState_v2'); // Versão atualizada
+        if (saved) {
+            currentState = JSON.parse(saved);
+        }
+        updateStats();
+    }
+
+    function saveState() {
+        localStorage.setItem('vestibularStudyState_v2', JSON.stringify(currentState));
+        updateStats();
+    }
+
+    function resetProgress() {
+        if (confirm('Tem certeza que deseja apagar todo o seu progresso? Esta ação não pode ser desfeita.')) {
+            currentState = {
+                filter: 'TODOS',
+                answeredQuestions: [],
+                score: 0,
+                currentQuestionIndex: 0
+            };
+            saveState();
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.filter === 'TODOS') btn.classList.add('active');
+            });
+            
+            renderQuestion();
+        }
+    }
+
+    // ==========================================
+    // LÓGICA DO QUIZ
+    // ==========================================
+    function getFilteredQuestions() {
+        if (currentState.filter === 'TODOS') {
+            return questionBank;
+        }
+        return questionBank.filter(q => q.vestibular === currentState.filter);
+    }
+
+    function getUnansweredQuestions() {
+        const filtered = getFilteredQuestions();
+        return filtered.filter(q => !currentState.answeredQuestions.includes(q.id));
+    }
+
+    function setFilter(filter) {
+        currentState.filter = filter;
+        currentState.currentQuestionIndex = 0;
+        
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.dataset.filter === filter) {
+                btn.classList.add('active');
+            }
+        });
+        
+        saveState();
+        renderQuestion();
+    }
+
+    function renderQuestion() {
+        const unanswered = getUnansweredQuestions();
+        const questionCard = document.getElementById('question-card');
+        const completionScreen = document.getElementById('completion-screen');
+
+        if (unanswered.length === 0) {
+            questionCard.style.display = 'none';
+            completionScreen.classList.add('show');
+            
+            // Estatísticas do filtro atual
+            const totalInFilter = getFilteredQuestions().length;
+            document.getElementById('final-score').textContent = currentState.score;
+            document.getElementById('total-questions').textContent = totalInFilter;
+            return;
+        }
+
+        questionCard.style.display = 'block';
+        completionScreen.classList.remove('show');
+
+        if (currentState.currentQuestionIndex >= unanswered.length) {
+            currentState.currentQuestionIndex = 0;
+        }
+
+        const q = unanswered[currentState.currentQuestionIndex];
+
+        const badge = document.getElementById('vestibular-badge');
+        badge.textContent = q.vestibular;
+        badge.className = 'badge badge-' + q.vestibular.toLowerCase();
+        
+        document.getElementById('materia-label').textContent = q.materia;
+        document.getElementById('question-text').textContent = q.pergunta;
+
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+        
+        const letters = ['A', 'B', 'C', 'D', 'E'];
+        q.opcoes.forEach((opcao, index) => {
+            const div = document.createElement('div');
+            div.className = 'option';
+            div.innerHTML = `
+                <div class="option-letter">${letters[index]}</div>
+                <div>${opcao}</div>
+            `;
+            div.onclick = () => selectOption(index, q);
+            optionsContainer.appendChild(div);
+        });
+
+        document.getElementById('feedback').classList.remove('show');
+        document.getElementById('next-btn').disabled = true;
+    }
+
+    function selectOption(selectedIndex, question) {
+        if (document.getElementById('next-btn').disabled === false) return;
+
+        const options = document.querySelectorAll('.option');
+        const isCorrect = selectedIndex === question.correta;
+
+        options.forEach((opt, index) => {
+            opt.classList.add('disabled');
+            if (index === question.correta) {
+                opt.classList.add('correct');
+            } else if (index === selectedIndex && !isCorrect) {
+                opt.classList.add('incorrect');
+            }
+        });
+
+        if (isCorrect) {
+            currentState.score++;
+        }
+        
+        if (!currentState.answeredQuestions.includes(question.id)) {
+            currentState.answeredQuestions.push(question.id);
+        }
+        saveState();
+
+        const feedback = document.getElementById('feedback');
+        const justificativaText = document.getElementById('justificativa-text');
+
+        feedback.classList.add('show');
+        // Injetamos o HTML rico da justificativa
+        justificativaText.innerHTML = question.justificativa;
+
+        document.getElementById('next-btn').disabled = false;
+    }
+
+    function nextQuestion() {
+        currentState.currentQuestionIndex++;
+        saveState();
+        renderQuestion();
+    }
+
+    function skipQuestion() {
+        currentState.currentQuestionIndex++;
+        saveState();
+        renderQuestion();
+    }
+
+    function updateStats() {
+        document.getElementById('score').textContent = currentState.score;
+        document.getElementById('answered-count').textContent = currentState.answeredQuestions.length;
+        
+        const remaining = questionBank.length - currentState.answeredQuestions.length;
+        document.getElementById('remaining-count').textContent = remaining;
+    }
+
+    // ==========================================
+    // INICIALIZAÇÃO
+    // ==========================================
+    window.onload = function() {
+        loadState();
+        renderQuestion();
+    };
+</script>
+
+</body>
+</html>
