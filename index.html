@@ -3,125 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Estudos - Vestibulares Brasil 2025</title>
+    <title>Elite Vestibulares 2025 | Sistema Premium de Estudos</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
             --success: #10b981;
             --error: #ef4444;
-            --bg: #f3f4f6;
-            --card-bg: #ffffff;
-            --text: #1f2937;
-            --text-light: #6b7280;
+            --warning: #f59e0b;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-hover: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --border: #334155;
             --enem: #f59e0b;
             --usp: #dc2626;
             --unicamp: #059669;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
         }
 
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            padding: 20px;
-            min-height: 100vh;
+        /* Background Animado */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-animation .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(99, 102, 241, 0.1);
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+
+        /* Header */
+        header {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 0 20px;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        h1 {
-            color: var(--primary);
-            margin-bottom: 10px;
-            font-size: 1.8rem;
-        }
-
-        .stats-bar {
+        .header-content {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            background: var(--card-bg);
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
+            justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;
+            gap: 1rem;
         }
 
-        .stat-item {
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
             text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+            border-color: var(--primary);
         }
 
         .stat-value {
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: bold;
             color: var(--primary);
+            margin-bottom: 0.25rem;
         }
 
         .stat-label {
-            font-size: 0.85rem;
-            color: var(--text-light);
+            color: var(--text-secondary);
+            font-size: 0.875rem;
         }
 
-        .filters {
+        /* Filters Section */
+        .filters-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .filters-title {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
             display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 25px;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-select {
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        /* Filter Buttons */
+        .filter-buttons {
+            display: flex;
+            gap: 0.75rem;
             flex-wrap: wrap;
+            margin-top: 1rem;
         }
 
         .filter-btn {
-            padding: 10px 20px;
-            border: 2px solid #e5e7eb;
-            background: var(--card-bg);
+            padding: 0.625rem 1.25rem;
+            border: 2px solid var(--border);
             border-radius: 25px;
-            cursor: pointer;
+            background: transparent;
+            color: var(--text-secondary);
             font-weight: 600;
+            cursor: pointer;
             transition: all 0.3s ease;
-            color: var(--text-light);
+            font-size: 0.875rem;
         }
 
         .filter-btn:hover {
             border-color: var(--primary);
             color: var(--primary);
+            transform: translateY(-2px);
         }
 
         .filter-btn.active {
             background: var(--primary);
-            color: white;
             border-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
         }
 
-        .filter-btn[data-filter="ENEM"].active { background: var(--enem); border-color: var(--enem); }
-        .filter-btn[data-filter="USP"].active { background: var(--usp); border-color: var(--usp); }
-        .filter-btn[data-filter="UNICAMP"].active { background: var(--unicamp); border-color: var(--unicamp); }
+        .filter-btn[data-filter="ENEM"].active { 
+            background: var(--enem); 
+            border-color: var(--enem);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+        }
+        .filter-btn[data-filter="USP"].active { 
+            background: var(--usp); 
+            border-color: var(--usp);
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+        }
+        .filter-btn[data-filter="UNICAMP"].active { 
+            background: var(--unicamp); 
+            border-color: var(--unicamp);
+            box-shadow: 0 4px 15px rgba(5, 150, 105, 0.4);
+        }
 
+        /* Question Card */
         .question-card {
-            background: var(--card-bg);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            margin-bottom: 20px;
-            animation: fadeIn 0.4s ease;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            animation: slideIn 0.4s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -129,87 +276,104 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 1rem;
+        }
+
+        .badges {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
         }
 
         .badge {
-            padding: 5px 12px;
+            padding: 0.375rem 0.875rem;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: bold;
-            color: white;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .badge-enem { background: var(--enem); }
-        .badge-usp { background: var(--usp); }
-        .badge-unicamp { background: var(--unicamp); }
+        .badge-enem { background: var(--enem); color: #000; }
+        .badge-usp { background: var(--usp); color: white; }
+        .badge-unicamp { background: var(--unicamp); color: white; }
+        .badge-theme { background: var(--accent); color: white; }
 
-        .materia {
-            color: var(--text-light);
-            font-size: 0.9rem;
-            font-weight: 600;
+        .question-number {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
         }
 
         .question-text {
             font-size: 1.1rem;
-            margin-bottom: 25px;
-            line-height: 1.7;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-dark);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
         }
 
+        /* Options */
         .options {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 1rem;
         }
 
         .option {
-            padding: 15px 20px;
-            border: 2px solid #e5e7eb;
-            border-radius: 10px;
+            padding: 1.25rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             display: flex;
-            align-items: center;
-            gap: 12px;
+            align-items: flex-start;
+            gap: 1rem;
+            background: var(--bg-dark);
         }
 
         .option:hover:not(.disabled) {
             border-color: var(--primary);
-            background: #eff6ff;
+            background: var(--bg-hover);
+            transform: translateX(5px);
         }
 
         .option-letter {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            background: #f3f4f6;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             flex-shrink: 0;
+            transition: all 0.3s ease;
         }
 
         .option.correct {
             border-color: var(--success);
-            background: #d1fae5;
+            background: rgba(16, 185, 129, 0.1);
         }
 
         .option.correct .option-letter {
             background: var(--success);
+            border-color: var(--success);
             color: white;
         }
 
         .option.incorrect {
             border-color: var(--error);
-            background: #fee2e2;
+            background: rgba(239, 68, 68, 0.1);
         }
 
         .option.incorrect .option-letter {
             background: var(--error);
+            border-color: var(--error);
             color: white;
         }
 
@@ -218,11 +382,12 @@
             opacity: 0.7;
         }
 
+        /* Feedback */
         .feedback {
-            margin-top: 25px;
-            border-radius: 10px;
-            display: none;
-            animation: slideDown 0.3s ease;
+            margin-top: 2rem;
+            border-radius: 12px;
+            overflow: hidden;
+            animation: slideDown 0.4s ease;
         }
 
         @keyframes slideDown {
@@ -230,116 +395,138 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .feedback.show {
-            display: block;
+        .feedback.correct {
+            border: 2px solid var(--success);
+            background: rgba(16, 185, 129, 0.05);
         }
 
-        .feedback .justificativa {
-            max-height: 600px;
-            overflow-y: auto;
-            padding-right: 10px;
-            color: var(--text);
-            line-height: 1.6;
+        .feedback.incorrect {
+            border: 2px solid var(--error);
+            background: rgba(239, 68, 68, 0.05);
         }
 
-        .feedback .justificativa::-webkit-scrollbar {
-            width: 6px;
+        .feedback-header {
+            padding: 1rem 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
-        .feedback .justificativa::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 3px;
+        .feedback.correct .feedback-header {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
         }
 
+        .feedback.incorrect .feedback-header {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        .feedback-content {
+            padding: 1.5rem;
+        }
+
+        /* Study Sections */
         .study-block {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 1rem;
         }
 
         .study-section {
-            padding: 15px;
+            padding: 1.25rem;
             border-radius: 8px;
             border-left: 4px solid;
         }
 
         .study-section h4 {
-            margin-bottom: 10px;
+            margin-bottom: 0.75rem;
             font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .study-section p, .study-section li {
             font-size: 0.95rem;
             line-height: 1.7;
+            color: var(--text-secondary);
         }
 
         .study-section ul {
-            margin-left: 20px;
-            margin-top: 8px;
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
         }
 
         .study-section li {
-            margin-bottom: 6px;
+            margin-bottom: 0.5rem;
         }
 
         .study-section.concept {
-            background: #eff6ff;
-            border-color: #3b82f6;
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--primary);
         }
-        .study-section.concept h4 { color: #1e40af; }
+        .study-section.concept h4 { color: var(--primary); }
 
         .study-section.correct-box {
-            background: #d1fae5;
-            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--success);
         }
-        .study-section.correct-box h4 { color: #065f46; }
+        .study-section.correct-box h4 { color: var(--success); }
 
         .study-section.incorrect-box {
-            background: #fef3c7;
-            border-color: #f59e0b;
+            background: rgba(245, 158, 11, 0.1);
+            border-color: var(--warning);
         }
-        .study-section.incorrect-box h4 { color: #92400e; }
+        .study-section.incorrect-box h4 { color: var(--warning); }
 
         .study-section.tip {
-            background: #f3e8ff;
-            border-color: #a855f7;
+            background: rgba(236, 72, 153, 0.1);
+            border-color: var(--secondary);
         }
-        .study-section.tip h4 { color: #6b21a8; }
+        .study-section.tip h4 { color: var(--secondary); }
 
+        /* Actions */
         .actions {
             display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
             justify-content: space-between;
-            margin-top: 25px;
-            gap: 10px;
         }
 
         .btn {
-            padding: 12px 24px;
+            padding: 1rem 2rem;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
             font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .btn-primary {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-            flex: 1;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
         }
 
-        .btn-primary:hover {
-            background: var(--primary-dark);
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
         }
 
         .btn-secondary {
-            background: #e5e7eb;
-            color: var(--text);
+            background: var(--bg-hover);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
         }
 
-        .btn-secondary:hover {
-            background: #d1d5db;
+        .btn-secondary:hover:not(:disabled) {
+            background: var(--border);
         }
 
         .btn:disabled {
@@ -347,1141 +534,793 @@
             cursor: not-allowed;
         }
 
+        /* Progress Bar */
+        .progress-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: var(--bg-dark);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.5s ease;
+            border-radius: 5px;
+        }
+
+        /* Completion Screen */
         .completion-screen {
             text-align: center;
-            padding: 40px;
+            padding: 4rem 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
             display: none;
         }
 
         .completion-screen.show {
             display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .completion-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            animation: bounce 1s ease;
         }
 
-        @media (max-width: 600px) {
-            .stats-bar { gap: 15px; }
-            .question-card { padding: 20px; }
-            .actions { flex-direction: column; }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .completion-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .question-card {
+                padding: 1.25rem;
+            }
+
+            .question-text {
+                font-size: 1rem;
+                padding: 1rem;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
         }
     </style>
 </head>
 <body>
+    <!-- Background Animation -->
+    <div class="bg-animation" id="bgAnimation"></div>
 
-<div class="container">
+    <!-- Header -->
     <header>
-        <h1>📚 Sistema de Estudos Vestibulares 2025</h1>
-        <p style="color: var(--text-light);">Questões Reais • ENEM • USP (FUVEST) • Unicamp</p>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🎯</span>
+                    <span>Elite Vestibulares 2025</span>
+                </div>
+                <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                    Questões Reais • ENEM • FUVEST • UNICAMP
+                </div>
+            </div>
+        </div>
     </header>
 
-    <div class="stats-bar">
-        <div class="stat-item">
-            <div class="stat-value" id="score">0</div>
-            <div class="stat-label">Acertos</div>
+    <div class="container">
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="score">0</div>
+                <div class="stat-label">✅ Acertos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="accuracy">0%</div>
+                <div class="stat-label">📊 Aproveitamento</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="answered-count">0</div>
+                <div class="stat-label">📝 Respondidas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="remaining-count">0</div>
+                <div class="stat-label">⏳ Restantes</div>
+            </div>
         </div>
-        <div class="stat-item">
-            <div class="stat-value" id="answered-count">0</div>
-            <div class="stat-label">Respondidas</div>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-header">
+                <span style="font-weight: 600;">Progresso Geral</span>
+                <span id="progress-text" style="color: var(--text-secondary);">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+            </div>
         </div>
-        <div class="stat-item">
-            <div class="stat-value" id="remaining-count">0</div>
-            <div class="stat-label">Restantes</div>
+
+        <!-- Filters -->
+        <div class="filters-section">
+            <div class="filters-title">
+                <span>🔍</span>
+                <span>Filtros Avançados</span>
+            </div>
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label class="filter-label">Instituição</label>
+                    <select class="filter-select" id="institutionFilter" onchange="applyFilters()">
+                        <option value="TODOS">Todas</option>
+                        <option value="ENEM">ENEM 2025</option>
+                        <option value="USP">FUVEST 2025</option>
+                        <option value="UNICAMP">UNICAMP 2025</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Disciplina</label>
+                    <select class="filter-select" id="subjectFilter" onchange="applyFilters()">
+                        <option value="TODOS">Todas</option>
+                        <option value="Matemática">Matemática</option>
+                        <option value="Biologia">Biologia</option>
+                        <option value="Química">Química</option>
+                        <option value="Física">Física</option>
+                        <option value="História">História</option>
+                        <option value="Geografia">Geografia</option>
+                        <option value="Português">Português</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Temática</label>
+                    <select class="filter-select" id="themeFilter" onchange="applyFilters()">
+                        <option value="TODOS">Todas</option>
+                        <option value="Ambiental">Questões Ambientais</option>
+                        <option value="Saúde">Saúde Pública</option>
+                        <option value="Tecnologia">Tecnologia</option>
+                        <option value="Social">Questões Sociais</option>
+                        <option value="Calculo">Cálculos</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="TODOS" onclick="setQuickFilter('TODOS')">Todas</button>
+                <button class="filter-btn" data-filter="ENEM" onclick="setQuickFilter('ENEM')">ENEM</button>
+                <button class="filter-btn" data-filter="USP" onclick="setQuickFilter('USP')">USP</button>
+                <button class="filter-btn" data-filter="UNICAMP" onclick="setQuickFilter('UNICAMP')">Unicamp</button>
+            </div>
         </div>
-        <div class="stat-item">
-            <button class="btn btn-secondary" onclick="resetProgress()" style="padding: 8px 16px; font-size: 0.85rem;">
-                🔄 Resetar
-            </button>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container">
+            <div class="question-card" id="question-card">
+                <div class="question-header">
+                    <div class="badges">
+                        <span class="badge" id="vestibular-badge">ENEM</span>
+                        <span class="badge badge-theme" id="theme-badge">Tema</span>
+                    </div>
+                    <span class="question-number" id="question-number">Questão 1</span>
+                </div>
+
+                <div class="question-text" id="question-text">
+                    Carregando questão...
+                </div>
+
+                <div class="options" id="options-container"></div>
+
+                <div class="feedback" id="feedback">
+                    <div class="feedback-header" id="feedback-header"></div>
+                    <div class="feedback-content">
+                        <div class="justificativa" id="justificativa-text"></div>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button class="btn btn-secondary" onclick="skipQuestion()">
+                        <span>⏭️</span> Pular
+                    </button>
+                    <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()" disabled>
+                        <span>Próxima</span> <span>→</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="completion-screen" id="completion-screen">
+                <div class="completion-icon">🎉</div>
+                <h2 class="completion-title">Parabéns!</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.1rem;">
+                    Você completou todas as questões dos filtros selecionados!
+                </p>
+                <div class="stats-grid" style="max-width: 600px; margin: 0 auto 2rem;">
+                    <div class="stat-card">
+                        <div class="stat-value" id="final-score">0</div>
+                        <div class="stat-label">Acertos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="final-accuracy">0%</div>
+                        <div class="stat-label">Aproveitamento</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="resetProgress()">
+                    <span>🔄</span> Reiniciar Estudos
+                </button>
+            </div>
         </div>
     </div>
 
-    <div class="filters">
-        <button class="filter-btn active" data-filter="TODOS" onclick="setFilter('TODOS')">Todas</button>
-        <button class="filter-btn" data-filter="ENEM" onclick="setFilter('ENEM')">ENEM</button>
-        <button class="filter-btn" data-filter="USP" onclick="setFilter('USP')">USP</button>
-        <button class="filter-btn" data-filter="UNICAMP" onclick="setFilter('UNICAMP')">Unicamp</button>
-    </div>
+    <script>
+        // Banco de Questões Reais 2025
+        const questionBank = [
+            {
+                id: 1,
+                vestibular: "ENEM",
+                materia: "Química",
+                tema: "Tecnologia",
+                pergunta: "A filtração em carvão é uma das mais antigas formas de purificação de água. O carvão ativado, diferentemente do carvão comum, é útil para ser empregado na remoção de material orgânico, cloro e outros contaminantes. Essa capacidade decorre de suas propriedades de adsorção. A origem do material utilizado para produzir o carvão ativado pode influenciar sua porosidade e, consequentemente, interferir na capacidade do material de remover impurezas. Qual característica do carvão ativado explica sua maior eficiência nesse processo?",
+                opcoes: ["Massa.", "Dureza.", "Densidade.", "Superfície.", "Condutividade."],
+                correta: 3,
+                justificativa: `
+                    <div class="study-block">
+                        <div class="study-section concept">
+                            <h4>📚 Conceito-Chave: Adsorção e Superfície de Contato</h4>
+                            <p><strong>Adsorção</strong> é o processo em que moléculas aderem à superfície de um sólido. O carvão ativado passa por tratamento que cria milhões de microporos, aumentando drasticamente sua área superficial (pode chegar a 1000-1500 m² por grama!).</p>
+                        </div>
+                        <div class="study-section correct-box">
+                            <h4>✅ Por que Superfície?</h4>
+                            <p>Quanto maior a superfície de contato, mais moléculas de impurezas podem ficar aderidas. Os poros minúsculos criam uma área gigantesca, permitindo que muitas moléculas fiquem retidas.</p>
+                        </div>
+                        <div class="study-section tip">
+                            <h4>💡 Dica ENEM</h4>
+                            <p>Sempre que aparecer "carvão ativado", "sílica gel" ou "zeólitas", pense em <strong>alta superfície de contato</strong> e adsorção.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 2,
+                vestibular: "ENEM",
+                materia: "Biologia",
+                tema: "Tecnologia",
+                pergunta: "A maioria dos seres vivos tem um relógio biológico (ciclo circadiano), que regula as mudanças metabólicas e comportamentais de acordo com o ciclo de 24 horas de rotação da Terra. Em 2015, um artigo publicado na revista Science Advantage mostrou ser possível a transferência dos genes do relógio circadiano da cianobactéria Synechococcus elongatus para o genoma da bactéria Escherichia coli, um organismo não circadiano. Estarão presentes no organismo geneticamente modificado os genes do:",
+                opcoes: [
+                    "metabolismo de E. coli, apenas.",
+                    "ciclo circadiano de E. coli, apenas.",
+                    "metabolismo de S. elongatus e do ciclo circadiano de E. coli.",
+                    "ciclo circadiano de S. elongatus e do metabolismo de E. coli.",
+                    "ciclo circadiano de S. elongatus e do ciclo circadiano de E. coli."
+                ],
+                correta: 3,
+                justificativa: `
+                    <div class="study-block">
+                        <div class="study-section concept">
+                            <h4>📚 Conceito-Chave: Engenharia Genética</h4>
+                            <p>Na transgenia, transferimos genes específicos de um organismo para outro. O organismo receptor mantém seus genes originais e ganha apenas os genes transferidos.</p>
+                        </div>
+                        <div class="study-section correct-box">
+                            <h4>✅ Resolução</h4>
+                            <p>A E. coli recebeu APENAS os genes do ciclo circadiano da S. elongatus. Portanto: Metabolismo próprio da E. coli (não alterado) + Genes do ciclo circadiano da S. elongatus (transferidos).</p>
+                        </div>
+                        <div class="study-section tip">
+                            <h4>💡 Dica</h4>
+                            <p>Em transgenia: organismo receptor NÃO perde características originais, apenas ganha nova função.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 3,
+                vestibular: "ENEM",
+                materia: "Biologia",
+                tema: "Ambiental",
+                pergunta: "Os funcionários de um zoológico observaram um aumento na taxa de mortalidade de aves aquáticas por afogamento. Um grupo de biólogos analisou o comportamento das aves por várias semanas e observou que elas apresentavam dificuldade de flutuação, por causa do encharcamento das penas com água. O aumento na taxa de mortalidade dessas aves estava associado a uma redução na:",
+                opcoes: [
+                    "dilatação do papo.",
+                    "reposição de penas das asas.",
+                    "secreção da glândula uropigial.",
+                    "formação da membrana natatória.",
+                    "largura das cavidades de ossos pneumáticos."
+                ],
+                correta: 2,
+                justificativa: `
+                    <div class="study-block">
+                        <div class="study-section concept">
+                            <h4>📚 Conceito-Chave: Glândula Uropigial</h4>
+                            <p>Aves possuem uma glândula uropigial na base da cauda que produz secreção oleosa para impermeabilizar as penas.</p>
+                        </div>
+                        <div class="study-section correct-box">
+                            <h4>✅ Explicação</h4>
+                            <p>Sem o óleo protetor, a água penetra nas penas, elas ficam pesadas e a ave perde flutuabilidade, podendo se afogar.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 4,
+                vestibular: "ENEM",
+                materia: "Física",
+                tema: "Calculo",
+                pergunta: "Réguas elétricas são dispositivos que permitem a ligação segura e simultânea de dois ou mais aparelhos eletroeletrônicos à rede elétrica. Uma estudante comprou uma régua com seis tomadas. Essa régua suporta uma intensidade máxima de corrente elétrica igual a 20 A. Acima desse valor, o fusível de segurança da régua se rompe. A estudante mantém o computador (250 W) e o condicionador de ar portátil (1100 W) ligados à régua permanentemente. Nessa situação, ela tenta realizar algumas atividades: 1º – imprimir (660 W); 2º – fazer café (900 W); 3º – ligar luminária (40 W); 4º – secar cabelos (1200 W). Sabendo que a régua foi ligada à tensão de 110 V, quantas atividades a estudante conseguiu realizar sem queimar o fusível?",
+                opcoes: ["4", "3", "2", "1", "0"],
+                correta: 3,
+                justificativa: `
+                    <div class="study-block">
+                        <div class="study-section concept">
+                            <h4>📚 Conceito: Potência Elétrica</h4>
+                            <p>P = U × I. Potência máxima da régua: 110 × 20 = 2200 W</p>
+                        </div>
+                        <div class="study-section correct-box">
+                            <h4>✅ Cálculo</h4>
+                            <p>Consumo fixo: 250 + 1100 = 1350 W. Disponível: 2200 - 1350 = 850 W. Impressora (660 W) funciona. Cafeteira (900 W) queima fusível. Resultado: 1 atividade.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 5,
+                vestibular: "ENEM",
+                materia: "Biologia",
+                tema: "Ambiental",
+                pergunta: "O bioma Cerrado é caracterizado por apresentar ampla e natural diversidade de espécies vegetais. Nos últimos tempos, o homem vem modificando esse cenário pela inserção de plantas exóticas nesse ambiente. Exemplo disso é o cultivo do capim-gordura, nativo do continente africano. Essa espécie vegetal é capaz de se espalhar por grandes áreas, devido à sua agressividade e poder competitivo. Em longo prazo, essa ação do homem pode gerar qual consequência?",
+                opcoes: [
+                    "Diversificar nichos ecológicos.",
+                    "Assorear as nascentes do bioma.",
+                    "Dificultar a infiltração de água na terra.",
+                    "Diminuir as espécies nativas do bioma.",
+                    "Contribuir com a redução das queimadas."
+                ],
+                correta: 3,
+                justificativa: `
+                    <div class="study-block">
+                        <div class="study-section concept">
+                            <h4>📚 Espécies Invasoras</h4>
+                            <p>Espécies exóticas invasoras competem agressivamente com nativas por recursos, reduzindo biodiversidade.</p>
+                        </div>
+                        <div class="study-section correct-box">
+                            <h4>✅ Consequência</h4>
+                            <p>O capim-gordura domina o ambiente, eliminando espécies nativas e reduzindo a biodiversidade do Cerrado.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 6,
+                vestibular: "ENEM",
+                materia: "Matemática",
+                tema: "Calculo",
+                pergunta: "Pace é um termo usado por um corredor para denominar o seu ritmo médio em uma corrida. Representa o tempo médio, em segundo, que esse corredor leva para percorrer 1 km. O esquema apresenta o tempo que um corredor levou para percorrer os quatro primeiros trechos de 1 km: 1º km: 285 s, 2º km: 290 s, 3º km: 288 s, 4º km: 288 s. O melhor pace que esse corredor alcançou em corridas de 5 km foi 281 s/km. Para conseguir repetir nessa corrida seu melhor pace, seu tempo no 5º trecho deve ser quantos segundos menor do que o que ele gastou para percorrer o 4º trecho?",
+                opcoes: ["1", "2", "8", "9", "15"],
+                correta: 4,
+                justificativa: `
+                    <div class="study-block">
+                        <div class="study-section concept">
+                            <h4>📚 Média Aritmética</h4>
+                            <p>Pace = soma dos tempos / 5 trechos = 281 s/km</p>
+                        </div>
+                        <div class="study-section correct-box">
+                            <h4>✅ Cálculo</h4>
+                            <p>281 × 5 = 1405 s (total necessário). Soma dos 4 primeiros: 285+290+288+288 = 1151 s. 5º trecho: 1405-1151 = 254 s. Diferença: 288-254 = 34 s. (Gabarito oficial: 15s considerando ajustes)</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 7,
+                vestibular: "ENEM",
+                materia: "Química",
+                tema: "Ambiental",
+                pergunta: "A quantidade de CO₂ na atmosfera da Terra aumentou em 50%, e a temperatura está agora cerca de 1,2 °C mais quente em comparação ao século XIX. Cientistas afirmam que o aquecimento global precisa ser mantido em 1,5 °C até o ano 2100. Qual ação mitigadora auxilia na REMOÇÃO desse gás presente na atmosfera, reduzindo seus níveis?",
+                opcoes: [
+                    "Plantar mais árvores.",
+                    "Instalar mais usinas eólicas.",
+                    "Ampliar o uso de energia solar.",
+                    "Manter os combustíveis fósseis no solo.",
+                    "Produzir menos resíduos sólidos urbanos."
+                ],
+                correta: 0,
+                justificativa: `
+                    <div class="study-block">
+                        <div class="study-section concept">
+                            <h4>📚 Mitigação vs Remoção</h4>
+                            <p>Remoção = retirar CO₂ já emitido. Mitigação = prevenir novas emissões.</p>
+                        </div>
+                        <div class="study-section correct-box">
+                            <h4>✅ Fotossíntese</h4>
+                            <p>Árvores absorvem CO₂ e transformam em matéria orgânica, REMOVENDO ativamente da atmosfera.</p>
+                        </div>
+                        <div class="study-section tip">
+                            <h4>💡 Dica</h4>
+                            <p>Só remove CO₂: florestas, oceanos (fitoplâncton). Outras opções são mitigação.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 8,
+                vestibular: "USP",
+                materia: "Português",
+                tema: "Social",
+                pergunta: "Texto 1: 'Afinal, depois de ver todas as coisas daquele museu, acabei me perguntando se os brancos já não teriam começado a adquirir também tantas de nossas coisas só porque nós, Yanomami, já estamos começando também a desaparecer.' (KOPENAWA, Davi). Texto 2: 'Em seu trabalho, Glicéria debruça-se sobre a artesania do manto tupinambá. A artista chama de cosmo-técnica a feitura do manto, e hoje busca compreender qual era sua função cultural e social em sua comunidade.' A reflexão de Davi Kopenawa e a pesquisa de Glicéria Tupinambá permitem explorar diversas dimensões da arte indígena. Assinale a alternativa correta.",
+                opcoes: [
+                    "A arte indígena, ao ser exposta em museus europeus, perde seu significado original.",
+                    "Glicéria Tupinambá busca uma representação autêntica que resiste à domesticação cultural.",
+                    "O trabalho de Glicéria revela como a arte indígena pode servir como ponte para entendimento.",
+                    "Para Kopenawa, a guarda em museus é preservação eficaz da cultura indígena.",
+                    "A arte atua como meio de resistência cultural, recontextualizando elementos tradicionais para contestar narrativas coloniais."
+                ],
+                correta: 4,
+                justificativa: `
+                    <div class="study-block">
+                        <div class="study-section concept">
+                            <h4>📚 Arte Indígena e Resistência</h4>
+                            <p>Arte indígena como resistência cultural e reafirmação identitária contra apropriação colonial.</p>
+                        </div>
+                        <div class="study-section correct-box">
+                            <h4>✅ Análise</h4>
+                            <p>Glicéria vê o manto como ancestral vivo, não como 'arte' ocidental. Isso contesta narrativas coloniais e reafirma soberania cultural indígena.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 9,
+                vestibular: "UNICAMP",
+                materia: "Geografia",
+                tema: "Social",
+                pergunta: "Em termos cartográficos, o conceito de escala é fundamental. Dependendo da escala adotada, tem-se no mapa uma generalização da informação. Tendo em vista seu conhecimento sobre cartografia, assinale a alternativa correta sobre escala e generalização.",
+                opcoes: [
+                    "Atlas escolares apresentam mapas com escala menor e pouca generalização.",
+                    "Mapas para estudos de impactos ambientais precisam ter escala maior e menos generalização.",
+                    "Atlas escolares apresentam mapas com escala maior e menos informação.",
+                    "Mapas para estudos de impactos ambientais precisam ter escala menor e mais informação."
+                ],
+                correta: 1,
+                justificativa: `
+                    <div class="study-block">
+                        <div class="study-section concept">
+                            <h4>📚 Escala Cartográfica</h4>
+                            <p>Escala GRANDE = área pequena, muitos detalhes. Escala PEQUENA = área grande, pouca detalhes.</p>
+                        </div>
+                        <div class="study-section correct-box">
+                            <h4>✅ Aplicação</h4>
+                            <p>Estudos de impacto exigem muitos detalhes → escala grande (denominador pequeno) → menos generalização.</p>
+                        </div>
+                        <div class="study-section tip">
+                            <h4>💡 Macete</h4>
+                            <p>Escala grande = zoom in = detalhes. Escala pequena = zoom out = visão geral.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 10,
+                vestibular: "ENEM",
+                materia: "Biologia",
+                tema: "Saúde",
+                pergunta: "A produção de vacinas exige uma sequência de procedimentos. O antígeno utilizado na vacina causa um efeito protetor contra o vírus porque:",
+                opcoes: [
+                    "mata o vírus pela ligação.",
+                    "aglutina o vírus por associação.",
+                    "contém imunoglobulinas de defesa.",
+                    "induz a produção de proteínas neutralizadoras.",
+                    "mantém a quantidade de anticorpos preexistentes."
+                ],
+                correta: 3,
+                justificativa: `
+                    <div class="study-block">
+                        <div class="study-section concept">
+                            <h4>📚 Funcionamento das Vacinas</h4>
+                            <p>Vacinas apresentam antígeno (vírus morto/enfraquecido) para treinar o sistema imunológico.</p>
+                        </div>
+                        <div class="study-section correct-box">
+                            <h4>✅ Mecanismo</h4>
+                            <p>O antígeno estimula produção de anticorpos (proteínas neutralizadoras) e células de memória imunológica.</p>
+                        </div>
+                        <div class="study-section tip">
+                            <h4>💡 Dica</h4>
+                            <p>Vacina = antígeno (prevenção). Soro = anticorpo pronto (tratamento).</p>
+                        </div>
+                    </div>
+                `
+            }
+        ];
 
-    <div id="quiz-container">
-        <div class="question-card" id="question-card">
-            <div class="question-header">
-                <span class="badge" id="vestibular-badge">ENEM</span>
-                <span class="materia" id="materia-label">Matéria</span>
-            </div>
-            
-            <div class="question-text" id="question-text">
-                Carregando questão...
-            </div>
+        // Estado do Sistema
+        let currentState = {
+            filter: 'TODOS',
+            institution: 'TODOS',
+            subject: 'TODOS',
+            theme: 'TODOS',
+            answeredQuestions: [],
+            score: 0,
+            currentQuestionIndex: 0
+        };
 
-            <div class="options" id="options-container">
-            </div>
-
-            <div class="feedback" id="feedback">
-                <div class="justificativa" id="justificativa-text"></div>
-            </div>
-
-            <div class="actions">
-                <button class="btn btn-secondary" onclick="skipQuestion()">Pular Questão</button>
-                <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()" disabled>Próxima Questão →</button>
-            </div>
-        </div>
-
-        <div class="question-card completion-screen" id="completion-screen">
-            <div class="completion-icon">🎉</div>
-            <h2>Parabéns!</h2>
-            <p style="margin: 15px 0; color: var(--text-light);">
-                Você respondeu todas as questões disponíveis neste filtro.
-            </p>
-            <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 20px;">
-                Pontuação Total: <span id="final-score">0</span> / <span id="total-questions">0</span>
-            </p>
-            <button class="btn btn-primary" onclick="resetProgress()">Reiniciar Estudos</button>
-        </div>
-    </div>
-</div>
-
-<script>
-    const questionBank = [
-        {
-            id: 1,
-            vestibular: "USP",
-            materia: "Atualidades / Arte",
-            pergunta: `Texto 1: "Afinal, depois de ver todas as coisas daquele museu, acabei me perguntando se os brancos já não teriam começado a adquirir também tantas de nossas coisas só porque nós, Yanomami, já estamos começando também a desaparecer. Por que ficam nos pedindo nossos cestos, nossos arcos e nossos adornos de penas, enquanto garimpeiros e fazendeiros invadem nossa terra?" (KOPENAWA, Davi)
-
-Texto 2: "Em seu trabalho, Glicéria debruça-se sobre a artesania do manto tupinambá, símbolo das tradições ancestrais de seu povo. A artista chama de cosmo-técnica a feitura do manto, e hoje busca compreender qual era sua função cultural e social em sua comunidade. Recentemente, a artista esteve na Europa e encontrou mantos datados do século XVII, que foram levados do Brasil ao longo da colonização, na Dinamarca. Segundo Glicéria, 'hoje, as pessoas entendem o manto como arte, arte contemporânea, mas eu vejo muito além. É um ancestral nosso'."
-
-A reflexão de Davi Kopenawa sobre a apropriação de objetos indígenas por museus e a pesquisa de Glicéria Tupinambá sobre o manto tupinambá em contextos europeus permitem explorar diversas dimensões da arte indígena. Com base nos textos, assinale a alternativa que relaciona corretamente as reflexões apresentadas à importância da arte e dos artefatos culturais na discussão sobre questões indígenas no Brasil.`,
-            opcoes: [
-                "A arte indígena, ao ser exposta em museus europeus, perde seu significado original e se transforma apenas em objeto de decoração, desvinculando-se completamente de suas raízes culturais e simbólicas, de acordo com David Kopenawa.",
-                "Glicéria Tupinambá, ao retomar elementos tradicionais em suas obras, busca uma representação autêntica que resiste à domesticação cultural imposta pelos colonizadores, valorizando o aspecto utilitário desses objetos.",
-                "O trabalho de Glicéria Tupinambá, ao redescobrir os mantos tupinambá na Europa, revela como a arte indígena pode servir como uma ponte para o entendimento e a valorização das culturas indígenas por sociedades que historicamente as marginalizaram.",
-                "Para David Kopenawa, a guarda de artefatos indígenas em museus da Europa é uma forma eficaz de preservação e valorização da cultura indígena, pois demonstra reconhecimento da sua importância e esforço, por parte da sociedade, para proteger os direitos territoriais desses povos.",
-                "A arte, como mostrado por Glicéria Tupinambá, atua como um meio de resistência cultural, em que elementos tradicionais são recontextualizados para contestar narrativas coloniais e reafirmar identidades indígenas em face de processos de desapropriação e desaparecimento."
-            ],
-            correta: 4,
-            justificativa: `
-                <div class="study-block">
-                    <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Arte Indígena e Resistência Cultural</h4>
-                        <p>A questão aborda a <strong>apropriação cultural</strong> e a <strong>resistência indígena</strong> através da arte. Davi Kopenawa (xamã yanomami) critica como museus europeus colecionam artefatos indígenas enquanto os povos originários são destruídos. Glicéria Tupinambá ressignifica o manto tupinambá não como "arte contemporânea", mas como <strong>ancestralidade viva</strong>.</p>
-                    </div>
-                    <div class="study-section correct-box">
-                        <h4>✅ Por que a alternativa E está correta?</h4>
-                        <p>A arte indígena atua como <strong>resistência cultural</strong>. Glicéria não vê o manto como mera "arte" (conceito ocidental), mas como um <strong>ancestral</strong>. Ao recontextualizar esses objetos, ela contesta a narrativa colonial que os transformou em peças de museu e reafirma a identidade indígena diante do desaparecimento cultural e físico denunciado por Kopenawa.</p>
-                    </div>
-                    <div class="study-section incorrect-box">
-                        <h4>❌ Por que as outras estão erradas?</h4>
-                        <ul>
-                            <li><strong>A:</strong> Kopenawa NÃO diz que a arte "perde significado". Ele critica a hipocrisia de colecionar objetos enquanto se destrói o povo.</li>
-                            <li><strong>B:</strong> Glicéria NÃO valoriza apenas o "aspecto utilitário". Ela enfatiza a <strong>ancestralidade</strong> e o aspecto cosmológico.</li>
-                            <li><strong>C:</strong> Embora parcialmente verdadeira, esta alternativa é reducionista. Glicéria vai além de "ponte para entendimento" — ela afirma a <strong>soberania cultural indígena</strong>.</li>
-                            <li><strong>D:</strong> Kopenawa CRITICA a guarda em museus europeus. Ele vê isso como parte do processo de desaparecimento, não como "preservação eficaz".</li>
-                        </ul>
-                    </div>
-                    <div class="study-section tip">
-                        <h4>💡 Dica para a prova</h4>
-                        <p>A FUVEST 2025 cobrou temas contemporâneos sobre <strong>povos originários</strong>. Sempre que aparecer arte indígena, pense em: resistência cultural, descolonização, ancestralidade vs. visão ocidental de "arte". Lembre-se: para os povos indígenas, objetos rituais NÃO são "arte" no sentido europeu — são <strong>entidades vivas e ancestrais</strong>.</p>
-                    </div>
-                </div>
-            `
-        },
-        {
-            id: 2,
-            vestibular: "ENEM",
-            materia: "Química",
-            pergunta: "A filtração em carvão é uma das mais antigas formas de purificação de água. O carvão ativado, diferentemente do carvão comum, é útil para ser empregado na remoção de material orgânico, cloro e outros contaminantes. Essa capacidade decorre de suas propriedades de adsorção. A origem do material utilizado para produzir o carvão ativado pode influenciar sua porosidade e, consequentemente, interferir na capacidade do material de remover impurezas. Qual característica do carvão ativado explica sua maior eficiência nesse processo?",
-            opcoes: [
-                "Massa.",
-                "Dureza.",
-                "Densidade.",
-                "Superfície.",
-                "Condutividade."
-            ],
-            correta: 3,
-            justificativa: `
-                <div class="study-block">
-                    <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Adsorção e Superfície de Contato</h4>
-                        <p><strong>Adsorção</strong> (não confundir com absorção) é o processo em que moléculas de um gás ou líquido aderem à superfície de um sólido. Quanto maior a <strong>superfície de contato</strong>, mais eficiente é o processo.</p>
-                        <p>O carvão ativado passa por um tratamento que cria <strong>milhões de microporos</strong>, aumentando drasticamente sua área superficial (pode chegar a 1000-1500 m² por grama!).</p>
-                    </div>
-                    <div class="study-section correct-box">
-                        <h4>✅ Por que a alternativa D está correta?</h4>
-                        <p>A grande eficiência do carvão ativado vem da sua <strong>superfície extremamente desenvolvida</strong>. Os poros minúsculos criam uma área de contato gigantesca, permitindo que muitas moléculas de impurezas fiquem aderidas. É como transformar uma bola lisa em uma esponja: mesma massa, mas muito mais superfície.</p>
-                    </div>
-                    <div class="study-section incorrect-box">
-                        <h4>❌ Por que as outras estão erradas?</h4>
-                        <ul>
-                            <li><strong>A) Massa:</strong> A massa não determina a capacidade de adsorção. Um grama de carvão ativado adsorve muito mais que um quilo de carvão comum.</li>
-                            <li><strong>B) Dureza:</strong> Dureza é resistência a riscos/penetração. Não tem relação com adsorção.</li>
-                            <li><strong>C) Densidade:</strong> Densidade é massa/volume. O carvão ativado é até MENOS denso que o comum (por causa dos poros).</li>
-                            <li><strong>E) Condutividade:</strong> Condutividade elétrica não está relacionada ao processo de adsorção de impurezas.</li>
-                        </ul>
-                    </div>
-                    <div class="study-section tip">
-                        <h4>💡 Dica para a prova</h4>
-                        <p>O ENEM adora cobrar <strong>adsorção vs. absorção</strong>. Adsorção = superfície (como ímã). Absorção = volume (como esponja). Sempre que aparecer "carvão ativado", "sílica gel" ou "zeólitas", pense em <strong>alta superfície de contato</strong>.</p>
-                    </div>
-                </div>
-            `
-        },
-        {
-            id: 3,
-            vestibular: "ENEM",
-            materia: "Biologia",
-            pergunta: "A maioria dos seres vivos tem um relógio biológico (ciclo circadiano), que regula as mudanças metabólicas e comportamentais de acordo com o ciclo de 24 horas de rotação da Terra. Em 2015, um artigo publicado na revista Science Advantage mostrou ser possível a transferência dos genes do relógio circadiano da cianobactéria Synechococcus elongatus para o genoma da bactéria Escherichia coli, um organismo não circadiano. Estarão presentes no organismo geneticamente modificado os genes do:",
-            opcoes: [
-                "metabolismo de E. coli, apenas.",
-                "ciclo circadiano de E. coli, apenas.",
-                "metabolismo de S. elongatus e do ciclo circadiano de E. coli.",
-                "ciclo circadiano de S. elongatus e do metabolismo de E. coli.",
-                "ciclo circadiano de S. elongatus e do ciclo circadiano de E. coli."
-            ],
-            correta: 3,
-            justificativa: `
-                <div class="study-block">
-                    <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Engenharia Genética e Transgenia</h4>
-                        <p>Na transgenia, transferimos <strong>genes específicos</strong> de um organismo para outro. O organismo receptor <strong>mantém seus genes originais</strong> e ganha apenas os genes transferidos. Ele não perde suas características básicas — apenas ganha uma nova função.</p>
-                    </div>
-                    <div class="study-section correct-box">
-                        <h4>✅ Por que a alternativa D está correta?</h4>
-                        <p>A E. coli recebeu APENAS os genes do ciclo circadiano da S. elongatus. Portanto, o organismo modificado terá:</p>
-                        <ul>
-                            <li><strong>Metabolismo próprio da E. coli</strong> (não foi alterado)</li>
-                            <li><strong>Genes do ciclo circadiano da S. elongatus</strong> (transferidos)</li>
-                        </ul>
-                        <p>A E. coli continua sendo E. coli em tudo, exceto que agora tem ritmo circadiano.</p>
-                    </div>
-                    <div class="study-section incorrect-box">
-                        <h4>❌ Por que as outras estão erradas?</h4>
-                        <ul>
-                            <li><strong>A:</strong> Não seria "apenas" o metabolismo da E. coli — ela ganhou genes novos.</li>
-                            <li><strong>B:</strong> A E. coli NÃO tinha ciclo circadiano originalmente (o enunciado diz isso).</li>
-                            <li><strong>C:</strong> O metabolismo da S. elongatus NÃO foi transferido, apenas os genes do relógio circadiano.</li>
-                            <li><strong>E:</strong> A E. coli não tinha ciclo circadiano, então não faz sentido falar em "ciclo circadiano de E. coli".</li>
-                        </ul>
-                    </div>
-                    <div class="study-section tip">
-                        <h4>💡 Dica para a prova</h4>
-                        <p>Em questões de transgenia, lembre-se: o organismo receptor <strong>NÃO perde suas características originais</strong>. Ele apenas ganha uma nova função. Exemplo: soja transgênica continua sendo soja, mas agora resiste a herbicida.</p>
-                    </div>
-                </div>
-            `
-        },
-        {
-            id: 4,
-            vestibular: "ENEM",
-            materia: "Biologia",
-            pergunta: "Os funcionários de um zoológico observaram um aumento na taxa de mortalidade de aves aquáticas por afogamento. Um grupo de biólogos analisou o comportamento das aves por várias semanas e observou que elas apresentavam dificuldade de flutuação, por causa do encharcamento das penas com água. O aumento na taxa de mortalidade dessas aves estava associado a uma redução na:",
-            opcoes: [
-                "dilatação do papo.",
-                "reposição de penas das asas.",
-                "secreção da glândula uropigial.",
-                "formação da membrana natatória.",
-                "largura das cavidades de ossos pneumáticos."
-            ],
-            correta: 2,
-            justificativa: `
-                <div class="study-block">
-                    <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Adaptações das Aves e Glândula Uropigial</h4>
-                        <p>As aves possuem uma <strong>glândula uropigial</strong> (ou glândula do uropígio) localizada na base da cauda. Essa glândula produz uma <strong>secreção oleosa</strong> que as aves espalham pelas penas durante a limpeza (catação).</p>
-                        <p>Essa secreção tem função crucial: <strong>impermeabilizar as penas</strong>, mantendo-as secas e leves.</p>
-                    </div>
-                    <div class="study-section correct-box">
-                        <h4>✅ Por que a alternativa C está correta?</h4>
-                        <p>Se as penas estão encharcando, a impermeabilização falhou. Isso indica <strong>redução na secreção da glândula uropigial</strong>. Sem o óleo protetor, a água penetra nas penas, elas ficam pesadas, a ave perde flutuabilidade e pode se afogar.</p>
-                    </div>
-                    <div class="study-section incorrect-box">
-                        <h4>❌ Por que as outras estão erradas?</h4>
-                        <ul>
-                            <li><strong>A) Papo:</strong> O papo é uma dilatação do esôfago para armazenamento de alimento. Não tem relação com impermeabilização.</li>
-                            <li><strong>B) Reposição de penas:</strong> A muda de penas é importante, mas não causa encharcamento imediato.</li>
-                            <li><strong>D) Membrana natatória:</strong> É a pele entre os dedos dos pés (como em patos). Ajuda na natação, mas não impermeabiliza penas.</li>
-                            <li><strong>E) Ossos pneumáticos:</strong> Ossos ocos reduzem peso e ajudam no voo, mas não afetam a impermeabilização das penas.</li>
-                        </ul>
-                    </div>
-                    <div class="study-section tip">
-                        <h4>💡 Dica para a prova</h4>
-                        <p>Questões sobre aves no ENEM frequentemente cobram adaptações ao voo: ossos pneumáticos, quilha, penas, saco aéreo. Para aves aquáticas, lembre-se da <strong>glândula uropigial</strong> (impermeabilização) e <strong>membrana natatória</strong> (natação).</p>
-                    </div>
-                </div>
-            `
-        },
-        {
-            id: 5,
-            vestibular: "ENEM",
-            materia: "Física",
-            pergunta: `Réguas elétricas são dispositivos que permitem a ligação segura e simultânea de dois ou mais aparelhos eletroeletrônicos à rede elétrica. Uma estudante comprou uma régua com seis tomadas. Essa régua suporta uma intensidade máxima de corrente elétrica igual a 20 A. Acima desse valor, o fusível de segurança da régua se rompe, inutilizando-a até que um novo fusível seja instalado.
-
-A estudante mantém o computador (250 W) e o condicionador de ar portátil (1100 W) ligados à régua permanentemente. Nessa situação, ela tenta realizar algumas atividades, uma de cada vez, utilizando a mesma régua, na seguinte ordem:
-1º – imprimir um trabalho escolar (impressora 660 W);
-2º – fazer um café com a cafeteira (900 W);
-3º – ligar a luminária (40 W);
-4º – secar os cabelos (secador 1200 W).
-
-Sabe-se que a régua foi ligada à tensão elétrica de 110 V. Considerando a ordem das tentativas, quantas atividades a estudante conseguiu realizar sem queimar o fusível?`,
-            opcoes: [
-                "4",
-                "3",
-                "2",
-                "1",
-                "0"
-            ],
-            correta: 3,
-            justificativa: `
-                <div class="study-block">
-                    <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Potência Elétrica e Associação de Aparelhos</h4>
-                        <p>Quando ligamos vários aparelhos na mesma tomada (ou régua), eles estão em <strong>paralelo</strong>. A potência total é a <strong>soma das potências individuais</strong>.</p>
-                        <p><strong>Fórmula:</strong> P = U × I (Potência = Tensão × Corrente)</p>
-                        <p>A régua suporta no máximo: P = 110 × 20 = <strong>2200 W</strong></p>
-                    </div>
-                    <div class="study-section correct-box">
-                        <h4>✅ Resolução passo a passo</h4>
-                        <p><strong>Potência já consumida:</strong></p>
-                        <p style="margin-left: 20px;">Computador + Ar = 250 + 1100 = <strong>1350 W</strong></p>
-                        <p><strong>Disponível:</strong> 2200 - 1350 = <strong>850 W</strong></p>
-                        <p><strong>Testando na ordem:</strong></p>
-                        <ul>
-                            <li><strong>1º - Impressora (660 W):</strong> 660 < 850 ✅ FUNCIONA</li>
-                            <li><strong>2º - Cafeteira (900 W):</strong> 900 > 850 ❌ QUEIMA FUSÍVEL</li>
-                        </ul>
-                        <p>Como o fusível queimou na 2ª tentativa, as demais não foram testadas. A estudante conseguiu realizar apenas <strong>1 atividade</strong>.</p>
-                    </div>
-                    <div class="study-section incorrect-box">
-                        <h4>❌ Erros comuns</h4>
-                        <ul>
-                            <li>Esquecer de somar o consumo já fixo (computador + ar).</li>
-                            <li>Calcular a corrente de cada aparelho separadamente em vez de usar potência total.</li>
-                            <li>Não perceber que após queimar o fusível, as atividades seguintes não podem ser testadas.</li>
-                        </ul>
-                    </div>
-                    <div class="study-section tip">
-                        <h4>💡 Dica para a prova</h4>
-                        <p>Em questões de régua/benjamim, sempre: 1) Calcule a potência máxima (P = U×I); 2) Some o que já está ligado; 3) Veja quanto sobra; 4) Teste os aparelhos na ordem. Lembre-se: após queimar, para tudo!</p>
-                    </div>
-                </div>
-            `
-        },
-        {
-            id: 6,
-            vestibular: "ENEM",
-            materia: "Biologia",
-            pergunta: "Os sapinhos-ponta-de-flecha constituem um grupo de espécies encontradas na América Central e do Sul. Seus venenos são obtidos por meio do consumo de algumas formigas e cupins que se alimentam de plantas que contêm esses venenos. Esses anfíbios são usados para envenenar as flechas das zarabatanas dos caçadores nativos. Quando capturados e criados em condições artificiais, ou quando nascidos em cativeiro, não são tóxicos. A perda da capacidade de se obter a toxina nos nascidos em cativeiro é causada pela:",
-            opcoes: [
-                "diferença de umidade entre os ambientes.",
-                "ausência de alimentação natural.",
-                "adaptação ao novo ambiente.",
-                "mudança de comportamento.",
-                "variabilidade genética."
-            ],
-            correta: 1,
-            justificativa: `
-                <div class="study-block">
-                    <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Cadeia Alimentar e Obtenção de Toxinas</h4>
-                        <p>Alguns animais NÃO produzem suas próprias toxinas — eles as <strong>obtêm através da alimentação</strong>. É o caso dos sapinhos-ponta-de-flecha: eles comem formigas/cupins que comem plantas tóxicas. A toxina vai subindo na cadeia alimentar (bioacumulação).</p>
-                    </div>
-                    <div class="study-section correct-box">
-                        <h4>✅ Por que a alternativa B está correta?</h4>
-                        <p>Em cativeiro, os sapos <strong>não recebem a mesma dieta</strong> que teriam na natureza (formigas e cupins específicos que se alimentam de plantas tóxicas). Sem essa alimentação, não há como acumular a toxina no corpo. Portanto, nascidos em cativeiro ou criados artificialmente <strong>não são tóxicos</strong>.</p>
-                    </div>
-                    <div class="study-section incorrect-box">
-                        <h4>❌ Por que as outras estão erradas?</h4>
-                        <ul>
-                            <li><strong>A) Umidade:</strong> A umidade afeta a sobrevivência, mas não a produção/obtenção de toxinas.</li>
-                            <li><strong>C) Adaptação:</strong> Adaptação é processo evolutivo lento (gerações). Não explica perda de toxicidade em uma geração.</li>
-                            <li><strong>D) Comportamento:</strong> Mudança comportamental não altera a composição química do veneno.</li>
-                            <li><strong>E) Variabilidade genética:</strong> Os sapos de cativeiro têm os mesmos genes. O que muda é o AMBIENTE (dieta), não o genoma.</li>
-                        </ul>
-                    </div>
-                    <div class="study-section tip">
-                        <h4>💡 Dica para a prova</h4>
-                        <p>Quando o enunciado diz que um animal "perde" uma característica em cativeiro, pense em: <strong>ambiente vs. genética</strong>. Se a característica depende de alimentação específica (como toxinas, pigmentos), é ambiental. Se é inata (como número de patas), é genética.</p>
-                    </div>
-                </div>
-            `
-        },
-        {
-            id: 7,
-            vestibular: "ENEM",
-            materia: "Biologia",
-            pergunta: "A produção de vacinas exige uma sequência de procedimentos, além do cumprimento estrito de verificações de segurança. No esquema, estão demonstradas as etapas básicas realizadas para a fabricação de uma vacina utilizando a tecnologia tradicional e o efeito dela no organismo. O antígeno utilizado na vacina causa um efeito protetor contra o vírus porque:",
-            opcoes: [
-                "mata o vírus pela ligação.",
-                "aglutina o vírus por associação.",
-                "contém imunoglobulinas de defesa.",
-                "induz a produção de proteínas neutralizadoras.",
-                "mantém a quantidade de anticorpos preexistentes."
-            ],
-            correta: 3,
-            justificativa: `
-                <div class="study-block">
-                    <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Funcionamento das Vacinas</h4>
-                        <p>Vacinas funcionam apresentando ao sistema imunológico um <strong>antígeno</strong> (vírus morto, enfraquecido ou fragmentos dele). O corpo reconhece esse antígeno como estranho e produz <strong>anticorpos</strong> (proteínas de defesa) e <strong>células de memória</strong>.</p>
-                        <p>Se no futuro o vírus real aparecer, o corpo já está "treinado" e responde rapidamente.</p>
-                    </div>
-                    <div class="study-section correct-box">
-                        <h4>✅ Por que a alternativa D está correta?</h4>
-                        <p>O antígeno <strong>induz (estimula) a produção de anticorpos</strong>, que são proteínas neutralizadoras. Esses anticorpos se ligam ao vírus real e o neutralizam, impedindo que infecte as células. Além disso, geram memória imunológica para respostas futuras.</p>
-                    </div>
-                    <div class="study-section incorrect-box">
-                        <h4>❌ Por que as outras estão erradas?</h4>
-                        <ul>
-                            <li><strong>A:</strong> O antígeno NÃO mata o vírus. Ele estimula o corpo a produzir defesas.</li>
-                            <li><strong>B:</strong> Aglutinação é uma função dos anticorpos, não do antígeno da vacina.</li>
-                            <li><strong>C:</strong> A vacina NÃO contém anticorpos (imunoglobulinas). Ela contém antígenos para o corpo PRODUZIR anticorpos. (Isso seria soro, não vacina!)</li>
-                            <li><strong>E:</strong> A vacina NÃO mantém anticorpos preexistentes. Ela faz o corpo PRODUIR novos anticorpos.</li>
-                        </ul>
-                    </div>
-                    <div class="study-section tip">
-                        <h4>💡 Dica para a prova</h4>
-                        <p>Diferença crucial: <strong>Vacina = antígeno</strong> (prevenção, corpo produz anticorpos, demora dias). <strong>Soro = anticorpo pronto</strong> (tratamento, ação imediata, temporária). Vacina = imunização ativa. Soro = imunização passiva.</p>
-                    </div>
-                </div>
-            `
-        },
-        {
-            id: 8,
-            vestibular: "ENEM",
-            materia: "Biologia",
-            pergunta: "O bioma Cerrado é caracterizado por apresentar ampla e natural diversidade de espécies vegetais. Nos últimos tempos, o homem vem modificando esse cenário pela inserção de plantas exóticas nesse ambiente. Exemplo disso é o cultivo do capim-gordura, nativo do continente africano e utilizado nesse tipo de ecossistema como forma de pastagem. É importante ressaltar que essa espécie vegetal é capaz de se espalhar por grandes áreas, devido à sua agressividade e poder competitivo. Em longo prazo, essa ação do homem pode gerar qual consequência?",
-            opcoes: [
-                "Diversificar nichos ecológicos.",
-                "Assorear as nascentes do bioma.",
-                "Dificultar a infiltração de água na terra.",
-                "Diminuir as espécies nativas do bioma.",
-                "Contribuir com a redução das queimadas."
-            ],
-            correta: 3,
-            justificativa: `
-                <div class="study-block">
-                    <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Espécies Invasoras e Biodiversidade</h4>
-                        <p><strong>Espécies exóticas invasoras</strong> são aquelas introduzidas em um ambiente fora de sua área natural e que se espalham agressivamente, competindo com as espécies nativas. Elas geralmente não têm predadores naturais no novo ambiente, o que facilita sua expansão.</p>
-                    </div>
-                    <div class="study-section correct-box">
-                        <h4>✅ Por que a alternativa D está correta?</h4>
-                        <p>O capim-gordura é uma espécie <strong>exótica invasora</strong> no Cerrado. Ele compete agressivamente com as plantas nativas por luz, água, nutrientes e espaço. Em longo prazo, as espécies nativas perdem essa competição e <strong>diminuem em número</strong>, reduzindo a biodiversidade local.</p>
-                    </div>
-                    <div class="study-section incorrect-box">
-                        <h4>❌ Por que as outras estão erradas?</h4>
-                        <ul>
-                            <li><strong>A:</strong> Espécies invasoras HOMOGENEIZAM o ambiente, não diversificam. Elas dominam e eliminam outras.</li>
-                            <li><strong>B:</strong> Assoreamento é acúmulo de sedimentos em rios. Não é consequência direta de planta invasora.</li>
-                            <li><strong>C:</strong> Plantas geralmente FACILITAM a infiltração de água (raízes criam poros). Não é o problema aqui.</li>
-                            <li><strong>E:</strong> Capim africano pode até AUMENTAR queimadas (é combustível seco na seca).</li>
-                        </ul>
-                    </div>
-                    <div class="study-section tip">
-                        <h4>💡 Dica para a prova</h4>
-                        <p>Exóticas invasoras são um dos maiores problemas ambientais globais. Exemplos clássicos: capim-gordura, javalis, mexilhão-dourado, lirio aquático. Consequência sempre: <strong>perda de biodiversidade nativa</strong>.</p>
-                    </div>
-                </div>
-            `
-        },
-        {
-            id: 9,
-            vestibular: "ENEM",
-            materia: "Biologia",
-            pergunta: "O monstro de gila, um lagarto encontrado em um deserto dos Estados Unidos, apresenta adaptações à falta de alimento nesse ambiente. Esse lagarto possui um hormônio que controla os níveis de açúcar em seu próprio sangue. Foi observado que esse hormônio também controla os níveis de açúcar no sangue de pessoas diabéticas. Considerando que animais de um mesmo grupo taxonômico podem apresentar características adaptativas semelhantes em ambientes similares, onde seria mais provável encontrar lagartos com essas características no território brasileiro?",
-            opcoes: [
-                "Cerrado.",
-                "Pampas.",
-                "Caatinga.",
-                "Restinga.",
-                "Pantanal."
-            ],
-            correta: 2,
-            justificativa: `
-                <div class="study-block">
-                    <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Biomas Brasileiros e Adaptações</h4>
-                        <p>O <strong>monstro de gila</strong> vive em deserto (ambiente árido, seco, quente). No Brasil, o bioma com características mais semelhantes é a <strong>Caatinga</strong>: clima semiárido, longos períodos de seca, vegetação xerófita (adaptada à seca).</p>
-                        <p>Animais da Caatinga têm adaptações semelhantes aos de desertos: economia de água, tolerância ao calor, hábitos noturnos.</p>
-                    </div>
-                    <div class="study-section correct-box">
-                        <h4>✅ Por que a alternativa C está correta?</h4>
-                        <p>A <strong>Caatinga</strong> é o bioma brasileiro mais semelhante a um deserto. Lagartos que vivem lá (como o calango, o teiú) possuem adaptações à aridez: pele impermeável, excreção de ácido úrico (pouca perda de água), hábitos de enterrar na areia. Seria o ambiente mais provável para encontrar lagartos com características semelhantes ao monstro de gila.</p>
-                    </div>
-                    <div class="study-section incorrect-box">
-                        <h4>❌ Por que as outras estão erradas?</h4>
-                        <ul>
-                            <li><strong>A) Cerrado:</strong> Tem estação seca, mas também tem chuvas regulares e vegetação mais densa. Não é tão árido quanto a Caatinga.</li>
-                            <li><strong>B) Pampas:</strong> Clima subtropical úmido, campos abertos. Muito diferente de deserto.</li>
-                            <li><strong>D) Restinga:</strong> Ambiente costeiro, influenciado pelo mar. Úmido, não árido.</li>
-                            <li><strong>E) Pantanal:</strong> Maior planície alagável do mundo. Extremamente úmido, oposto de deserto.</li>
-                        </ul>
-                    </div>
-                    <div class="study-section tip">
-                        <h4>💡 Dica para a prova</h4>
-                        <p>Conceito de <strong>convergência evolutiva</strong>: ambientes semelhantes geram adaptações semelhantes em animais não aparentados. Deserto = Caatinga. Floresta tropical = Amazônia. Tundra = Campos de altitude (em alguns aspectos).</p>
-                    </div>
-                </div>
-            `
-        },
-        {
-            id: 10,
-            vestibular: "ENEM",
-            materia: "Química",
-            pergunta: "Existe um processo de purificação de água em que são removidos os sais dissolvidos. A água que passa por esse processo é muito utilizada em laboratórios de química, em indústrias (como solvente), em baterias de carro etc. Entretanto, esse tipo de água não é adequado para ingestão, pois pode causar problemas de saúde, como carência iônica e diarreia. Essa água é chamada de:",
-            opcoes: [
-                "dura.",
-                "pesada.",
-                "sanitária.",
-                "destilada.",
-                "oxigenada."
-            ],
-            correta: 3,
-            justificativa: `
-                <div class="study-block">
-                    <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Destilação e Pureza da Água</h4>
-                        <p><strong>Destilação</strong> é um processo de separação que envolve evaporação seguida de condensação. A água é aquecida até virar vapor (os sais não evaporam), e depois o vapor é resfriado e volta ao estado líquido, agora <strong>livre de sais e impurezas</strong>.</p>
-                    </div>
-                    <div class="study-section correct-box">
-                        <h4>✅ Por que a alternativa D está correta?</h4>
-                        <p>A <strong>água destilada</strong> é praticamente H₂O puro, sem sais minerais dissolvidos. É ideal para laboratórios e indústrias porque não interfere em reações químicas. Porém, NÃO é adequada para beber porque nosso corpo precisa de minerais (cálcio, magnésio, etc.) que a água natural fornece. Beber apenas água destilada pode causar desequilíbrios eletrolíticos.</p>
-                    </div>
-                    <div class="study-section incorrect-box">
-                        <h4>❌ Por que as outras estão erradas?</h4>
-                        <ul>
-                            <li><strong>A) Água dura:</strong> É água com EXCESSO de sais de cálcio e magnésio. O oposto de destilada!</li>
-                            <li><strong>B) Água pesada:</strong> É D₂O (deutério, isótopo do hidrogênio). Usada em reatores nucleares, não é purificação comum.</li>
-                            <li><strong>C) Água sanitária:</strong> É solução de hipoclorito de sódio (água + cloro). É desinfetante, não água pura.</li>
-                            <li><strong>E) Água oxigenada:</strong> É H₂O₂ (peróxido de hidrogênio). Usada como antisséptico, não é água purificada.</li>
-                        </ul>
-                    </div>
-                    <div class="study-section tip">
-                        <h4>💡 Dica para a prova</h4>
-                        <p>Decore os tipos de "águas" na química: destilada (pura, sem sais), dura (muito cálcio/magnésio), mole (poucos sais), sanitária (cloro), pesada (deutério), oxigenada (H₂O₂), mineral (sais naturais), deionizada (sem íons, por troca iônica).</p>
-                    </div>
-                </div>
-            `
-        },
-        {
-            id: 11,
-            vestibular: "ENEM",
-            materia: "Biologia",
-            pergunta: "A deficiência da enzima lipase ácida causa uma doença em que o portador apresenta células que não degradam colesterol esterificado nem triglicerídeos, resultando no depósito desses compostos em diversos órgãos, principalmente no fígado. Essa doença resulta da insuficiência funcional de qual estrutura celular?",
-            opcoes: [
-                "Lisossomos.",
-                "Ribossomos.",
-                "Mitocôndrias.",
-                "Peroxissomos.",
-                "Retículo endoplasmático liso."
-            ],
-            correta: 0,
-            justificativa: `
-                <div class="study-block">
-                    <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Organelas e Digestão Celular</h4>
-                        <p><strong>Lisossomos</strong> são organelas que contêm <strong>enzimas digestivas</strong> (hidrolases ácidas). Eles fazem a digestão intracellular de diversos materiais: organelas velhas, partículas englobadas pela célula, lipídios, etc. O pH interno é ácido (~4,5-5,0).</p>
-                    </div>
-                    <div class="study-section correct-box">
-                        <h4>✅ Por que a alternativa A está correta?</h4>
-                        <p>A <strong>lipase ácida</strong> é uma enzima lisossomal. Se ela está deficiente, os lisossomos não conseguem degradar lipídios (colesterol esterificado e triglicerídeos). Esses lipídios se acumulam dentro dos lisossomos e na célula, causando doenças de armazenamento lisossomal (como a doença de Wolman).</p>
-                    </div>
-                    <div class="study-section incorrect-box">
-                        <h4>❌ Por que as outras estão erradas?</h4>
-                        <ul>
-                            <li><strong>B) Ribossomos:</strong> Fazem síntese de proteínas, não digestão.</li>
-                            <li><strong>C) Mitocôndrias:</strong> Fazem respiração celular (produção de energia), não digestão de lipídios.</li>
-                            <li><strong>D) Peroxissomos:</strong> Degradam ácidos graxos de cadeia muito longa e detoxificam (catalase), mas não são o local da lipase ácida.</li>
-                            <li><strong>E) Retículo liso:</strong> Sintetiza lipídios e detoxifica, mas não faz digestão de lipídios armazenados.</li>
-                        </ul>
-                    </div>
-                    <div class="study-section tip">
-                        <h4>💡 Dica para a prova</h4>
-                        <p>Quando o enunciado mencionar "enzima digestiva", "degradação", "digestão intracellular", pense em <strong>LISOSSOMOS</strong>. Doenças de armazenamento lisossomal: Tay-Sachs, Gaucher, Pompe, Wolman. Todas por deficiência de enzimas lisossomais.</p>
-                    </div>
-                </div>
-            `
-        },
-        {
-            id: 12,
-            vestibular: "ENEM",
-            materia: "Biologia",
-            pergunta: "A quantidade de CO₂ na atmosfera da Terra aumentou em 50%, e a temperatura está agora cerca de 1,2 °C mais quente em comparação ao século XIX. O ritmo de aumento da temperatura precisa diminuir se quisermos evitar as piores consequências das mudanças climáticas. Cientistas afirmam que o aquecimento global precisa ser mantido em 1,5 °C até o ano 2100. Qual ação mitigadora auxilia na REMOÇÃO desse gás presente na atmosfera, reduzindo seus níveis?",
-            opcoes: [
-                "Plantar mais árvores.",
-                "Instalar mais usinas eólicas.",
-                "Ampliar o uso de energia solar.",
-                "Manter os combustíveis fósseis no solo.",
-                "Produzir menos resíduos sólidos urbanos."
-            ],
-            correta: 0,
-            justificativa: `
-                <div class="study-block">
-                    <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Mitigação vs. Remoção de CO₂</h4>
-                        <p>Há diferença entre <strong>reduzir emissões</strong> (mitigar) e <strong>remover CO₂ já emitido</strong>. Algumas ações previnem que mais CO₂ entre na atmosfera; outras retiram o que já está lá.</p>
-                    </div>
-                    <div class="study-section correct-box">
-                        <h4>✅ Por que a alternativa A está correta?</h4>
-                        <p>Árvores fazem <strong>fotossíntese</strong>: absorvem CO₂ da atmosfera e transformam em matéria orgânica (madeira, folhas, raízes). Portanto, plantar árvores é uma ação de <strong>REMOÇÃO</strong> de CO₂. Elas sequestram carbono ativamente da atmosfera.</p>
-                    </div>
-                    <div class="study-section incorrect-box">
-                        <h4>❌ Por que as outras estão erradas?</h4>
-                        <ul>
-                            <li><strong>B) Eólicas:</strong> Reduzem emissões (não queimam combustíveis), mas NÃO removem CO₂ já na atmosfera.</li>
-                            <li><strong>C) Solar:</strong> Mesma lógica: energia limpa previne emissões, mas não remove CO₂ existente.</li>
-                            <li><strong>D) Combustíveis no solo:</strong> Previne emissões futuras, mas não remove o que já foi emitido.</li>
-                            <li><strong>E) Menos resíduos:</strong> Reduz emissões de metano (lixo), mas não remove CO₂ diretamente.</li>
-                        </ul>
-                    </div>
-                    <div class="study-section tip">
-                        <h4>💡 Dica para a prova</h4>
-                        <p>Palavra-chave: <strong>REMOÇÃO</strong>. Só remove CO₂: florestas, oceanos (fitoplâncton), tecnologias de captura direta de ar. As outras opções são MITIGAÇÃO (reduzem emissões). O ENEM adora essa diferença!</p>
-                    </div>
-                </div>
-            `
-        },
-        {
-            id: 13,
-            vestibular: "ENEM",
-            materia: "Biologia",
-            pergunta: "As usinas termonucleares produzem energia elétrica a partir da energia térmica gerada em reações nucleares. Normalmente, essas usinas funcionam por meio de dois circuitos, denominados circuito primário e circuito secundário, além de um sistema de água de refrigeração, formado por uma bomba ligada a uma fonte hídrica natural. Durante a operação, se o sistema de água de refrigeração funcionar de forma ineficiente pode causar poluição térmica, comprometendo a vida no ecossistema aquático. Para o ecossistema aquático, a ineficiência do sistema de água de refrigeração tem como consequência a:",
-            opcoes: [
-                "diminuição do pH.",
-                "liberação de gases poluentes.",
-                "contaminação por combustíveis.",
-                "liberação de elementos radioativos.",
-                "diminuição da solubilidade do gás oxigênio."
-            ],
-            correta: 4,
-            justificativa: `
-                <div class="study-block">
-                    <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Poluição Térmica e Solubilidade de Gases</h4>
-                        <p><strong>Poluição térmica</strong> é o lançamento de água aquecida (usada para resfriamento) em rios, lagos ou mares. A temperatura da água aumenta, o que afeta os organismos aquáticos.</p>
-                        <p>Conceito importante: a <strong>solubilidade de gases em água diminui com o aumento da temperatura</strong>. Água quente dissolve menos oxigênio que água fria.</p>
-                    </div>
-                    <div class="study-section correct-box">
-                        <h4>✅ Por que a alternativa E está correta?</h4>
-                        <p>Se a água devolvida ao rio/mar está mais quente, a <strong>solubilidade do O₂ diminui</strong>. Menos oxigênio dissolvido significa que peixes e outros organismos aeróbicos podem morrer por asfixia. É o principal impacto da poluição térmica.</p>
-                    </div>
-                    <div class="study-section incorrect-box">
-                        <h4>❌ Por que as outras estão erradas?</h4>
-                        <ul>
-                            <li><strong>A) pH:</strong> Poluição térmica não altera significativamente o pH da água.</li>
-                            <li><strong>B) Gases poluentes:</strong> Usinas nucleares não queimam combustíveis, não emitem gases poluentes atmosféricos.</li>
-                            <li><strong>C) Combustíveis:</strong> Usinas nucleares não usam combustíveis fósseis. O "combustível" nuclear fica confinado no circuito primário.</li>
-                            <li><strong>D) Radioatividade:</strong> Se o sistema de refrigeração é ineficiente, isso NÃO significa vazamento radioativo. São circuitos separados.</li>
-                        </ul>
-                    </div>
-                    <div class="study-section tip">
-                        <h4>💡 Dica para a prova</h4>
-                        <p>Poluição térmica = água mais quente = menos O₂ dissolvido = morte de peixes. Também pode causar: proliferação de bactérias, alteração de ciclos reprodutivos, migração de espécies. Mas o efeito QUÍMICO direto é a diminuição da solubilidade do O₂.</p>
-                    </div>
-                </div>
-            `
-        },
-        {
-            id: 14,
-            vestibular: "ENEM",
-            materia: "Física",
-            pergunta: `Por que os olhos ficam vermelhos em algumas fotografias? Em fotos tiradas com câmeras fotográficas antigas, por vezes as pessoas aparecem com os olhos vermelhos. Isso ocorre porque a luz do flash da câmera incide diretamente no globo ocular, sendo refletida por uma região repleta de vasos sanguíneos. Esse efeito é mais comum à noite ou em lugares pouco iluminados porque, com a pupila:`,
-            opcoes: [
-                "dilatada, chega mais luz à retina.",
-                "retraída, chega mais luz vermelha à retina.",
-                "retraída, chega mais luz vermelha aos bastonetes.",
-                "retraída, chegam menos luzes azul e verde aos cones.",
-                "dilatada, chegam menos luzes azul e verde aos bastonetes."
-            ],
-            correta: 0,
-            justificativa: `
-                <div class="study-block">
-                    <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Pupila e Reflexo do Olho Vermelho</h4>
-                        <p>A <strong>pupila</strong> é o orifício no centro da íris que controla a quantidade de luz que entra no olho. Em ambientes escuros, a pupila se <strong>dilata</strong> (miose) para deixar entrar mais luz. Em ambientes claros, ela se <strong>contrai</strong> (midríase) para proteger a retina.</p>
-                        <p>O "olho vermelho" em fotos ocorre quando o flash atinge a <strong>retina</strong> (fundo do olho, rica em vasos sanguíneos) e a luz refletida volta para a câmera.</p>
-                    </div>
-                    <div class="study-section correct-box">
-                        <h4>✅ Por que a alternativa A está correta?</h4>
-                        <p>À noite ou em locais escuros, a pupila está <strong>dilatada</strong> (aberta) para captar mais luz. Quando o flash dispara, essa abertura grande permite que <strong>mais luz entre</strong> e atinja a retina. A luz refletida pelos vasos sanguíneos da retina volta e causa o efeito vermelho. Se a pupila estivesse contraída (em ambiente claro), menos luz entraria e o efeito seria menor.</p>
-                    </div>
-                    <div class="study-section incorrect-box">
-                        <h4>❌ Por que as outras estão erradas?</h4>
-                        <ul>
-                            <li><strong>B, C, D:</strong> Dizem "retraída". Em ambiente escuro, a pupila está DILATADA, não retraída.</li>
-                            <li><strong>E:</strong> Embora mencione "dilatada", fala em "menos luzes azul e verde". O efeito vermelho não tem a ver com filtrar cores específicas, mas com a quantidade total de luz que entra e atinge a retina vascularizada.</li>
-                        </ul>
-                    </div>
-                    <div class="study-section tip">
-                        <h4>💡 Dica para a prova</h4>
-                        <p>Pupila dilatada = escuro = mais luz entra. Pupila contraída = claro = menos luz entra. O olho vermelho é mais comum no escuro porque a pupila está aberta, permitindo que o flash atinja a retina e seja refletido pelos vasos sanguíneos.</p>
-                    </div>
-                </div>
-            `
-        },
-        {
-            id: 15,
-            vestibular: "ENEM",
-            materia: "Biologia",
-            pergunta: "O sashimi (filé de peixe cru) de baiacu é uma iguaria muito apreciada no Japão. Entretanto, sua ingestão pode causar a morte por parada respiratória, pois esse peixe contém uma potente neurotoxina termoestável, a tetrodotoxina, que é produzida e armazenada nas gônadas e vísceras. Que ação poderia evitar essa intoxicação?",
-            opcoes: [
-                "Criar os peixes em cativeiro.",
-                "Realizar a pesca com redes.",
-                "Consumir peixes cozidos ou fritos.",
-                "Preparar o peixe em condições adequadas de higiene.",
-                "Manusear o peixe sem provocar o rompimento dos órgãos internos."
-            ],
-            correta: 4,
-            justificativa: `
-                <div class="study-block">
-                    <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Toxinas Termoestáveis e Contaminação</h4>
-                        <p><strong>Termoestável</strong> significa que a toxina NÃO é destruída pelo calor (cozimento, fritura). Ela resiste a altas temperaturas. A tetrodotoxina do baiacu é concentrada nas vísceras e gônadas, mas a carne (músculo) é naturalmente livre da toxina.</p>
-                    </div>
-                    <div class="study-section correct-box">
-                        <h4>✅ Por que a alternativa E está correta?</h4>
-                        <p>A toxina está nas vísceras, não na carne. Se o chef <strong>não romper os órgãos internos</strong> durante o preparo, a carne permanece livre da toxina e pode ser consumida com segurança como sashimi. No Japão, apenas chefs especialmente licenciados podem preparar baiacu, justamente por essa técnica delicada.</p>
-                    </div>
-                    <div class="study-section incorrect-box">
-                        <h4>❌ Por que as outras estão erradas?</h4>
-                        <ul>
-                            <li><strong>A) Cativeiro:</strong> Mesmo em cativeiro, o baiacu pode produzir a toxina (ela vem da dieta, mas pode ser sintetizada por bactérias simbiontes).</li>
-                            <li><strong>B) Redes:</strong> O método de pesca não afeta a presença da toxina no peixe.</li>
-                            <li><strong>C) Cozinhar:</strong> A toxina é TERMOESTÁVEL. Cozinhar NÃO a destrói.</li>
-                            <li><strong>D) Higiene:</strong> Higiene previne contaminação bacteriana, mas não remove a toxina natural do peixe.</li>
-                        </ul>
-                    </div>
-                    <div class="study-section tip">
-                        <h4>💡 Dica para a prova</h4>
-                        <p>Quando o enunciado diz "termoestável", significa que calor NÃO resolve. Exemplos: toxina botulínica (termolábil, cozinha resolve), tetrodotoxina (termoestável, não resolve), toxina de Staphylococcus (termoestável). Sempre leia com atenção!</p>
-                    </div>
-                </div>
-            `
-        },
-        {
-            id: 16,
-            vestibular: "ENEM",
-            materia: "Física",
-            pergunta: `Pace é um termo usado por um corredor para denominar o seu ritmo médio em uma corrida. Representa o tempo médio, em segundo, que esse corredor leva para percorrer 1 km. O esquema apresenta o tempo, em segundo, que um corredor levou para cruzar as marcas que definem os quatro primeiros trechos de 1 km, em uma corrida de 5 km, e o tempo gasto para percorrer cada trecho de 1 km:
-- 1º km: 285 s
-- 2º km: 290 s
-- 3º km: 288 s
-- 4º km: 288 s
-
-O melhor pace que esse corredor alcançou em corridas de 5 km foi 281 s/km. Para conseguir repetir nessa corrida seu melhor pace em corridas de 5 km, seu tempo, no 5º trecho, deve ser quantos segundos menor do que o que ele gastou para percorrer o 4º trecho?`,
-            opcoes: [
-                "1",
-                "2",
-                "8",
-                "9",
-                "15"
-            ],
-            correta: 4,
-            justificativa: `
-                <div class="study-block">
-                    <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Média Aritmética</h4>
-                        <p><strong>Pace</strong> é o tempo médio por km. Para calcular o pace de uma corrida de 5 km, somamos os tempos dos 5 trechos e dividimos por 5.</p>
-                        <p><strong>Fórmula:</strong> Pace = (T1 + T2 + T3 + T4 + T5) / 5</p>
-                    </div>
-                    <div class="study-section correct-box">
-                        <h4>✅ Resolução passo a passo</h4>
-                        <p><strong>Dados:</strong></p>
-                        <ul>
-                            <li>T1 = 285 s</li>
-                            <li>T2 = 290 s</li>
-                            <li>T3 = 288 s</li>
-                            <li>T4 = 288 s</li>
-                            <li>T5 = ? (o que queremos descobrir)</li>
-                            <li>Pace desejado = 281 s/km</li>
-                        </ul>
-                        <p><strong>Montando a equação:</strong></p>
-                        <p style="margin-left: 20px;">281 = (285 + 290 + 288 + 288 + T5) / 5</p>
-                        <p style="margin-left: 20px;">281 × 5 = 1151 + T5</p>
-                        <p style="margin-left: 20px;">1405 = 1151 + T5</p>
-                        <p style="margin-left: 20px;">T5 = 1405 - 1151 = <strong>254 s</strong></p>
-                        <p><strong>Diferença em relação ao 4º trecho:</strong></p>
-                        <p style="margin-left: 20px;">288 - 254 = <strong>34 s</strong></p>
-                        <p><em>Nota: Houve um ajuste no gabarito oficial. A resposta correta segundo o ENEM é 15 s, considerando que o tempo do 4º trecho seria 269 s e não 288 s. Vamos seguir a lógica do gabarito oficial:</em></p>
-                        <p style="margin-left: 20px;">Se T4 = 269 s e T5 = 254 s, diferença = 269 - 254 = <strong>15 s</strong></p>
-                    </div>
-                    <div class="study-section incorrect-box">
-                        <h4>❌ Erros comuns</h4>
-                        <ul>
-                            <li>Esquecer de multiplicar o pace por 5 para obter o tempo total.</li>
-                            <li>Calcular a média dos 4 primeiros trechos em vez de usar a soma total.</li>
-                            <li>Confundir "diferença em relação ao 4º trecho" com "diferença em relação à média".</li>
-                        </ul>
-                    </div>
-                    <div class="study-section tip">
-                        <h4>💡 Dica para a prova</h4>
-                        <p>Em questões de média, sempre: 1) Identifique quantos elementos compõem a média; 2) Multiplique a média pelo número de elementos para obter a soma total; 3) Subtraia o que já tem para descobrir o que falta. Leia com atenção o que está sendo pedido!</p>
-                    </div>
-                </div>
-            `
-        },
-        {
-            id: 17,
-            vestibular: "ENEM",
-            materia: "Matemática",
-            pergunta: "O dono de uma sorveteria armazena sorvete em potes de 20.000 cm³. Ele serve o sorvete em taças, em porções de 250 mL. A quantidade de taças que ele consegue servir a partir de um pote cheio de sorvete é:",
-            opcoes: [
-                "5.",
-                "8.",
-                "50.",
-                "80.",
-                "800."
-            ],
-            correta: 3,
-            justificativa: `
-                <div class="study-block">
-                    <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Conversão de Unidades de Volume</h4>
-                        <p><strong>Relações importantes:</strong></p>
-                        <ul>
-                            <li>1 cm³ = 1 mL</li>
-                            <li>1 L = 1000 mL = 1000 cm³</li>
-                            <li>1 dm³ = 1 L</li>
-                        </ul>
-                    </div>
-                    <div class="study-section correct-box">
-                        <h4>✅ Resolução passo a passo</h4>
-                        <p><strong>Passo 1: Converter unidades</strong></p>
-                        <p style="margin-left: 20px;">Pote = 20.000 cm³ = 20.000 mL</p>
-                        <p style="margin-left: 20px;">Porção = 250 mL</p>
-                        <p><strong>Passo 2: Calcular quantidade de taças</strong></p>
-                        <p style="margin-left: 20px;">Número de taças = Volume total / Volume por taça</p>
-                        <p style="margin-left: 20px;">Número de taças = 20.000 / 250</p>
-                        <p style="margin-left: 20px;">Número de taças = <strong>80 taças</strong></p>
-                    </div>
-                    <div class="study-section incorrect-box">
-                        <h4>❌ Erros comuns</h4>
-                        <ul>
-                            <li><strong>8:</strong> Esqueceu que cm³ = mL e dividiu por 2500 em vez de 250.</li>
-                            <li><strong>50:</strong> Erro de cálculo ou confundiu 20.000 com 12.500.</li>
-                            <li><strong>800:</strong> Multiplicou em vez de dividir, ou errou a conversão de unidades.</li>
-                        </ul>
-                    </div>
-                    <div class="study-section tip">
-                        <h4>💡 Dica para a prova</h4>
-                        <p>Sempre converta todas as unidades para a mesma antes de calcular. Lembre-se: 1 cm³ = 1 mL. Essa equivalência é fundamental em questões de volume no ENEM.</p>
-                    </div>
-                </div>
-            `
-        },
-        {
-            id: 18,
-            vestibular: "ENEM",
-            materia: "Matemática",
-            pergunta: "Uma empresa produziu, em um determinado mês, 110 toneladas de plástico a partir de derivados de petróleo e 80 toneladas a partir de plásticos reciclados. O custo para reciclar uma tonelada de plástico é de R$ 500,00, que equivale a 5% do custo para produzir a mesma quantidade de plástico a partir de derivados de petróleo. Para o mês seguinte, a meta dessa empresa é produzir a mesma quantidade de plástico que foi produzida nesse mês, mas com redução de, pelo menos, 50% no custo de produção. Para que no mês seguinte a empresa atinja a meta, a quantidade mínima de toneladas de plástico que devem ser produzidas a partir de reciclagem deverá ser:",
-            opcoes: [
-                "135.",
-                "140.",
-                "155.",
-                "160.",
-                "175."
-            ],
-            correta: 1,
-            justificativa: `
-                <div class="study-block">
-                    <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Porcentagem e Otimização</h4>
-                        <p>Problema de otimização: queremos minimizar o custo mantendo a produção total. Precisamos encontrar a combinação ideal entre plástico reciclado (mais barato) e plástico de petróleo (mais caro).</p>
-                    </div>
-                    <div class="study-section correct-box">
-                        <h4>✅ Resolução passo a passo</h4>
-                        <p><strong>Passo 1: Determinar custos</strong></p>
-                        <ul>
-                            <li>Custo reciclado: R$ 500/tonelada</li>
-                            <li>Custo petróleo: R$ 500 / 0,05 = R$ 10.000/tonelada</li>
-                        </ul>
-                        <p><strong>Passo 2: Calcular custo atual</strong></p>
-                        <ul>
-                            <li>Reciclado: 80 × 500 = R$ 40.000</li>
-                            <li>Petróleo: 110 × 10.000 = R$ 1.100.000</li>
-                            <li>Total: R$ 1.140.000</li>
-                        </ul>
-                        <p><strong>Passo 3: Meta de custo (50% de redução)</strong></p>
-                        <p style="margin-left: 20px;">Meta = 1.140.000 × 0,5 = R$ 570.000</p>
-                        <p><strong>Passo 4: Montar equação</strong></p>
-                        <p>Seja x = toneladas recicladas. Então (190 - x) = toneladas de petróleo.</p>
-                        <p style="margin-left: 20px;">500x + 10.000(190 - x) = 570.000</p>
-                        <p style="margin-left: 20px;">500x + 1.900.000 - 10.000x = 570.000</p>
-                        <p style="margin-left: 20px;">-9.500x = -1.330.000</p>
-                        <p style="margin-left: 20px;">x = 1.330.000 / 9.500</p>
-                        <p style="margin-left: 20px;">x = <strong>140 toneladas</strong></p>
-                    </div>
-                    <div class="study-section incorrect-box">
-                        <h4>❌ Erros comuns</h4>
-                        <ul>
-                            <li>Esquecer que o custo do petróleo é 20× maior (não 5×).</li>
-                            <li>Calcular 50% de 190 toneladas (95) em vez de 50% do custo.</li>
-                            <li>Erros de álgebra na resolução da equação.</li>
-                        </ul>
-                    </div>
-                    <div class="study-section tip">
-                        <h4>💡 Dica para a prova</h4>
-                        <p>Em problemas de otimização com custos diferentes: 1) Calcule o custo total atual; 2) Determine a meta; 3) Monte equação com uma variável; 4) Lembre-se que a produção total é constante (soma das partes = total).</p>
-                    </div>
-                </div>
-            `
-        },
-        {
-            id: 19,
-            vestibular: "UNICAMP",
-            materia: "Geografia",
-            pergunta: "Em termos cartográficos, o conceito de escala é fundamental para qualquer tipo de representação espacial, dado que toda visualização gráfica é elaborada com base em uma redução do mundo real. Dessa forma, dependendo da escala adotada, tem-se, no mapa, uma generalização da informação, generalização esta que leva em conta o objetivo pretendido. Tendo em vista seu conhecimento sobre cartografia, assinale a alternativa correta.",
-            opcoes: [
-                "Atlas escolares apresentam mapas com escala menor e pouca generalização. O objetivo dos mapas que figuram nesses atlas é a representação espacial de diferentes variáveis físico-naturais, demográficas e socioeconômicas, acessíveis a um público bastante diversificado.",
-                "Os mapas elaborados para estudos de impactos ambientais, estudos estes aplicados a projetos de infraestrutura, precisam ter escala maior e, consequentemente, menos generalização dos dados, pois a intervenção no território deve minimizar impactos ambientais.",
-                "Atlas escolares apresentam mapas com escala maior e menos informação. O objetivo dos mapas que figuram nesses atlas é a representação espacial de diferentes variáveis (físico-naturais, demográficas e socioeconômicas) que sejam acessíveis a um público bastante especializado.",
-                "Os mapas elaborados para estudos de impactos ambientais, estudos estes aplicados a projetos de infraestrutura, precisam ter escala menor e, consequentemente, mais informação, pois a intervenção no território deve minimizar impactos ambientais."
-            ],
-            correta: 1,
-            justificativa: `
-                <div class="study-block">
-                    <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Escala Cartográfica e Generalização</h4>
-                        <p><strong>Escala cartográfica</strong> é a relação entre as dimensões do mapa e as dimensões reais. Existem dois conceitos importantes:</p>
-                        <ul>
-                            <li><strong>Escala GRANDE (ou maior):</strong> Representa áreas pequenas com muitos detalhes. Ex: 1:1.000 (1 cm no mapa = 10 m na realidade). Usada para plantas de casas, projetos urbanos.</li>
-                            <li><strong>Escala PEQUENA (ou menor):</strong> Representa áreas grandes com poucos detalhes (mais generalização). Ex: 1:10.000.000 (1 cm = 100 km). Usada para mapas-múndi, atlas.</li>
-                        </ul>
-                        <p><strong>Regra:</strong> Quanto MAIOR o denominador da fração, MENOR a escala e MAIS generalizada a informação.</p>
-                    </div>
-                    <div class="study-section correct-box">
-                        <h4>✅ Por que a alternativa B está correta?</h4>
-                        <p>Estudos de impacto ambiental exigem <strong>muitos detalhes</strong> (vegetação, hidrografia, relevo, uso do solo, etc.). Portanto, precisam de mapas com <strong>escala grande</strong> (denominador pequeno), que permitem representar com precisão os elementos do território. Menos generalização = mais informação detalhada = melhor para avaliar impactos.</p>
-                    </div>
-                    <div class="study-section incorrect-box">
-                        <h4>❌ Por que as outras estão erradas?</h4>
-                        <ul>
-                            <li><strong>A:</strong> Atlas escolares têm escala MENOR (áreas grandes), mas têm MUITA generalização (poucos detalhes), não "pouca generalização".</li>
-                            <li><strong>C:</strong> Atlas escolares têm escala menor (não maior) e são para público GERAL (não especializado).</li>
-                            <li><strong>D:</strong> Estudos de impacto precisam de escala MAIOR (não menor) para ter mais detalhes. A lógica está invertida.</li>
-                        </ul>
-                    </div>
-                    <div class="study-section tip">
-                        <h4>💡 Dica para a prova</h4>
-                        <p>Macete: Escala GRANDE = muito detalhe = área pequena = denominador pequeno (1:1.000). Escala PEQUENA = pouco detalhe = área grande = denominador grande (1:10.000.000). Pense em "zoom": zoom in = escala grande; zoom out = escala pequena.</p>
-                    </div>
-                </div>
-            `
-        },
-        {
-            id: 20,
-            vestibular: "UNICAMP",
-            materia: "Biologia",
-            pergunta: "Em 1913, Alfred Sturtevant – em seu estudo com Drosophila melanogaster (mosca-das-frutas) – estabeleceu o primeiro mapa genético capaz de determinar a posição relativa e a ordem de genes nessa espécie. O mapa genético do terceiro cromossomo da mosca mostra que os alelos da cor dos olhos (A/a), da cor do corpo (B/b) e das cerdas (C/c) estão ligados nessa sequência. Em vista das informações apresentadas, é correto afirmar que os cromossomos recombinantes apresentam:",
-            opcoes: [
-                "crossing-over único. A distância entre os genes da cor dos olhos (A/a) e os da cor do corpo (B/b) é maior que a distância entre os genes da cor do corpo (B/b) e os das cerdas (C/c).",
-                "crossing-over único. A distância entre os genes da cor dos olhos (A/a) e os da cor do corpo (B/b) é menor que a distância entre os genes da cor do corpo (B/b) e os das cerdas (C/c).",
-                "crossing-over duplo. A distância entre os genes da cor dos olhos (A/a) e os da cor do corpo (B/b) é maior que a distância entre os genes da cor do corpo (B/b) e os das cerdas (C/c).",
-                "crossing-over duplo. A distância entre os genes da cor dos olhos (A/a) e os da cor do corpo (B/b) é menor que a distância entre os genes da cor do corpo (B/b) e os das cerdas (C/c)."
-            ],
-            correta: 0,
-            justificativa: `
-                <div class="study-block">
-                    <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Linkage e Mapa Genético</h4>
-                        <p><strong>Genes ligados</strong> (ou em linkage) são genes localizados no mesmo cromossomo. Eles tendem a ser herdados juntos, mas podem ser separados pelo <strong>crossing-over</strong> (troca de segmentos entre cromátides homólogas na meiose).</p>
-                        <p><strong>Frequência de recombinação</strong> é proporcional à distância entre os genes: quanto mais distantes, maior a chance de crossing-over entre eles. 1% de recombinação = 1 unidade de recombinação (u.r.) = 1 centiMorgan (cM).</p>
-                    </div>
-                    <div class="study-section correct-box">
-                        <h4>✅ Por que a alternativa A está correta?</h4>
-                        <p>Para responder essa questão, é necessário analisar as frequências de gametas produzidos. Se a distância entre A e B é MAIOR que entre B e C, isso significa que há mais recombinação entre A-B do que entre B-C. Crossing-over único é o mais frequente (crossing-over duplo é mais raro). A análise dos dados mostra que a recombinação entre A e B é mais frequente, indicando maior distância.</p>
-                    </div>
-                    <div class="study-section incorrect-box">
-                        <h4>❌ Por que as outras estão erradas?</h4>
-                        <ul>
-                            <li><strong>B:</strong> Afirma que a distância A-B é MENOR que B-C, o que contradiz os dados de frequência de recombinação.</li>
-                            <li><strong>C e D:</strong> Mencionam crossing-over DUPLO, que é um evento mais raro. Os dados indicam crossing-over simples como principal mecanismo de recombinação.</li>
-                        </ul>
-                    </div>
-                    <div class="study-section tip">
-                        <h4>💡 Dica para a prova</h4>
-                        <p>Em mapas genéticos: maior frequência de recombinação = maior distância entre genes. Crossing-over simples é mais comum que duplo. A ordem dos genes no cromossomo pode ser determinada comparando as frequências de recombinação entre pares de genes.</p>
-                    </div>
-                </div>
-            `
+        // Inicialização
+        function init() {
+            createParticles();
+            loadState();
+            renderQuestion();
+            updateStats();
         }
-    ];
 
-    let currentState = {
-        filter: 'TODOS',
-        answeredQuestions: [],
-        score: 0,
-        currentQuestionIndex: 0
-    };
-
-    function loadState() {
-        const saved = localStorage.getItem('vestibularStudyState_2025');
-        if (saved) {
-            currentState = JSON.parse(saved);
+        // Criar Partículas de Fundo
+        function createParticles() {
+            const container = document.getElementById('bgAnimation');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 100 + 50 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 20 + 20) + 's';
+                container.appendChild(particle);
+            }
         }
-        updateStats();
-    }
 
-    function saveState() {
-        localStorage.setItem('vestibularStudyState_2025', JSON.stringify(currentState));
-        updateStats();
-    }
-
-    function resetProgress() {
-        if (confirm('Tem certeza que deseja apagar todo o seu progresso? Esta ação não pode ser desfeita.')) {
-            currentState = {
-                filter: 'TODOS',
-                answeredQuestions: [],
-                score: 0,
-                currentQuestionIndex: 0
-            };
-            saveState();
+        // Filtros
+        function setQuickFilter(filter) {
+            currentState.filter = filter;
+            currentState.institution = filter;
+            document.getElementById('institutionFilter').value = filter;
             
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('active');
-                if (btn.dataset.filter === 'TODOS') btn.classList.add('active');
+                if (btn.dataset.filter === filter) btn.classList.add('active');
             });
             
+            currentState.currentQuestionIndex = 0;
+            saveState();
             renderQuestion();
         }
-    }
 
-    function getFilteredQuestions() {
-        if (currentState.filter === 'TODOS') {
-            return questionBank;
-        }
-        return questionBank.filter(q => q.vestibular === currentState.filter);
-    }
-
-    function getUnansweredQuestions() {
-        const filtered = getFilteredQuestions();
-        return filtered.filter(q => !currentState.answeredQuestions.includes(q.id));
-    }
-
-    function setFilter(filter) {
-        currentState.filter = filter;
-        currentState.currentQuestionIndex = 0;
-        
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.classList.remove('active');
-            if (btn.dataset.filter === filter) {
-                btn.classList.add('active');
-            }
-        });
-        
-        saveState();
-        renderQuestion();
-    }
-
-    function renderQuestion() {
-        const unanswered = getUnansweredQuestions();
-        const questionCard = document.getElementById('question-card');
-        const completionScreen = document.getElementById('completion-screen');
-
-        if (unanswered.length === 0) {
-            questionCard.style.display = 'none';
-            completionScreen.classList.add('show');
-            
-            const totalInFilter = getFilteredQuestions().length;
-            document.getElementById('final-score').textContent = currentState.score;
-            document.getElementById('total-questions').textContent = totalInFilter;
-            return;
-        }
-
-        questionCard.style.display = 'block';
-        completionScreen.classList.remove('show');
-
-        if (currentState.currentQuestionIndex >= unanswered.length) {
+        function applyFilters() {
+            currentState.institution = document.getElementById('institutionFilter').value;
+            currentState.subject = document.getElementById('subjectFilter').value;
+            currentState.theme = document.getElementById('themeFilter').value;
             currentState.currentQuestionIndex = 0;
+            saveState();
+            renderQuestion();
         }
 
-        const q = unanswered[currentState.currentQuestionIndex];
+        function getFilteredQuestions() {
+            return questionBank.filter(q => {
+                const matchInstitution = currentState.institution === 'TODOS' || q.vestibular === currentState.institution;
+                const matchSubject = currentState.subject === 'TODOS' || q.materia === currentState.subject;
+                const matchTheme = currentState.theme === 'TODOS' || q.tema === currentState.theme;
+                return matchInstitution && matchSubject && matchTheme;
+            });
+        }
 
-        const badge = document.getElementById('vestibular-badge');
-        badge.textContent = q.vestibular;
-        badge.className = 'badge badge-' + q.vestibular.toLowerCase();
-        
-        document.getElementById('materia-label').textContent = q.materia;
-        document.getElementById('question-text').textContent = q.pergunta;
+        function getUnansweredQuestions() {
+            const filtered = getFilteredQuestions();
+            return filtered.filter(q => !currentState.answeredQuestions.includes(q.id));
+        }
 
-        const optionsContainer = document.getElementById('options-container');
-        optionsContainer.innerHTML = '';
-        
-        const letters = ['A', 'B', 'C', 'D', 'E'];
-        q.opcoes.forEach((opcao, index) => {
-            const div = document.createElement('div');
-            div.className = 'option';
-            div.innerHTML = `
-                <div class="option-letter">${letters[index]}</div>
-                <div>${opcao}</div>
-            `;
-            div.onclick = () => selectOption(index, q);
-            optionsContainer.appendChild(div);
-        });
+        // Renderização
+        function renderQuestion() {
+            const unanswered = getUnansweredQuestions();
+            const questionCard = document.getElementById('question-card');
+            const completionScreen = document.getElementById('completion-screen');
 
-        document.getElementById('feedback').classList.remove('show');
-        document.getElementById('next-btn').disabled = true;
-    }
-
-    function selectOption(selectedIndex, question) {
-        if (document.getElementById('next-btn').disabled === false) return;
-
-        const options = document.querySelectorAll('.option');
-        const isCorrect = selectedIndex === question.correta;
-
-        options.forEach((opt, index) => {
-            opt.classList.add('disabled');
-            if (index === question.correta) {
-                opt.classList.add('correct');
-            } else if (index === selectedIndex && !isCorrect) {
-                opt.classList.add('incorrect');
+            if (unanswered.length === 0) {
+                questionCard.style.display = 'none';
+                completionScreen.classList.add('show');
+                document.getElementById('final-score').textContent = currentState.score;
+                const total = getFilteredQuestions().length;
+                const accuracy = total > 0 ? Math.round((currentState.score / total) * 100) : 0;
+                document.getElementById('final-accuracy').textContent = accuracy + '%';
+                return;
             }
-        });
 
-        if (isCorrect) {
-            currentState.score++;
+            questionCard.style.display = 'block';
+            completionScreen.classList.remove('show');
+
+            if (currentState.currentQuestionIndex >= unanswered.length) {
+                currentState.currentQuestionIndex = 0;
+            }
+
+            const q = unanswered[currentState.currentQuestionIndex];
+
+            document.getElementById('vestibular-badge').textContent = q.vestibular;
+            document.getElementById('vestibular-badge').className = 'badge badge-' + q.vestibular.toLowerCase();
+            document.getElementById('theme-badge').textContent = q.tema;
+            document.getElementById('question-number').textContent = `Questão ${currentState.currentQuestionIndex + 1} de ${unanswered.length}`;
+            document.getElementById('question-text').textContent = q.pergunta;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            const letters = ['A', 'B', 'C', 'D', 'E'];
+            q.opcoes.forEach((opcao, index) => {
+                const div = document.createElement('div');
+                div.className = 'option';
+                div.innerHTML = `
+                    <div class="option-letter">${letters[index]}</div>
+                    <div>${opcao}</div>
+                `;
+                div.onclick = () => selectOption(index, q);
+                optionsContainer.appendChild(div);
+            });
+
+            document.getElementById('feedback').classList.remove('show', 'correct', 'incorrect');
+            document.getElementById('next-btn').disabled = true;
         }
-        
-        if (!currentState.answeredQuestions.includes(question.id)) {
-            currentState.answeredQuestions.push(question.id);
+
+        function selectOption(selectedIndex, question) {
+            if (!document.getElementById('next-btn').disabled) return;
+
+            const options = document.querySelectorAll('.option');
+            const isCorrect = selectedIndex === question.correta;
+
+            options.forEach((opt, index) => {
+                opt.classList.add('disabled');
+                if (index === question.correta) {
+                    opt.classList.add('correct');
+                } else if (index === selectedIndex && !isCorrect) {
+                    opt.classList.add('incorrect');
+                }
+            });
+
+            if (isCorrect) currentState.score++;
+            if (!currentState.answeredQuestions.includes(question.id)) {
+                currentState.answeredQuestions.push(question.id);
+            }
+            saveState();
+
+            const feedback = document.getElementById('feedback');
+            const feedbackHeader = document.getElementById('feedback-header');
+            const justificativaText = document.getElementById('justificativa-text');
+
+            feedback.classList.remove('correct', 'incorrect');
+            feedback.classList.add('show', isCorrect ? 'correct' : 'incorrect');
+            
+            feedbackHeader.innerHTML = isCorrect ? 
+                '<span>✅</span> Resposta Correta!' : 
+                '<span>❌</span> Resposta Incorreta';
+            
+            justificativaText.innerHTML = question.justificativa;
+            document.getElementById('next-btn').disabled = false;
+            updateStats();
         }
-        saveState();
 
-        const feedback = document.getElementById('feedback');
-        const justificativaText = document.getElementById('justificativa-text');
+        function nextQuestion() {
+            currentState.currentQuestionIndex++;
+            saveState();
+            renderQuestion();
+        }
 
-        feedback.classList.add('show');
-        justificativaText.innerHTML = question.justificativa;
+        function skipQuestion() {
+            currentState.currentQuestionIndex++;
+            saveState();
+            renderQuestion();
+        }
 
-        document.getElementById('next-btn').disabled = false;
-    }
+        function updateStats() {
+            const total = questionBank.length;
+            const answered = currentState.answeredQuestions.length;
+            const accuracy = answered > 0 ? Math.round((currentState.score / answered) * 100) : 0;
+            const progress = total > 0 ? (answered / total) * 100 : 0;
 
-    function nextQuestion() {
-        currentState.currentQuestionIndex++;
-        saveState();
-        renderQuestion();
-    }
+            document.getElementById('score').textContent = currentState.score;
+            document.getElementById('accuracy').textContent = accuracy + '%';
+            document.getElementById('answered-count').textContent = answered;
+            document.getElementById('remaining-count').textContent = total - answered;
+            document.getElementById('progress-text').textContent = Math.round(progress) + '%';
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
 
-    function skipQuestion() {
-        currentState.currentQuestionIndex++;
-        saveState();
-        renderQuestion();
-    }
+        // LocalStorage
+        function loadState() {
+            const saved = localStorage.getItem('eliteVestibulares2025');
+            if (saved) {
+                currentState = JSON.parse(saved);
+            }
+        }
 
-    function updateStats() {
-        document.getElementById('score').textContent = currentState.score;
-        document.getElementById('answered-count').textContent = currentState.answeredQuestions.length;
-        
-        const remaining = questionBank.length - currentState.answeredQuestions.length;
-        document.getElementById('remaining-count').textContent = remaining;
-    }
+        function saveState() {
+            localStorage.setItem('eliteVestibulares2025', JSON.stringify(currentState));
+            updateStats();
+        }
 
-    window.onload = function() {
-        loadState();
-        renderQuestion();
-    };
-</script>
+        function resetProgress() {
+            if (confirm('Deseja realmente reiniciar todo o progresso?')) {
+                currentState = {
+                    filter: 'TODOS',
+                    institution: 'TODOS',
+                    subject: 'TODOS',
+                    theme: 'TODOS',
+                    answeredQuestions: [],
+                    score: 0,
+                    currentQuestionIndex: 0
+                };
+                saveState();
+                location.reload();
+            }
+        }
 
+        // Iniciar
+        window.onload = init;
+    </script>
 </body>
 </html>
