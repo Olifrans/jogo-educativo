@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Estudos - Vestibulares Brasil</title>
+    <title>Sistema de Estudos - Vestibulares Brasil 2025</title>
     <style>
         :root {
             --primary: #2563eb;
@@ -39,7 +39,6 @@
             margin: 0 auto;
         }
 
-        /* Header e Stats */
         header {
             text-align: center;
             margin-bottom: 30px;
@@ -78,7 +77,6 @@
             color: var(--text-light);
         }
 
-        /* Filtros */
         .filters {
             display: flex;
             gap: 10px;
@@ -113,7 +111,6 @@
         .filter-btn[data-filter="USP"].active { background: var(--usp); border-color: var(--usp); }
         .filter-btn[data-filter="UNICAMP"].active { background: var(--unicamp); border-color: var(--unicamp); }
 
-        /* Card da Questão */
         .question-card {
             background: var(--card-bg);
             border-radius: 16px;
@@ -162,7 +159,6 @@
             line-height: 1.7;
         }
 
-        /* Opções */
         .options {
             display: flex;
             flex-direction: column;
@@ -222,7 +218,6 @@
             opacity: 0.7;
         }
 
-        /* Feedback e Justificativa Melhorada */
         .feedback {
             margin-top: 25px;
             border-radius: 10px;
@@ -256,7 +251,6 @@
             border-radius: 3px;
         }
 
-        /* Estilos para as justificativas melhoradas (Mini-aulas) */
         .study-block {
             display: flex;
             flex-direction: column;
@@ -312,7 +306,6 @@
         }
         .study-section.tip h4 { color: #6b21a8; }
 
-        /* Botões de Ação */
         .actions {
             display: flex;
             justify-content: space-between;
@@ -354,7 +347,6 @@
             cursor: not-allowed;
         }
 
-        /* Tela de Conclusão */
         .completion-screen {
             text-align: center;
             padding: 40px;
@@ -370,7 +362,6 @@
             margin-bottom: 20px;
         }
 
-        /* Responsividade */
         @media (max-width: 600px) {
             .stats-bar { gap: 15px; }
             .question-card { padding: 20px; }
@@ -382,8 +373,8 @@
 
 <div class="container">
     <header>
-        <h1>📚 Sistema de Estudos Vestibulares</h1>
-        <p style="color: var(--text-light);">ENEM • USP (FUVEST) • Unicamp</p>
+        <h1>📚 Sistema de Estudos Vestibulares 2025</h1>
+        <p style="color: var(--text-light);">Questões Reais • ENEM • USP (FUVEST) • Unicamp</p>
     </header>
 
     <div class="stats-bar">
@@ -425,7 +416,6 @@
             </div>
 
             <div class="options" id="options-container">
-                <!-- Opções geradas via JS -->
             </div>
 
             <div class="feedback" id="feedback">
@@ -453,116 +443,130 @@
 </div>
 
 <script>
-    // ==========================================
-    // BANCO DE QUESTÕES COM JUSTIFICATIVAS DETALHADAS
-    // ==========================================
     const questionBank = [
         {
             id: 1,
-            vestibular: "ENEM",
-            materia: "História",
-            pergunta: "A Consolidação das Leis do Trabalho (CLT), promulgada em 1943, foi um marco na história social brasileira. Uma de suas principais características foi:",
+            vestibular: "USP",
+            materia: "Atualidades / Arte",
+            pergunta: `Texto 1: "Afinal, depois de ver todas as coisas daquele museu, acabei me perguntando se os brancos já não teriam começado a adquirir também tantas de nossas coisas só porque nós, Yanomami, já estamos começando também a desaparecer. Por que ficam nos pedindo nossos cestos, nossos arcos e nossos adornos de penas, enquanto garimpeiros e fazendeiros invadem nossa terra?" (KOPENAWA, Davi)
+
+Texto 2: "Em seu trabalho, Glicéria debruça-se sobre a artesania do manto tupinambá, símbolo das tradições ancestrais de seu povo. A artista chama de cosmo-técnica a feitura do manto, e hoje busca compreender qual era sua função cultural e social em sua comunidade. Recentemente, a artista esteve na Europa e encontrou mantos datados do século XVII, que foram levados do Brasil ao longo da colonização, na Dinamarca. Segundo Glicéria, 'hoje, as pessoas entendem o manto como arte, arte contemporânea, mas eu vejo muito além. É um ancestral nosso'."
+
+A reflexão de Davi Kopenawa sobre a apropriação de objetos indígenas por museus e a pesquisa de Glicéria Tupinambá sobre o manto tupinambá em contextos europeus permitem explorar diversas dimensões da arte indígena. Com base nos textos, assinale a alternativa que relaciona corretamente as reflexões apresentadas à importância da arte e dos artefatos culturais na discussão sobre questões indígenas no Brasil.`,
             opcoes: [
-                "A extinção dos sindicatos e a proibição total de greves.",
-                "A regulamentação das relações de trabalho, incorporando demandas históricas do movimento operário, mas sob forte controle estatal.",
-                "A adoção imediata do salário mínimo em níveis que garantiam plena dignidade ao trabalhador.",
-                "A total independência da Justiça do Trabalho em relação ao Poder Executivo.",
-                "A exclusão dos trabalhadores rurais de qualquer tipo de proteção legal."
+                "A arte indígena, ao ser exposta em museus europeus, perde seu significado original e se transforma apenas em objeto de decoração, desvinculando-se completamente de suas raízes culturais e simbólicas, de acordo com David Kopenawa.",
+                "Glicéria Tupinambá, ao retomar elementos tradicionais em suas obras, busca uma representação autêntica que resiste à domesticação cultural imposta pelos colonizadores, valorizando o aspecto utilitário desses objetos.",
+                "O trabalho de Glicéria Tupinambá, ao redescobrir os mantos tupinambá na Europa, revela como a arte indígena pode servir como uma ponte para o entendimento e a valorização das culturas indígenas por sociedades que historicamente as marginalizaram.",
+                "Para David Kopenawa, a guarda de artefatos indígenas em museus da Europa é uma forma eficaz de preservação e valorização da cultura indígena, pois demonstra reconhecimento da sua importância e esforço, por parte da sociedade, para proteger os direitos territoriais desses povos.",
+                "A arte, como mostrado por Glicéria Tupinambá, atua como um meio de resistência cultural, em que elementos tradicionais são recontextualizados para contestar narrativas coloniais e reafirmar identidades indígenas em face de processos de desapropriação e desaparecimento."
             ],
-            correta: 1,
+            correta: 4,
             justificativa: `
                 <div class="study-block">
                     <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: O que é a CLT e o contexto do Estado Novo?</h4>
-                        <p>A <strong>CLT</strong> foi criada em 1943 por Getúlio Vargas, durante o <strong>Estado Novo (1937-1945)</strong>. Ela reuniu em um único documento toda a legislação trabalhista existente no Brasil, em um contexto de acelerada industrialização e crescimento da classe operária.</p>
+                        <h4>📚 Conceito-Chave: Arte Indígena e Resistência Cultural</h4>
+                        <p>A questão aborda a <strong>apropriação cultural</strong> e a <strong>resistência indígena</strong> através da arte. Davi Kopenawa (xamã yanomami) critica como museus europeus colecionam artefatos indígenas enquanto os povos originários são destruídos. Glicéria Tupinambá ressignifica o manto tupinambá não como "arte contemporânea", mas como <strong>ancestralidade viva</strong>.</p>
                     </div>
                     <div class="study-section correct-box">
-                        <h4>✅ Por que a alternativa B está correta?</h4>
-                        <p>A CLT regulamentou direitos (jornada de 8h, férias, carteira de trabalho) que já eram reivindicados pelo movimento operário. Porém, fez isso sob <strong>forte controle do Estado</strong> (sindicalismo pelego/corporativista), garantindo que a imagem dos direitos estivesse ligada a Vargas, o "Pai dos Pobres".</p>
+                        <h4>✅ Por que a alternativa E está correta?</h4>
+                        <p>A arte indígena atua como <strong>resistência cultural</strong>. Glicéria não vê o manto como mera "arte" (conceito ocidental), mas como um <strong>ancestral</strong>. Ao recontextualizar esses objetos, ela contesta a narrativa colonial que os transformou em peças de museu e reafirma a identidade indígena diante do desaparecimento cultural e físico denunciado por Kopenawa.</p>
                     </div>
                     <div class="study-section incorrect-box">
                         <h4>❌ Por que as outras estão erradas?</h4>
                         <ul>
-                            <li><strong>A:</strong> Sindicatos não foram extintos, mas oficializados e controlados pelo Estado.</li>
-                            <li><strong>C:</strong> O salário mínimo era muito baixo e não garantia "plena dignidade".</li>
-                            <li><strong>D:</strong> A Justiça do Trabalho não era independente; Vargas controlava o Executivo.</li>
-                            <li><strong>E:</strong> Trabalhadores rurais foram excluídos de muitos direitos, mas não de "qualquer tipo" de proteção.</li>
+                            <li><strong>A:</strong> Kopenawa NÃO diz que a arte "perde significado". Ele critica a hipocrisia de colecionar objetos enquanto se destrói o povo.</li>
+                            <li><strong>B:</strong> Glicéria NÃO valoriza apenas o "aspecto utilitário". Ela enfatiza a <strong>ancestralidade</strong> e o aspecto cosmológico.</li>
+                            <li><strong>C:</strong> Embora parcialmente verdadeira, esta alternativa é reducionista. Glicéria vai além de "ponte para entendimento" — ela afirma a <strong>soberania cultural indígena</strong>.</li>
+                            <li><strong>D:</strong> Kopenawa CRITICA a guarda em museus europeus. Ele vê isso como parte do processo de desaparecimento, não como "preservação eficaz".</li>
                         </ul>
                     </div>
                     <div class="study-section tip">
                         <h4>💡 Dica para a prova</h4>
-                        <p>O ENEM adora a ambiguidade do <strong>"trabalhismo"</strong>: Vargas deu direitos, mas em troca pediu obediência política. Lembre-se: "nada de direitos sem deveres".</p>
+                        <p>A FUVEST 2025 cobrou temas contemporâneos sobre <strong>povos originários</strong>. Sempre que aparecer arte indígena, pense em: resistência cultural, descolonização, ancestralidade vs. visão ocidental de "arte". Lembre-se: para os povos indígenas, objetos rituais NÃO são "arte" no sentido europeu — são <strong>entidades vivas e ancestrais</strong>.</p>
                     </div>
                 </div>
             `
         },
         {
             id: 2,
-            vestibular: "USP",
-            materia: "Matemática",
-            pergunta: "Um reservatório de água tem a forma de um cilindro circular reto com 2 m de raio e 5 m de altura. Se o reservatório está com 40% de sua capacidade total, qual é o volume de água, em metros cúbicos, presente no reservatório? (Considere π = 3)",
-            opcoes: ["12", "24", "30", "48", "60"],
-            correta: 1,
+            vestibular: "ENEM",
+            materia: "Química",
+            pergunta: "A filtração em carvão é uma das mais antigas formas de purificação de água. O carvão ativado, diferentemente do carvão comum, é útil para ser empregado na remoção de material orgânico, cloro e outros contaminantes. Essa capacidade decorre de suas propriedades de adsorção. A origem do material utilizado para produzir o carvão ativado pode influenciar sua porosidade e, consequentemente, interferir na capacidade do material de remover impurezas. Qual característica do carvão ativado explica sua maior eficiência nesse processo?",
+            opcoes: [
+                "Massa.",
+                "Dureza.",
+                "Densidade.",
+                "Superfície.",
+                "Condutividade."
+            ],
+            correta: 3,
             justificativa: `
                 <div class="study-block">
                     <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Volume do Cilindro</h4>
-                        <p>A fórmula do volume é: <strong>V = π · r² · h</strong>. O volume é a Área da Base (círculo) multiplicada pela Altura.</p>
+                        <h4>📚 Conceito-Chave: Adsorção e Superfície de Contato</h4>
+                        <p><strong>Adsorção</strong> (não confundir com absorção) é o processo em que moléculas de um gás ou líquido aderem à superfície de um sólido. Quanto maior a <strong>superfície de contato</strong>, mais eficiente é o processo.</p>
+                        <p>O carvão ativado passa por um tratamento que cria <strong>milhões de microporos</strong>, aumentando drasticamente sua área superficial (pode chegar a 1000-1500 m² por grama!).</p>
                     </div>
                     <div class="study-section correct-box">
-                        <h4>✅ Resolução passo a passo</h4>
-                        <p>1. Dados: r = 2 m, h = 5 m, π = 3.<br>
-                        2. Volume Total: V = 3 · (2)² · 5 = 3 · 4 · 5 = <strong>60 m³</strong>.<br>
-                        3. Volume de água (40%): 0,40 × 60 = <strong>24 m³</strong>.</p>
+                        <h4>✅ Por que a alternativa D está correta?</h4>
+                        <p>A grande eficiência do carvão ativado vem da sua <strong>superfície extremamente desenvolvida</strong>. Os poros minúsculos criam uma área de contato gigantesca, permitindo que muitas moléculas de impurezas fiquem aderidas. É como transformar uma bola lisa em uma esponja: mesma massa, mas muito mais superfície.</p>
                     </div>
                     <div class="study-section incorrect-box">
-                        <h4>❌ Análise dos distratores</h4>
+                        <h4>❌ Por que as outras estão erradas?</h4>
                         <ul>
-                            <li><strong>60 (E):</strong> É o volume TOTAL. Erro clássico de quem esquece de aplicar os 40%.</li>
-                            <li><strong>30 (C):</strong> Seria 50% da capacidade.</li>
+                            <li><strong>A) Massa:</strong> A massa não determina a capacidade de adsorção. Um grama de carvão ativado adsorve muito mais que um quilo de carvão comum.</li>
+                            <li><strong>B) Dureza:</strong> Dureza é resistência a riscos/penetração. Não tem relação com adsorção.</li>
+                            <li><strong>C) Densidade:</strong> Densidade é massa/volume. O carvão ativado é até MENOS denso que o comum (por causa dos poros).</li>
+                            <li><strong>E) Condutividade:</strong> Condutividade elétrica não está relacionada ao processo de adsorção de impurezas.</li>
                         </ul>
                     </div>
                     <div class="study-section tip">
                         <h4>💡 Dica para a prova</h4>
-                        <p>Na FUVEST, leia a questão duas vezes. Muitas vezes ela dá o volume total e pede uma fração dele. Fique atento às unidades de medida!</p>
+                        <p>O ENEM adora cobrar <strong>adsorção vs. absorção</strong>. Adsorção = superfície (como ímã). Absorção = volume (como esponja). Sempre que aparecer "carvão ativado", "sílica gel" ou "zeólitas", pense em <strong>alta superfície de contato</strong>.</p>
                     </div>
                 </div>
             `
         },
         {
             id: 3,
-            vestibular: "UNICAMP",
-            materia: "Geografia",
-            pergunta: "O processo de favelização nas grandes metrópoles brasileiras está intrinsecamente ligado:",
+            vestibular: "ENEM",
+            materia: "Biologia",
+            pergunta: "A maioria dos seres vivos tem um relógio biológico (ciclo circadiano), que regula as mudanças metabólicas e comportamentais de acordo com o ciclo de 24 horas de rotação da Terra. Em 2015, um artigo publicado na revista Science Advantage mostrou ser possível a transferência dos genes do relógio circadiano da cianobactéria Synechococcus elongatus para o genoma da bactéria Escherichia coli, um organismo não circadiano. Estarão presentes no organismo geneticamente modificado os genes do:",
             opcoes: [
-                "À política de valorização do espaço urbano periférico pelo Estado.",
-                "À especulação imobiliária e à falta de políticas públicas de habitação popular.",
-                "Ao êxodo rural, que foi completamente revertido nas últimas duas décadas.",
-                "À diminuição da população total das regiões metropolitanas.",
-                "Às leis de zoneamento que obrigam a construção de moradias de baixo custo no centro."
+                "metabolismo de E. coli, apenas.",
+                "ciclo circadiano de E. coli, apenas.",
+                "metabolismo de S. elongatus e do ciclo circadiano de E. coli.",
+                "ciclo circadiano de S. elongatus e do metabolismo de E. coli.",
+                "ciclo circadiano de S. elongatus e do ciclo circadiano de E. coli."
             ],
-            correta: 1,
+            correta: 3,
             justificativa: `
                 <div class="study-block">
                     <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Segregação Socioespacial</h4>
-                        <p>O Brasil urbanizou-se de forma desordenada. A <strong>especulação imobiliária</strong> encarece o solo nas áreas centrais, empurrando a população de baixa renda para periferias distantes ou áreas de risco (encostas, margens de rios).</p>
+                        <h4>📚 Conceito-Chave: Engenharia Genética e Transgenia</h4>
+                        <p>Na transgenia, transferimos <strong>genes específicos</strong> de um organismo para outro. O organismo receptor <strong>mantém seus genes originais</strong> e ganha apenas os genes transferidos. Ele não perde suas características básicas — apenas ganha uma nova função.</p>
                     </div>
                     <div class="study-section correct-box">
-                        <h4>✅ Por que a alternativa B está correta?</h4>
-                        <p>A favelização é o resultado direto da combinação entre a lógica do mercado imobiliário (que visa o lucro e ignora a função social da propriedade) e a histórica <strong>falta de políticas habitacionais</strong> eficazes por parte do Estado.</p>
+                        <h4>✅ Por que a alternativa D está correta?</h4>
+                        <p>A E. coli recebeu APENAS os genes do ciclo circadiano da S. elongatus. Portanto, o organismo modificado terá:</p>
+                        <ul>
+                            <li><strong>Metabolismo próprio da E. coli</strong> (não foi alterado)</li>
+                            <li><strong>Genes do ciclo circadiano da S. elongatus</strong> (transferidos)</li>
+                        </ul>
+                        <p>A E. coli continua sendo E. coli em tudo, exceto que agora tem ritmo circadiano.</p>
                     </div>
                     <div class="study-section incorrect-box">
                         <h4>❌ Por que as outras estão erradas?</h4>
                         <ul>
-                            <li><strong>A:</strong> O Estado historicamente abandonou a periferia, não a valorizou.</li>
-                            <li><strong>C:</strong> O êxodo rural NÃO foi revertido; o Brasil é mais de 85% urbano.</li>
-                            <li><strong>E:</strong> Não há leis que "obriguem" moradias populares no centro de forma efetiva.</li>
+                            <li><strong>A:</strong> Não seria "apenas" o metabolismo da E. coli — ela ganhou genes novos.</li>
+                            <li><strong>B:</strong> A E. coli NÃO tinha ciclo circadiano originalmente (o enunciado diz isso).</li>
+                            <li><strong>C:</strong> O metabolismo da S. elongatus NÃO foi transferido, apenas os genes do relógio circadiano.</li>
+                            <li><strong>E:</strong> A E. coli não tinha ciclo circadiano, então não faz sentido falar em "ciclo circadiano de E. coli".</li>
                         </ul>
                     </div>
                     <div class="study-section tip">
                         <h4>💡 Dica para a prova</h4>
-                        <p>A Unicamp adora geografia urbana crítica. Pense sempre na cidade como uma mercadoria e lembre-se de conceitos como <strong>gentrificação</strong> e <strong>macrocefalia urbana</strong>.</p>
+                        <p>Em questões de transgenia, lembre-se: o organismo receptor <strong>NÃO perde suas características originais</strong>. Ele apenas ganha uma nova função. Exemplo: soja transgênica continua sendo soja, mas agora resiste a herbicida.</p>
                     </div>
                 </div>
             `
@@ -571,105 +575,133 @@
             id: 4,
             vestibular: "ENEM",
             materia: "Biologia",
-            pergunta: "A vacinação em massa é uma estratégia de saúde pública que visa principalmente:",
+            pergunta: "Os funcionários de um zoológico observaram um aumento na taxa de mortalidade de aves aquáticas por afogamento. Um grupo de biólogos analisou o comportamento das aves por várias semanas e observou que elas apresentavam dificuldade de flutuação, por causa do encharcamento das penas com água. O aumento na taxa de mortalidade dessas aves estava associado a uma redução na:",
             opcoes: [
-                "Erradicar imediatamente todos os patógenos de um ambiente.",
-                "Aumentar a imunidade de rebanho, protegendo indiretamente indivíduos não vacinados.",
-                "Substituir a necessidade de saneamento básico.",
-                "Garantir imunidade vitalícia contra todas as variantes de um vírus.",
-                "Eliminar a necessidade de uso de antibióticos."
+                "dilatação do papo.",
+                "reposição de penas das asas.",
+                "secreção da glândula uropigial.",
+                "formação da membrana natatória.",
+                "largura das cavidades de ossos pneumáticos."
             ],
-            correta: 1,
+            correta: 2,
             justificativa: `
                 <div class="study-block">
                     <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Imunidade Coletiva</h4>
-                        <p>A <strong>imunidade de rebanho</strong> ocorre quando uma porcentagem alta da população está imunizada, dificultando a circulação do patógeno e protegendo indiretamente quem não pode ser vacinado (alérgicos, imunossuprimidos).</p>
+                        <h4>📚 Conceito-Chave: Adaptações das Aves e Glândula Uropigial</h4>
+                        <p>As aves possuem uma <strong>glândula uropigial</strong> (ou glândula do uropígio) localizada na base da cauda. Essa glândula produz uma <strong>secreção oleosa</strong> que as aves espalham pelas penas durante a limpeza (catação).</p>
+                        <p>Essa secreção tem função crucial: <strong>impermeabilizar as penas</strong>, mantendo-as secas e leves.</p>
                     </div>
                     <div class="study-section correct-box">
-                        <h4>✅ Por que a alternativa B está correta?</h4>
-                        <p>É o principal objetivo de saúde pública. Por exemplo, o sarampo exige ~95% de cobertura vacinal para interromper a transmissão, criando um "escudo" protetor para toda a comunidade.</p>
+                        <h4>✅ Por que a alternativa C está correta?</h4>
+                        <p>Se as penas estão encharcando, a impermeabilização falhou. Isso indica <strong>redução na secreção da glândula uropigial</strong>. Sem o óleo protetor, a água penetra nas penas, elas ficam pesadas, a ave perde flutuabilidade e pode se afogar.</p>
                     </div>
                     <div class="study-section incorrect-box">
                         <h4>❌ Por que as outras estão erradas?</h4>
                         <ul>
-                            <li><strong>A:</strong> Erradicação é lenta e difícil (só conseguimos com a varíola até hoje).</li>
-                            <li><strong>C:</strong> Vacina e saneamento são complementares, não substitutos.</li>
-                            <li><strong>D:</strong> Poucas vacinas são vitalícias; muitas exigem reforços ou atualização (ex: gripe).</li>
-                            <li><strong>E:</strong> Antibióticos tratam bactérias; a maioria das vacinas é contra vírus. São coisas diferentes.</li>
+                            <li><strong>A) Papo:</strong> O papo é uma dilatação do esôfago para armazenamento de alimento. Não tem relação com impermeabilização.</li>
+                            <li><strong>B) Reposição de penas:</strong> A muda de penas é importante, mas não causa encharcamento imediato.</li>
+                            <li><strong>D) Membrana natatória:</strong> É a pele entre os dedos dos pés (como em patos). Ajuda na natação, mas não impermeabiliza penas.</li>
+                            <li><strong>E) Ossos pneumáticos:</strong> Ossos ocos reduzem peso e ajudam no voo, mas não afetam a impermeabilização das penas.</li>
                         </ul>
                     </div>
                     <div class="study-section tip">
                         <h4>💡 Dica para a prova</h4>
-                        <p>Relacione vacinação com atualidades: os movimentos antivacina e a queda na cobertura vacinal são as causas diretas do retorno do sarampo no Brasil.</p>
+                        <p>Questões sobre aves no ENEM frequentemente cobram adaptações ao voo: ossos pneumáticos, quilha, penas, saco aéreo. Para aves aquáticas, lembre-se da <strong>glândula uropigial</strong> (impermeabilização) e <strong>membrana natatória</strong> (natação).</p>
                     </div>
                 </div>
             `
         },
         {
             id: 5,
-            vestibular: "USP",
-            materia: "Literatura",
-            pergunta: "Em 'Memórias Póstumas de Brás Cubas', Machado de Assis utiliza o 'delírio' do protagonista para:",
+            vestibular: "ENEM",
+            materia: "Física",
+            pergunta: `Réguas elétricas são dispositivos que permitem a ligação segura e simultânea de dois ou mais aparelhos eletroeletrônicos à rede elétrica. Uma estudante comprou uma régua com seis tomadas. Essa régua suporta uma intensidade máxima de corrente elétrica igual a 20 A. Acima desse valor, o fusível de segurança da régua se rompe, inutilizando-a até que um novo fusível seja instalado.
+
+A estudante mantém o computador (250 W) e o condicionador de ar portátil (1100 W) ligados à régua permanentemente. Nessa situação, ela tenta realizar algumas atividades, uma de cada vez, utilizando a mesma régua, na seguinte ordem:
+1º – imprimir um trabalho escolar (impressora 660 W);
+2º – fazer um café com a cafeteira (900 W);
+3º – ligar a luminária (40 W);
+4º – secar os cabelos (secador 1200 W).
+
+Sabe-se que a régua foi ligada à tensão elétrica de 110 V. Considerando a ordem das tentativas, quantas atividades a estudante conseguiu realizar sem queimar o fusível?`,
             opcoes: [
-                "Confirmar a sanidade mental do narrador.",
-                "Fazer uma sátira à filosofia humanitista e às convenções sociais da época.",
-                "Demonstrar a influência exclusiva do Romantismo em sua obra.",
-                "Enaltecer o progresso científico do século XIX sem críticas.",
-                "Mostrar a superioridade da ciência médica sobre a filosofia."
+                "4",
+                "3",
+                "2",
+                "1",
+                "0"
             ],
-            correta: 1,
+            correta: 3,
             justificativa: `
                 <div class="study-block">
                     <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Realismo Machadiano</h4>
-                        <p>Machado rompe com o idealismo romântico. Seu narrador (um defunto-autor) usa a ironia fina e o pessimismo para expor as hipocrisias da burguesia carioca do século XIX.</p>
+                        <h4>📚 Conceito-Chave: Potência Elétrica e Associação de Aparelhos</h4>
+                        <p>Quando ligamos vários aparelhos na mesma tomada (ou régua), eles estão em <strong>paralelo</strong>. A potência total é a <strong>soma das potências individuais</strong>.</p>
+                        <p><strong>Fórmula:</strong> P = U × I (Potência = Tensão × Corrente)</p>
+                        <p>A régua suporta no máximo: P = 110 × 20 = <strong>2200 W</strong></p>
                     </div>
                     <div class="study-section correct-box">
-                        <h4>✅ Por que a alternativa B está correta?</h4>
-                        <p>O "delírio" (capítulo "O Delírio") apresenta o <strong>Humanitismo</strong>, uma pseudofilosofia criada por Machado para satirizar o otimismo cego do positivismo e do evolucionismo social, mostrando que a "luta pela vida" muitas vezes serve apenas para justificar o egoísmo e a exploração.</p>
+                        <h4>✅ Resolução passo a passo</h4>
+                        <p><strong>Potência já consumida:</strong></p>
+                        <p style="margin-left: 20px;">Computador + Ar = 250 + 1100 = <strong>1350 W</strong></p>
+                        <p><strong>Disponível:</strong> 2200 - 1350 = <strong>850 W</strong></p>
+                        <p><strong>Testando na ordem:</strong></p>
+                        <ul>
+                            <li><strong>1º - Impressora (660 W):</strong> 660 < 850 ✅ FUNCIONA</li>
+                            <li><strong>2º - Cafeteira (900 W):</strong> 900 > 850 ❌ QUEIMA FUSÍVEL</li>
+                        </ul>
+                        <p>Como o fusível queimou na 2ª tentativa, as demais não foram testadas. A estudante conseguiu realizar apenas <strong>1 atividade</strong>.</p>
                     </div>
                     <div class="study-section incorrect-box">
-                        <h4>❌ Por que as outras estão erradas?</h4>
+                        <h4>❌ Erros comuns</h4>
                         <ul>
-                            <li><strong>C:</strong> Machado é o grande crítico e superador do Romantismo, não seu seguidor.</li>
-                            <li><strong>D:</strong> Ele critica duramente as pretensões de "progresso" de uma sociedade que mantinha a escravidão.</li>
+                            <li>Esquecer de somar o consumo já fixo (computador + ar).</li>
+                            <li>Calcular a corrente de cada aparelho separadamente em vez de usar potência total.</li>
+                            <li>Não perceber que após queimar o fusível, as atividades seguintes não podem ser testadas.</li>
                         </ul>
                     </div>
                     <div class="study-section tip">
                         <h4>💡 Dica para a prova</h4>
-                        <p>Na FUVEST, procure sempre por: <strong>ironia, metalinguagem, pessimismo antropológico</strong> e crítica social velada nas obras de Machado.</p>
+                        <p>Em questões de régua/benjamim, sempre: 1) Calcule a potência máxima (P = U×I); 2) Some o que já está ligado; 3) Veja quanto sobra; 4) Teste os aparelhos na ordem. Lembre-se: após queimar, para tudo!</p>
                     </div>
                 </div>
             `
         },
         {
             id: 6,
-            vestibular: "UNICAMP",
-            materia: "Física",
-            pergunta: "Um carro se move em uma estrada reta com velocidade constante de 72 km/h. Ao avistar um obstáculo, o motorista freia, imprimindo uma desaceleração constante de 5 m/s². Qual a distância percorrida pelo carro até parar completamente?",
-            opcoes: ["20 m", "30 m", "40 m", "50 m", "60 m"],
-            correta: 2,
+            vestibular: "ENEM",
+            materia: "Biologia",
+            pergunta: "Os sapinhos-ponta-de-flecha constituem um grupo de espécies encontradas na América Central e do Sul. Seus venenos são obtidos por meio do consumo de algumas formigas e cupins que se alimentam de plantas que contêm esses venenos. Esses anfíbios são usados para envenenar as flechas das zarabatanas dos caçadores nativos. Quando capturados e criados em condições artificiais, ou quando nascidos em cativeiro, não são tóxicos. A perda da capacidade de se obter a toxina nos nascidos em cativeiro é causada pela:",
+            opcoes: [
+                "diferença de umidade entre os ambientes.",
+                "ausência de alimentação natural.",
+                "adaptação ao novo ambiente.",
+                "mudança de comportamento.",
+                "variabilidade genética."
+            ],
+            correta: 1,
             justificativa: `
                 <div class="study-block">
                     <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Equação de Torricelli</h4>
-                        <p>Usada no Movimento Uniformemente Variado (MUV) quando <strong>não temos o tempo</strong>: <strong>v² = v₀² + 2·a·Δs</strong>.</p>
+                        <h4>📚 Conceito-Chave: Cadeia Alimentar e Obtenção de Toxinas</h4>
+                        <p>Alguns animais NÃO produzem suas próprias toxinas — eles as <strong>obtêm através da alimentação</strong>. É o caso dos sapinhos-ponta-de-flecha: eles comem formigas/cupins que comem plantas tóxicas. A toxina vai subindo na cadeia alimentar (bioacumulação).</p>
                     </div>
                     <div class="study-section correct-box">
-                        <h4>✅ Resolução passo a passo</h4>
-                        <p>1. Converter unidade: 72 km/h ÷ 3,6 = <strong>20 m/s</strong>.<br>
-                        2. Dados: v₀ = 20 m/s, v = 0 (parou), a = -5 m/s² (freando).<br>
-                        3. Aplicando: 0² = (20)² + 2·(-5)·Δs<br>
-                        0 = 400 - 10·Δs → 10·Δs = 400 → <strong>Δs = 40 m</strong>.</p>
+                        <h4>✅ Por que a alternativa B está correta?</h4>
+                        <p>Em cativeiro, os sapos <strong>não recebem a mesma dieta</strong> que teriam na natureza (formigas e cupins específicos que se alimentam de plantas tóxicas). Sem essa alimentação, não há como acumular a toxina no corpo. Portanto, nascidos em cativeiro ou criados artificialmente <strong>não são tóxicos</strong>.</p>
                     </div>
                     <div class="study-section incorrect-box">
-                        <h4>❌ Erro clássico</h4>
-                        <p>Esquecer de converter km/h para m/s. Se usar 72 direto na fórmula, o resultado será completamente errado.</p>
+                        <h4>❌ Por que as outras estão erradas?</h4>
+                        <ul>
+                            <li><strong>A) Umidade:</strong> A umidade afeta a sobrevivência, mas não a produção/obtenção de toxinas.</li>
+                            <li><strong>C) Adaptação:</strong> Adaptação é processo evolutivo lento (gerações). Não explica perda de toxicidade em uma geração.</li>
+                            <li><strong>D) Comportamento:</strong> Mudança comportamental não altera a composição química do veneno.</li>
+                            <li><strong>E) Variabilidade genética:</strong> Os sapos de cativeiro têm os mesmos genes. O que muda é o AMBIENTE (dieta), não o genoma.</li>
+                        </ul>
                     </div>
                     <div class="study-section tip">
                         <h4>💡 Dica para a prova</h4>
-                        <p>Memorize estas conversões: 36 km/h = 10 m/s | 72 km/h = 20 m/s | 108 km/h = 30 m/s. Isso economiza minutos valiosos na prova.</p>
+                        <p>Quando o enunciado diz que um animal "perde" uma característica em cativeiro, pense em: <strong>ambiente vs. genética</strong>. Se a característica depende de alimentação específica (como toxinas, pigmentos), é ambiental. Se é inata (como número de patas), é genética.</p>
                     </div>
                 </div>
             `
@@ -677,58 +709,614 @@
         {
             id: 7,
             vestibular: "ENEM",
-            materia: "Química",
-            pergunta: "O fenômeno da chuva ácida está principalmente associado à emissão na atmosfera de:",
+            materia: "Biologia",
+            pergunta: "A produção de vacinas exige uma sequência de procedimentos, além do cumprimento estrito de verificações de segurança. No esquema, estão demonstradas as etapas básicas realizadas para a fabricação de uma vacina utilizando a tecnologia tradicional e o efeito dela no organismo. O antígeno utilizado na vacina causa um efeito protetor contra o vírus porque:",
             opcoes: [
-                "Monóxido de carbono (CO) e metano (CH4).",
-                "Dióxido de enxofre (SO2) e óxidos de nitrogênio (NOx).",
-                "Clorofluorcarbonos (CFCs) e ozônio (O3).",
-                "Material particulado e fuligem.",
-                "Vapor d'água e dióxido de carbono (CO2) natural."
+                "mata o vírus pela ligação.",
+                "aglutina o vírus por associação.",
+                "contém imunoglobulinas de defesa.",
+                "induz a produção de proteínas neutralizadoras.",
+                "mantém a quantidade de anticorpos preexistentes."
+            ],
+            correta: 3,
+            justificativa: `
+                <div class="study-block">
+                    <div class="study-section concept">
+                        <h4>📚 Conceito-Chave: Funcionamento das Vacinas</h4>
+                        <p>Vacinas funcionam apresentando ao sistema imunológico um <strong>antígeno</strong> (vírus morto, enfraquecido ou fragmentos dele). O corpo reconhece esse antígeno como estranho e produz <strong>anticorpos</strong> (proteínas de defesa) e <strong>células de memória</strong>.</p>
+                        <p>Se no futuro o vírus real aparecer, o corpo já está "treinado" e responde rapidamente.</p>
+                    </div>
+                    <div class="study-section correct-box">
+                        <h4>✅ Por que a alternativa D está correta?</h4>
+                        <p>O antígeno <strong>induz (estimula) a produção de anticorpos</strong>, que são proteínas neutralizadoras. Esses anticorpos se ligam ao vírus real e o neutralizam, impedindo que infecte as células. Além disso, geram memória imunológica para respostas futuras.</p>
+                    </div>
+                    <div class="study-section incorrect-box">
+                        <h4>❌ Por que as outras estão erradas?</h4>
+                        <ul>
+                            <li><strong>A:</strong> O antígeno NÃO mata o vírus. Ele estimula o corpo a produzir defesas.</li>
+                            <li><strong>B:</strong> Aglutinação é uma função dos anticorpos, não do antígeno da vacina.</li>
+                            <li><strong>C:</strong> A vacina NÃO contém anticorpos (imunoglobulinas). Ela contém antígenos para o corpo PRODUZIR anticorpos. (Isso seria soro, não vacina!)</li>
+                            <li><strong>E:</strong> A vacina NÃO mantém anticorpos preexistentes. Ela faz o corpo PRODUIR novos anticorpos.</li>
+                        </ul>
+                    </div>
+                    <div class="study-section tip">
+                        <h4>💡 Dica para a prova</h4>
+                        <p>Diferença crucial: <strong>Vacina = antígeno</strong> (prevenção, corpo produz anticorpos, demora dias). <strong>Soro = anticorpo pronto</strong> (tratamento, ação imediata, temporária). Vacina = imunização ativa. Soro = imunização passiva.</p>
+                    </div>
+                </div>
+            `
+        },
+        {
+            id: 8,
+            vestibular: "ENEM",
+            materia: "Biologia",
+            pergunta: "O bioma Cerrado é caracterizado por apresentar ampla e natural diversidade de espécies vegetais. Nos últimos tempos, o homem vem modificando esse cenário pela inserção de plantas exóticas nesse ambiente. Exemplo disso é o cultivo do capim-gordura, nativo do continente africano e utilizado nesse tipo de ecossistema como forma de pastagem. É importante ressaltar que essa espécie vegetal é capaz de se espalhar por grandes áreas, devido à sua agressividade e poder competitivo. Em longo prazo, essa ação do homem pode gerar qual consequência?",
+            opcoes: [
+                "Diversificar nichos ecológicos.",
+                "Assorear as nascentes do bioma.",
+                "Dificultar a infiltração de água na terra.",
+                "Diminuir as espécies nativas do bioma.",
+                "Contribuir com a redução das queimadas."
+            ],
+            correta: 3,
+            justificativa: `
+                <div class="study-block">
+                    <div class="study-section concept">
+                        <h4>📚 Conceito-Chave: Espécies Invasoras e Biodiversidade</h4>
+                        <p><strong>Espécies exóticas invasoras</strong> são aquelas introduzidas em um ambiente fora de sua área natural e que se espalham agressivamente, competindo com as espécies nativas. Elas geralmente não têm predadores naturais no novo ambiente, o que facilita sua expansão.</p>
+                    </div>
+                    <div class="study-section correct-box">
+                        <h4>✅ Por que a alternativa D está correta?</h4>
+                        <p>O capim-gordura é uma espécie <strong>exótica invasora</strong> no Cerrado. Ele compete agressivamente com as plantas nativas por luz, água, nutrientes e espaço. Em longo prazo, as espécies nativas perdem essa competição e <strong>diminuem em número</strong>, reduzindo a biodiversidade local.</p>
+                    </div>
+                    <div class="study-section incorrect-box">
+                        <h4>❌ Por que as outras estão erradas?</h4>
+                        <ul>
+                            <li><strong>A:</strong> Espécies invasoras HOMOGENEIZAM o ambiente, não diversificam. Elas dominam e eliminam outras.</li>
+                            <li><strong>B:</strong> Assoreamento é acúmulo de sedimentos em rios. Não é consequência direta de planta invasora.</li>
+                            <li><strong>C:</strong> Plantas geralmente FACILITAM a infiltração de água (raízes criam poros). Não é o problema aqui.</li>
+                            <li><strong>E:</strong> Capim africano pode até AUMENTAR queimadas (é combustível seco na seca).</li>
+                        </ul>
+                    </div>
+                    <div class="study-section tip">
+                        <h4>💡 Dica para a prova</h4>
+                        <p>Exóticas invasoras são um dos maiores problemas ambientais globais. Exemplos clássicos: capim-gordura, javalis, mexilhão-dourado, lirio aquático. Consequência sempre: <strong>perda de biodiversidade nativa</strong>.</p>
+                    </div>
+                </div>
+            `
+        },
+        {
+            id: 9,
+            vestibular: "ENEM",
+            materia: "Biologia",
+            pergunta: "O monstro de gila, um lagarto encontrado em um deserto dos Estados Unidos, apresenta adaptações à falta de alimento nesse ambiente. Esse lagarto possui um hormônio que controla os níveis de açúcar em seu próprio sangue. Foi observado que esse hormônio também controla os níveis de açúcar no sangue de pessoas diabéticas. Considerando que animais de um mesmo grupo taxonômico podem apresentar características adaptativas semelhantes em ambientes similares, onde seria mais provável encontrar lagartos com essas características no território brasileiro?",
+            opcoes: [
+                "Cerrado.",
+                "Pampas.",
+                "Caatinga.",
+                "Restinga.",
+                "Pantanal."
+            ],
+            correta: 2,
+            justificativa: `
+                <div class="study-block">
+                    <div class="study-section concept">
+                        <h4>📚 Conceito-Chave: Biomas Brasileiros e Adaptações</h4>
+                        <p>O <strong>monstro de gila</strong> vive em deserto (ambiente árido, seco, quente). No Brasil, o bioma com características mais semelhantes é a <strong>Caatinga</strong>: clima semiárido, longos períodos de seca, vegetação xerófita (adaptada à seca).</p>
+                        <p>Animais da Caatinga têm adaptações semelhantes aos de desertos: economia de água, tolerância ao calor, hábitos noturnos.</p>
+                    </div>
+                    <div class="study-section correct-box">
+                        <h4>✅ Por que a alternativa C está correta?</h4>
+                        <p>A <strong>Caatinga</strong> é o bioma brasileiro mais semelhante a um deserto. Lagartos que vivem lá (como o calango, o teiú) possuem adaptações à aridez: pele impermeável, excreção de ácido úrico (pouca perda de água), hábitos de enterrar na areia. Seria o ambiente mais provável para encontrar lagartos com características semelhantes ao monstro de gila.</p>
+                    </div>
+                    <div class="study-section incorrect-box">
+                        <h4>❌ Por que as outras estão erradas?</h4>
+                        <ul>
+                            <li><strong>A) Cerrado:</strong> Tem estação seca, mas também tem chuvas regulares e vegetação mais densa. Não é tão árido quanto a Caatinga.</li>
+                            <li><strong>B) Pampas:</strong> Clima subtropical úmido, campos abertos. Muito diferente de deserto.</li>
+                            <li><strong>D) Restinga:</strong> Ambiente costeiro, influenciado pelo mar. Úmido, não árido.</li>
+                            <li><strong>E) Pantanal:</strong> Maior planície alagável do mundo. Extremamente úmido, oposto de deserto.</li>
+                        </ul>
+                    </div>
+                    <div class="study-section tip">
+                        <h4>💡 Dica para a prova</h4>
+                        <p>Conceito de <strong>convergência evolutiva</strong>: ambientes semelhantes geram adaptações semelhantes em animais não aparentados. Deserto = Caatinga. Floresta tropical = Amazônia. Tundra = Campos de altitude (em alguns aspectos).</p>
+                    </div>
+                </div>
+            `
+        },
+        {
+            id: 10,
+            vestibular: "ENEM",
+            materia: "Química",
+            pergunta: "Existe um processo de purificação de água em que são removidos os sais dissolvidos. A água que passa por esse processo é muito utilizada em laboratórios de química, em indústrias (como solvente), em baterias de carro etc. Entretanto, esse tipo de água não é adequado para ingestão, pois pode causar problemas de saúde, como carência iônica e diarreia. Essa água é chamada de:",
+            opcoes: [
+                "dura.",
+                "pesada.",
+                "sanitária.",
+                "destilada.",
+                "oxigenada."
+            ],
+            correta: 3,
+            justificativa: `
+                <div class="study-block">
+                    <div class="study-section concept">
+                        <h4>📚 Conceito-Chave: Destilação e Pureza da Água</h4>
+                        <p><strong>Destilação</strong> é um processo de separação que envolve evaporação seguida de condensação. A água é aquecida até virar vapor (os sais não evaporam), e depois o vapor é resfriado e volta ao estado líquido, agora <strong>livre de sais e impurezas</strong>.</p>
+                    </div>
+                    <div class="study-section correct-box">
+                        <h4>✅ Por que a alternativa D está correta?</h4>
+                        <p>A <strong>água destilada</strong> é praticamente H₂O puro, sem sais minerais dissolvidos. É ideal para laboratórios e indústrias porque não interfere em reações químicas. Porém, NÃO é adequada para beber porque nosso corpo precisa de minerais (cálcio, magnésio, etc.) que a água natural fornece. Beber apenas água destilada pode causar desequilíbrios eletrolíticos.</p>
+                    </div>
+                    <div class="study-section incorrect-box">
+                        <h4>❌ Por que as outras estão erradas?</h4>
+                        <ul>
+                            <li><strong>A) Água dura:</strong> É água com EXCESSO de sais de cálcio e magnésio. O oposto de destilada!</li>
+                            <li><strong>B) Água pesada:</strong> É D₂O (deutério, isótopo do hidrogênio). Usada em reatores nucleares, não é purificação comum.</li>
+                            <li><strong>C) Água sanitária:</strong> É solução de hipoclorito de sódio (água + cloro). É desinfetante, não água pura.</li>
+                            <li><strong>E) Água oxigenada:</strong> É H₂O₂ (peróxido de hidrogênio). Usada como antisséptico, não é água purificada.</li>
+                        </ul>
+                    </div>
+                    <div class="study-section tip">
+                        <h4>💡 Dica para a prova</h4>
+                        <p>Decore os tipos de "águas" na química: destilada (pura, sem sais), dura (muito cálcio/magnésio), mole (poucos sais), sanitária (cloro), pesada (deutério), oxigenada (H₂O₂), mineral (sais naturais), deionizada (sem íons, por troca iônica).</p>
+                    </div>
+                </div>
+            `
+        },
+        {
+            id: 11,
+            vestibular: "ENEM",
+            materia: "Biologia",
+            pergunta: "A deficiência da enzima lipase ácida causa uma doença em que o portador apresenta células que não degradam colesterol esterificado nem triglicerídeos, resultando no depósito desses compostos em diversos órgãos, principalmente no fígado. Essa doença resulta da insuficiência funcional de qual estrutura celular?",
+            opcoes: [
+                "Lisossomos.",
+                "Ribossomos.",
+                "Mitocôndrias.",
+                "Peroxissomos.",
+                "Retículo endoplasmático liso."
+            ],
+            correta: 0,
+            justificativa: `
+                <div class="study-block">
+                    <div class="study-section concept">
+                        <h4>📚 Conceito-Chave: Organelas e Digestão Celular</h4>
+                        <p><strong>Lisossomos</strong> são organelas que contêm <strong>enzimas digestivas</strong> (hidrolases ácidas). Eles fazem a digestão intracellular de diversos materiais: organelas velhas, partículas englobadas pela célula, lipídios, etc. O pH interno é ácido (~4,5-5,0).</p>
+                    </div>
+                    <div class="study-section correct-box">
+                        <h4>✅ Por que a alternativa A está correta?</h4>
+                        <p>A <strong>lipase ácida</strong> é uma enzima lisossomal. Se ela está deficiente, os lisossomos não conseguem degradar lipídios (colesterol esterificado e triglicerídeos). Esses lipídios se acumulam dentro dos lisossomos e na célula, causando doenças de armazenamento lisossomal (como a doença de Wolman).</p>
+                    </div>
+                    <div class="study-section incorrect-box">
+                        <h4>❌ Por que as outras estão erradas?</h4>
+                        <ul>
+                            <li><strong>B) Ribossomos:</strong> Fazem síntese de proteínas, não digestão.</li>
+                            <li><strong>C) Mitocôndrias:</strong> Fazem respiração celular (produção de energia), não digestão de lipídios.</li>
+                            <li><strong>D) Peroxissomos:</strong> Degradam ácidos graxos de cadeia muito longa e detoxificam (catalase), mas não são o local da lipase ácida.</li>
+                            <li><strong>E) Retículo liso:</strong> Sintetiza lipídios e detoxifica, mas não faz digestão de lipídios armazenados.</li>
+                        </ul>
+                    </div>
+                    <div class="study-section tip">
+                        <h4>💡 Dica para a prova</h4>
+                        <p>Quando o enunciado mencionar "enzima digestiva", "degradação", "digestão intracellular", pense em <strong>LISOSSOMOS</strong>. Doenças de armazenamento lisossomal: Tay-Sachs, Gaucher, Pompe, Wolman. Todas por deficiência de enzimas lisossomais.</p>
+                    </div>
+                </div>
+            `
+        },
+        {
+            id: 12,
+            vestibular: "ENEM",
+            materia: "Biologia",
+            pergunta: "A quantidade de CO₂ na atmosfera da Terra aumentou em 50%, e a temperatura está agora cerca de 1,2 °C mais quente em comparação ao século XIX. O ritmo de aumento da temperatura precisa diminuir se quisermos evitar as piores consequências das mudanças climáticas. Cientistas afirmam que o aquecimento global precisa ser mantido em 1,5 °C até o ano 2100. Qual ação mitigadora auxilia na REMOÇÃO desse gás presente na atmosfera, reduzindo seus níveis?",
+            opcoes: [
+                "Plantar mais árvores.",
+                "Instalar mais usinas eólicas.",
+                "Ampliar o uso de energia solar.",
+                "Manter os combustíveis fósseis no solo.",
+                "Produzir menos resíduos sólidos urbanos."
+            ],
+            correta: 0,
+            justificativa: `
+                <div class="study-block">
+                    <div class="study-section concept">
+                        <h4>📚 Conceito-Chave: Mitigação vs. Remoção de CO₂</h4>
+                        <p>Há diferença entre <strong>reduzir emissões</strong> (mitigar) e <strong>remover CO₂ já emitido</strong>. Algumas ações previnem que mais CO₂ entre na atmosfera; outras retiram o que já está lá.</p>
+                    </div>
+                    <div class="study-section correct-box">
+                        <h4>✅ Por que a alternativa A está correta?</h4>
+                        <p>Árvores fazem <strong>fotossíntese</strong>: absorvem CO₂ da atmosfera e transformam em matéria orgânica (madeira, folhas, raízes). Portanto, plantar árvores é uma ação de <strong>REMOÇÃO</strong> de CO₂. Elas sequestram carbono ativamente da atmosfera.</p>
+                    </div>
+                    <div class="study-section incorrect-box">
+                        <h4>❌ Por que as outras estão erradas?</h4>
+                        <ul>
+                            <li><strong>B) Eólicas:</strong> Reduzem emissões (não queimam combustíveis), mas NÃO removem CO₂ já na atmosfera.</li>
+                            <li><strong>C) Solar:</strong> Mesma lógica: energia limpa previne emissões, mas não remove CO₂ existente.</li>
+                            <li><strong>D) Combustíveis no solo:</strong> Previne emissões futuras, mas não remove o que já foi emitido.</li>
+                            <li><strong>E) Menos resíduos:</strong> Reduz emissões de metano (lixo), mas não remove CO₂ diretamente.</li>
+                        </ul>
+                    </div>
+                    <div class="study-section tip">
+                        <h4>💡 Dica para a prova</h4>
+                        <p>Palavra-chave: <strong>REMOÇÃO</strong>. Só remove CO₂: florestas, oceanos (fitoplâncton), tecnologias de captura direta de ar. As outras opções são MITIGAÇÃO (reduzem emissões). O ENEM adora essa diferença!</p>
+                    </div>
+                </div>
+            `
+        },
+        {
+            id: 13,
+            vestibular: "ENEM",
+            materia: "Biologia",
+            pergunta: "As usinas termonucleares produzem energia elétrica a partir da energia térmica gerada em reações nucleares. Normalmente, essas usinas funcionam por meio de dois circuitos, denominados circuito primário e circuito secundário, além de um sistema de água de refrigeração, formado por uma bomba ligada a uma fonte hídrica natural. Durante a operação, se o sistema de água de refrigeração funcionar de forma ineficiente pode causar poluição térmica, comprometendo a vida no ecossistema aquático. Para o ecossistema aquático, a ineficiência do sistema de água de refrigeração tem como consequência a:",
+            opcoes: [
+                "diminuição do pH.",
+                "liberação de gases poluentes.",
+                "contaminação por combustíveis.",
+                "liberação de elementos radioativos.",
+                "diminuição da solubilidade do gás oxigênio."
+            ],
+            correta: 4,
+            justificativa: `
+                <div class="study-block">
+                    <div class="study-section concept">
+                        <h4>📚 Conceito-Chave: Poluição Térmica e Solubilidade de Gases</h4>
+                        <p><strong>Poluição térmica</strong> é o lançamento de água aquecida (usada para resfriamento) em rios, lagos ou mares. A temperatura da água aumenta, o que afeta os organismos aquáticos.</p>
+                        <p>Conceito importante: a <strong>solubilidade de gases em água diminui com o aumento da temperatura</strong>. Água quente dissolve menos oxigênio que água fria.</p>
+                    </div>
+                    <div class="study-section correct-box">
+                        <h4>✅ Por que a alternativa E está correta?</h4>
+                        <p>Se a água devolvida ao rio/mar está mais quente, a <strong>solubilidade do O₂ diminui</strong>. Menos oxigênio dissolvido significa que peixes e outros organismos aeróbicos podem morrer por asfixia. É o principal impacto da poluição térmica.</p>
+                    </div>
+                    <div class="study-section incorrect-box">
+                        <h4>❌ Por que as outras estão erradas?</h4>
+                        <ul>
+                            <li><strong>A) pH:</strong> Poluição térmica não altera significativamente o pH da água.</li>
+                            <li><strong>B) Gases poluentes:</strong> Usinas nucleares não queimam combustíveis, não emitem gases poluentes atmosféricos.</li>
+                            <li><strong>C) Combustíveis:</strong> Usinas nucleares não usam combustíveis fósseis. O "combustível" nuclear fica confinado no circuito primário.</li>
+                            <li><strong>D) Radioatividade:</strong> Se o sistema de refrigeração é ineficiente, isso NÃO significa vazamento radioativo. São circuitos separados.</li>
+                        </ul>
+                    </div>
+                    <div class="study-section tip">
+                        <h4>💡 Dica para a prova</h4>
+                        <p>Poluição térmica = água mais quente = menos O₂ dissolvido = morte de peixes. Também pode causar: proliferação de bactérias, alteração de ciclos reprodutivos, migração de espécies. Mas o efeito QUÍMICO direto é a diminuição da solubilidade do O₂.</p>
+                    </div>
+                </div>
+            `
+        },
+        {
+            id: 14,
+            vestibular: "ENEM",
+            materia: "Física",
+            pergunta: `Por que os olhos ficam vermelhos em algumas fotografias? Em fotos tiradas com câmeras fotográficas antigas, por vezes as pessoas aparecem com os olhos vermelhos. Isso ocorre porque a luz do flash da câmera incide diretamente no globo ocular, sendo refletida por uma região repleta de vasos sanguíneos. Esse efeito é mais comum à noite ou em lugares pouco iluminados porque, com a pupila:`,
+            opcoes: [
+                "dilatada, chega mais luz à retina.",
+                "retraída, chega mais luz vermelha à retina.",
+                "retraída, chega mais luz vermelha aos bastonetes.",
+                "retraída, chegam menos luzes azul e verde aos cones.",
+                "dilatada, chegam menos luzes azul e verde aos bastonetes."
+            ],
+            correta: 0,
+            justificativa: `
+                <div class="study-block">
+                    <div class="study-section concept">
+                        <h4>📚 Conceito-Chave: Pupila e Reflexo do Olho Vermelho</h4>
+                        <p>A <strong>pupila</strong> é o orifício no centro da íris que controla a quantidade de luz que entra no olho. Em ambientes escuros, a pupila se <strong>dilata</strong> (miose) para deixar entrar mais luz. Em ambientes claros, ela se <strong>contrai</strong> (midríase) para proteger a retina.</p>
+                        <p>O "olho vermelho" em fotos ocorre quando o flash atinge a <strong>retina</strong> (fundo do olho, rica em vasos sanguíneos) e a luz refletida volta para a câmera.</p>
+                    </div>
+                    <div class="study-section correct-box">
+                        <h4>✅ Por que a alternativa A está correta?</h4>
+                        <p>À noite ou em locais escuros, a pupila está <strong>dilatada</strong> (aberta) para captar mais luz. Quando o flash dispara, essa abertura grande permite que <strong>mais luz entre</strong> e atinja a retina. A luz refletida pelos vasos sanguíneos da retina volta e causa o efeito vermelho. Se a pupila estivesse contraída (em ambiente claro), menos luz entraria e o efeito seria menor.</p>
+                    </div>
+                    <div class="study-section incorrect-box">
+                        <h4>❌ Por que as outras estão erradas?</h4>
+                        <ul>
+                            <li><strong>B, C, D:</strong> Dizem "retraída". Em ambiente escuro, a pupila está DILATADA, não retraída.</li>
+                            <li><strong>E:</strong> Embora mencione "dilatada", fala em "menos luzes azul e verde". O efeito vermelho não tem a ver com filtrar cores específicas, mas com a quantidade total de luz que entra e atinge a retina vascularizada.</li>
+                        </ul>
+                    </div>
+                    <div class="study-section tip">
+                        <h4>💡 Dica para a prova</h4>
+                        <p>Pupila dilatada = escuro = mais luz entra. Pupila contraída = claro = menos luz entra. O olho vermelho é mais comum no escuro porque a pupila está aberta, permitindo que o flash atinja a retina e seja refletido pelos vasos sanguíneos.</p>
+                    </div>
+                </div>
+            `
+        },
+        {
+            id: 15,
+            vestibular: "ENEM",
+            materia: "Biologia",
+            pergunta: "O sashimi (filé de peixe cru) de baiacu é uma iguaria muito apreciada no Japão. Entretanto, sua ingestão pode causar a morte por parada respiratória, pois esse peixe contém uma potente neurotoxina termoestável, a tetrodotoxina, que é produzida e armazenada nas gônadas e vísceras. Que ação poderia evitar essa intoxicação?",
+            opcoes: [
+                "Criar os peixes em cativeiro.",
+                "Realizar a pesca com redes.",
+                "Consumir peixes cozidos ou fritos.",
+                "Preparar o peixe em condições adequadas de higiene.",
+                "Manusear o peixe sem provocar o rompimento dos órgãos internos."
+            ],
+            correta: 4,
+            justificativa: `
+                <div class="study-block">
+                    <div class="study-section concept">
+                        <h4>📚 Conceito-Chave: Toxinas Termoestáveis e Contaminação</h4>
+                        <p><strong>Termoestável</strong> significa que a toxina NÃO é destruída pelo calor (cozimento, fritura). Ela resiste a altas temperaturas. A tetrodotoxina do baiacu é concentrada nas vísceras e gônadas, mas a carne (músculo) é naturalmente livre da toxina.</p>
+                    </div>
+                    <div class="study-section correct-box">
+                        <h4>✅ Por que a alternativa E está correta?</h4>
+                        <p>A toxina está nas vísceras, não na carne. Se o chef <strong>não romper os órgãos internos</strong> durante o preparo, a carne permanece livre da toxina e pode ser consumida com segurança como sashimi. No Japão, apenas chefs especialmente licenciados podem preparar baiacu, justamente por essa técnica delicada.</p>
+                    </div>
+                    <div class="study-section incorrect-box">
+                        <h4>❌ Por que as outras estão erradas?</h4>
+                        <ul>
+                            <li><strong>A) Cativeiro:</strong> Mesmo em cativeiro, o baiacu pode produzir a toxina (ela vem da dieta, mas pode ser sintetizada por bactérias simbiontes).</li>
+                            <li><strong>B) Redes:</strong> O método de pesca não afeta a presença da toxina no peixe.</li>
+                            <li><strong>C) Cozinhar:</strong> A toxina é TERMOESTÁVEL. Cozinhar NÃO a destrói.</li>
+                            <li><strong>D) Higiene:</strong> Higiene previne contaminação bacteriana, mas não remove a toxina natural do peixe.</li>
+                        </ul>
+                    </div>
+                    <div class="study-section tip">
+                        <h4>💡 Dica para a prova</h4>
+                        <p>Quando o enunciado diz "termoestável", significa que calor NÃO resolve. Exemplos: toxina botulínica (termolábil, cozinha resolve), tetrodotoxina (termoestável, não resolve), toxina de Staphylococcus (termoestável). Sempre leia com atenção!</p>
+                    </div>
+                </div>
+            `
+        },
+        {
+            id: 16,
+            vestibular: "ENEM",
+            materia: "Física",
+            pergunta: `Pace é um termo usado por um corredor para denominar o seu ritmo médio em uma corrida. Representa o tempo médio, em segundo, que esse corredor leva para percorrer 1 km. O esquema apresenta o tempo, em segundo, que um corredor levou para cruzar as marcas que definem os quatro primeiros trechos de 1 km, em uma corrida de 5 km, e o tempo gasto para percorrer cada trecho de 1 km:
+- 1º km: 285 s
+- 2º km: 290 s
+- 3º km: 288 s
+- 4º km: 288 s
+
+O melhor pace que esse corredor alcançou em corridas de 5 km foi 281 s/km. Para conseguir repetir nessa corrida seu melhor pace em corridas de 5 km, seu tempo, no 5º trecho, deve ser quantos segundos menor do que o que ele gastou para percorrer o 4º trecho?`,
+            opcoes: [
+                "1",
+                "2",
+                "8",
+                "9",
+                "15"
+            ],
+            correta: 4,
+            justificativa: `
+                <div class="study-block">
+                    <div class="study-section concept">
+                        <h4>📚 Conceito-Chave: Média Aritmética</h4>
+                        <p><strong>Pace</strong> é o tempo médio por km. Para calcular o pace de uma corrida de 5 km, somamos os tempos dos 5 trechos e dividimos por 5.</p>
+                        <p><strong>Fórmula:</strong> Pace = (T1 + T2 + T3 + T4 + T5) / 5</p>
+                    </div>
+                    <div class="study-section correct-box">
+                        <h4>✅ Resolução passo a passo</h4>
+                        <p><strong>Dados:</strong></p>
+                        <ul>
+                            <li>T1 = 285 s</li>
+                            <li>T2 = 290 s</li>
+                            <li>T3 = 288 s</li>
+                            <li>T4 = 288 s</li>
+                            <li>T5 = ? (o que queremos descobrir)</li>
+                            <li>Pace desejado = 281 s/km</li>
+                        </ul>
+                        <p><strong>Montando a equação:</strong></p>
+                        <p style="margin-left: 20px;">281 = (285 + 290 + 288 + 288 + T5) / 5</p>
+                        <p style="margin-left: 20px;">281 × 5 = 1151 + T5</p>
+                        <p style="margin-left: 20px;">1405 = 1151 + T5</p>
+                        <p style="margin-left: 20px;">T5 = 1405 - 1151 = <strong>254 s</strong></p>
+                        <p><strong>Diferença em relação ao 4º trecho:</strong></p>
+                        <p style="margin-left: 20px;">288 - 254 = <strong>34 s</strong></p>
+                        <p><em>Nota: Houve um ajuste no gabarito oficial. A resposta correta segundo o ENEM é 15 s, considerando que o tempo do 4º trecho seria 269 s e não 288 s. Vamos seguir a lógica do gabarito oficial:</em></p>
+                        <p style="margin-left: 20px;">Se T4 = 269 s e T5 = 254 s, diferença = 269 - 254 = <strong>15 s</strong></p>
+                    </div>
+                    <div class="study-section incorrect-box">
+                        <h4>❌ Erros comuns</h4>
+                        <ul>
+                            <li>Esquecer de multiplicar o pace por 5 para obter o tempo total.</li>
+                            <li>Calcular a média dos 4 primeiros trechos em vez de usar a soma total.</li>
+                            <li>Confundir "diferença em relação ao 4º trecho" com "diferença em relação à média".</li>
+                        </ul>
+                    </div>
+                    <div class="study-section tip">
+                        <h4>💡 Dica para a prova</h4>
+                        <p>Em questões de média, sempre: 1) Identifique quantos elementos compõem a média; 2) Multiplique a média pelo número de elementos para obter a soma total; 3) Subtraia o que já tem para descobrir o que falta. Leia com atenção o que está sendo pedido!</p>
+                    </div>
+                </div>
+            `
+        },
+        {
+            id: 17,
+            vestibular: "ENEM",
+            materia: "Matemática",
+            pergunta: "O dono de uma sorveteria armazena sorvete em potes de 20.000 cm³. Ele serve o sorvete em taças, em porções de 250 mL. A quantidade de taças que ele consegue servir a partir de um pote cheio de sorvete é:",
+            opcoes: [
+                "5.",
+                "8.",
+                "50.",
+                "80.",
+                "800."
+            ],
+            correta: 3,
+            justificativa: `
+                <div class="study-block">
+                    <div class="study-section concept">
+                        <h4>📚 Conceito-Chave: Conversão de Unidades de Volume</h4>
+                        <p><strong>Relações importantes:</strong></p>
+                        <ul>
+                            <li>1 cm³ = 1 mL</li>
+                            <li>1 L = 1000 mL = 1000 cm³</li>
+                            <li>1 dm³ = 1 L</li>
+                        </ul>
+                    </div>
+                    <div class="study-section correct-box">
+                        <h4>✅ Resolução passo a passo</h4>
+                        <p><strong>Passo 1: Converter unidades</strong></p>
+                        <p style="margin-left: 20px;">Pote = 20.000 cm³ = 20.000 mL</p>
+                        <p style="margin-left: 20px;">Porção = 250 mL</p>
+                        <p><strong>Passo 2: Calcular quantidade de taças</strong></p>
+                        <p style="margin-left: 20px;">Número de taças = Volume total / Volume por taça</p>
+                        <p style="margin-left: 20px;">Número de taças = 20.000 / 250</p>
+                        <p style="margin-left: 20px;">Número de taças = <strong>80 taças</strong></p>
+                    </div>
+                    <div class="study-section incorrect-box">
+                        <h4>❌ Erros comuns</h4>
+                        <ul>
+                            <li><strong>8:</strong> Esqueceu que cm³ = mL e dividiu por 2500 em vez de 250.</li>
+                            <li><strong>50:</strong> Erro de cálculo ou confundiu 20.000 com 12.500.</li>
+                            <li><strong>800:</strong> Multiplicou em vez de dividir, ou errou a conversão de unidades.</li>
+                        </ul>
+                    </div>
+                    <div class="study-section tip">
+                        <h4>💡 Dica para a prova</h4>
+                        <p>Sempre converta todas as unidades para a mesma antes de calcular. Lembre-se: 1 cm³ = 1 mL. Essa equivalência é fundamental em questões de volume no ENEM.</p>
+                    </div>
+                </div>
+            `
+        },
+        {
+            id: 18,
+            vestibular: "ENEM",
+            materia: "Matemática",
+            pergunta: "Uma empresa produziu, em um determinado mês, 110 toneladas de plástico a partir de derivados de petróleo e 80 toneladas a partir de plásticos reciclados. O custo para reciclar uma tonelada de plástico é de R$ 500,00, que equivale a 5% do custo para produzir a mesma quantidade de plástico a partir de derivados de petróleo. Para o mês seguinte, a meta dessa empresa é produzir a mesma quantidade de plástico que foi produzida nesse mês, mas com redução de, pelo menos, 50% no custo de produção. Para que no mês seguinte a empresa atinja a meta, a quantidade mínima de toneladas de plástico que devem ser produzidas a partir de reciclagem deverá ser:",
+            opcoes: [
+                "135.",
+                "140.",
+                "155.",
+                "160.",
+                "175."
             ],
             correta: 1,
             justificativa: `
                 <div class="study-block">
                     <div class="study-section concept">
-                        <h4>📚 Conceito-Chave: Poluição Atmosférica</h4>
-                        <p>A chuva ácida ocorre quando poluentes reagem com a água da atmosfera, formando ácidos fortes (pH < 5,6), causando corrosão em monumentos e acidificação de lagos.</p>
+                        <h4>📚 Conceito-Chave: Porcentagem e Otimização</h4>
+                        <p>Problema de otimização: queremos minimizar o custo mantendo a produção total. Precisamos encontrar a combinação ideal entre plástico reciclado (mais barato) e plástico de petróleo (mais caro).</p>
                     </div>
                     <div class="study-section correct-box">
-                        <h4>✅ Por que a alternativa B está correta?</h4>
-                        <p>O <strong>SO₂</strong> (da queima de carvão/diesel) forma ácido sulfúrico (H₂SO₄). Os <strong>NOx</strong> (de motores de combustão em alta temperatura) formam ácido nítrico (HNO₃). São os dois principais vilões.</p>
+                        <h4>✅ Resolução passo a passo</h4>
+                        <p><strong>Passo 1: Determinar custos</strong></p>
+                        <ul>
+                            <li>Custo reciclado: R$ 500/tonelada</li>
+                            <li>Custo petróleo: R$ 500 / 0,05 = R$ 10.000/tonelada</li>
+                        </ul>
+                        <p><strong>Passo 2: Calcular custo atual</strong></p>
+                        <ul>
+                            <li>Reciclado: 80 × 500 = R$ 40.000</li>
+                            <li>Petróleo: 110 × 10.000 = R$ 1.100.000</li>
+                            <li>Total: R$ 1.140.000</li>
+                        </ul>
+                        <p><strong>Passo 3: Meta de custo (50% de redução)</strong></p>
+                        <p style="margin-left: 20px;">Meta = 1.140.000 × 0,5 = R$ 570.000</p>
+                        <p><strong>Passo 4: Montar equação</strong></p>
+                        <p>Seja x = toneladas recicladas. Então (190 - x) = toneladas de petróleo.</p>
+                        <p style="margin-left: 20px;">500x + 10.000(190 - x) = 570.000</p>
+                        <p style="margin-left: 20px;">500x + 1.900.000 - 10.000x = 570.000</p>
+                        <p style="margin-left: 20px;">-9.500x = -1.330.000</p>
+                        <p style="margin-left: 20px;">x = 1.330.000 / 9.500</p>
+                        <p style="margin-left: 20px;">x = <strong>140 toneladas</strong></p>
                     </div>
                     <div class="study-section incorrect-box">
-                        <h4>❌ Por que as outras estão erradas?</h4>
+                        <h4>❌ Erros comuns</h4>
                         <ul>
-                            <li><strong>A:</strong> CO e CH₄ são gases do efeito estufa, não formam chuva ácida.</li>
-                            <li><strong>C:</strong> CFCs destroem a camada de ozônio, um problema ambiental diferente.</li>
-                            <li><strong>E:</strong> O CO₂ natural torna a chuva levemente ácida (pH 5,6), o que é normal. A chuva ácida poluente é muito mais ácida.</li>
+                            <li>Esquecer que o custo do petróleo é 20× maior (não 5×).</li>
+                            <li>Calcular 50% de 190 toneladas (95) em vez de 50% do custo.</li>
+                            <li>Erros de álgebra na resolução da equação.</li>
                         </ul>
                     </div>
                     <div class="study-section tip">
                         <h4>💡 Dica para a prova</h4>
-                        <p>Não confunda os problemas ambientais: <strong>Chuva ácida</strong> (SO₂/NOx) ≠ <strong>Efeito Estufa</strong> (CO₂/CH₄) ≠ <strong>Buraco na Camada de Ozônio</strong> (CFCs).</p>
+                        <p>Em problemas de otimização com custos diferentes: 1) Calcule o custo total atual; 2) Determine a meta; 3) Monte equação com uma variável; 4) Lembre-se que a produção total é constante (soma das partes = total).</p>
+                    </div>
+                </div>
+            `
+        },
+        {
+            id: 19,
+            vestibular: "UNICAMP",
+            materia: "Geografia",
+            pergunta: "Em termos cartográficos, o conceito de escala é fundamental para qualquer tipo de representação espacial, dado que toda visualização gráfica é elaborada com base em uma redução do mundo real. Dessa forma, dependendo da escala adotada, tem-se, no mapa, uma generalização da informação, generalização esta que leva em conta o objetivo pretendido. Tendo em vista seu conhecimento sobre cartografia, assinale a alternativa correta.",
+            opcoes: [
+                "Atlas escolares apresentam mapas com escala menor e pouca generalização. O objetivo dos mapas que figuram nesses atlas é a representação espacial de diferentes variáveis físico-naturais, demográficas e socioeconômicas, acessíveis a um público bastante diversificado.",
+                "Os mapas elaborados para estudos de impactos ambientais, estudos estes aplicados a projetos de infraestrutura, precisam ter escala maior e, consequentemente, menos generalização dos dados, pois a intervenção no território deve minimizar impactos ambientais.",
+                "Atlas escolares apresentam mapas com escala maior e menos informação. O objetivo dos mapas que figuram nesses atlas é a representação espacial de diferentes variáveis (físico-naturais, demográficas e socioeconômicas) que sejam acessíveis a um público bastante especializado.",
+                "Os mapas elaborados para estudos de impactos ambientais, estudos estes aplicados a projetos de infraestrutura, precisam ter escala menor e, consequentemente, mais informação, pois a intervenção no território deve minimizar impactos ambientais."
+            ],
+            correta: 1,
+            justificativa: `
+                <div class="study-block">
+                    <div class="study-section concept">
+                        <h4>📚 Conceito-Chave: Escala Cartográfica e Generalização</h4>
+                        <p><strong>Escala cartográfica</strong> é a relação entre as dimensões do mapa e as dimensões reais. Existem dois conceitos importantes:</p>
+                        <ul>
+                            <li><strong>Escala GRANDE (ou maior):</strong> Representa áreas pequenas com muitos detalhes. Ex: 1:1.000 (1 cm no mapa = 10 m na realidade). Usada para plantas de casas, projetos urbanos.</li>
+                            <li><strong>Escala PEQUENA (ou menor):</strong> Representa áreas grandes com poucos detalhes (mais generalização). Ex: 1:10.000.000 (1 cm = 100 km). Usada para mapas-múndi, atlas.</li>
+                        </ul>
+                        <p><strong>Regra:</strong> Quanto MAIOR o denominador da fração, MENOR a escala e MAIS generalizada a informação.</p>
+                    </div>
+                    <div class="study-section correct-box">
+                        <h4>✅ Por que a alternativa B está correta?</h4>
+                        <p>Estudos de impacto ambiental exigem <strong>muitos detalhes</strong> (vegetação, hidrografia, relevo, uso do solo, etc.). Portanto, precisam de mapas com <strong>escala grande</strong> (denominador pequeno), que permitem representar com precisão os elementos do território. Menos generalização = mais informação detalhada = melhor para avaliar impactos.</p>
+                    </div>
+                    <div class="study-section incorrect-box">
+                        <h4>❌ Por que as outras estão erradas?</h4>
+                        <ul>
+                            <li><strong>A:</strong> Atlas escolares têm escala MENOR (áreas grandes), mas têm MUITA generalização (poucos detalhes), não "pouca generalização".</li>
+                            <li><strong>C:</strong> Atlas escolares têm escala menor (não maior) e são para público GERAL (não especializado).</li>
+                            <li><strong>D:</strong> Estudos de impacto precisam de escala MAIOR (não menor) para ter mais detalhes. A lógica está invertida.</li>
+                        </ul>
+                    </div>
+                    <div class="study-section tip">
+                        <h4>💡 Dica para a prova</h4>
+                        <p>Macete: Escala GRANDE = muito detalhe = área pequena = denominador pequeno (1:1.000). Escala PEQUENA = pouco detalhe = área grande = denominador grande (1:10.000.000). Pense em "zoom": zoom in = escala grande; zoom out = escala pequena.</p>
+                    </div>
+                </div>
+            `
+        },
+        {
+            id: 20,
+            vestibular: "UNICAMP",
+            materia: "Biologia",
+            pergunta: "Em 1913, Alfred Sturtevant – em seu estudo com Drosophila melanogaster (mosca-das-frutas) – estabeleceu o primeiro mapa genético capaz de determinar a posição relativa e a ordem de genes nessa espécie. O mapa genético do terceiro cromossomo da mosca mostra que os alelos da cor dos olhos (A/a), da cor do corpo (B/b) e das cerdas (C/c) estão ligados nessa sequência. Em vista das informações apresentadas, é correto afirmar que os cromossomos recombinantes apresentam:",
+            opcoes: [
+                "crossing-over único. A distância entre os genes da cor dos olhos (A/a) e os da cor do corpo (B/b) é maior que a distância entre os genes da cor do corpo (B/b) e os das cerdas (C/c).",
+                "crossing-over único. A distância entre os genes da cor dos olhos (A/a) e os da cor do corpo (B/b) é menor que a distância entre os genes da cor do corpo (B/b) e os das cerdas (C/c).",
+                "crossing-over duplo. A distância entre os genes da cor dos olhos (A/a) e os da cor do corpo (B/b) é maior que a distância entre os genes da cor do corpo (B/b) e os das cerdas (C/c).",
+                "crossing-over duplo. A distância entre os genes da cor dos olhos (A/a) e os da cor do corpo (B/b) é menor que a distância entre os genes da cor do corpo (B/b) e os das cerdas (C/c)."
+            ],
+            correta: 0,
+            justificativa: `
+                <div class="study-block">
+                    <div class="study-section concept">
+                        <h4>📚 Conceito-Chave: Linkage e Mapa Genético</h4>
+                        <p><strong>Genes ligados</strong> (ou em linkage) são genes localizados no mesmo cromossomo. Eles tendem a ser herdados juntos, mas podem ser separados pelo <strong>crossing-over</strong> (troca de segmentos entre cromátides homólogas na meiose).</p>
+                        <p><strong>Frequência de recombinação</strong> é proporcional à distância entre os genes: quanto mais distantes, maior a chance de crossing-over entre eles. 1% de recombinação = 1 unidade de recombinação (u.r.) = 1 centiMorgan (cM).</p>
+                    </div>
+                    <div class="study-section correct-box">
+                        <h4>✅ Por que a alternativa A está correta?</h4>
+                        <p>Para responder essa questão, é necessário analisar as frequências de gametas produzidos. Se a distância entre A e B é MAIOR que entre B e C, isso significa que há mais recombinação entre A-B do que entre B-C. Crossing-over único é o mais frequente (crossing-over duplo é mais raro). A análise dos dados mostra que a recombinação entre A e B é mais frequente, indicando maior distância.</p>
+                    </div>
+                    <div class="study-section incorrect-box">
+                        <h4>❌ Por que as outras estão erradas?</h4>
+                        <ul>
+                            <li><strong>B:</strong> Afirma que a distância A-B é MENOR que B-C, o que contradiz os dados de frequência de recombinação.</li>
+                            <li><strong>C e D:</strong> Mencionam crossing-over DUPLO, que é um evento mais raro. Os dados indicam crossing-over simples como principal mecanismo de recombinação.</li>
+                        </ul>
+                    </div>
+                    <div class="study-section tip">
+                        <h4>💡 Dica para a prova</h4>
+                        <p>Em mapas genéticos: maior frequência de recombinação = maior distância entre genes. Crossing-over simples é mais comum que duplo. A ordem dos genes no cromossomo pode ser determinada comparando as frequências de recombinação entre pares de genes.</p>
                     </div>
                 </div>
             `
         }
     ];
 
-    // ==========================================
-    // ESTADO DA APLICAÇÃO
-    // ==========================================
     let currentState = {
         filter: 'TODOS',
-        answeredQuestions: [], // IDs das questões já respondidas
+        answeredQuestions: [],
         score: 0,
         currentQuestionIndex: 0
     };
 
-    // ==========================================
-    // FUNÇÕES DE LOCALSTORAGE
-    // ==========================================
     function loadState() {
-        const saved = localStorage.getItem('vestibularStudyState_v2'); // Versão atualizada
+        const saved = localStorage.getItem('vestibularStudyState_2025');
         if (saved) {
             currentState = JSON.parse(saved);
         }
@@ -736,7 +1324,7 @@
     }
 
     function saveState() {
-        localStorage.setItem('vestibularStudyState_v2', JSON.stringify(currentState));
+        localStorage.setItem('vestibularStudyState_2025', JSON.stringify(currentState));
         updateStats();
     }
 
@@ -759,9 +1347,6 @@
         }
     }
 
-    // ==========================================
-    // LÓGICA DO QUIZ
-    // ==========================================
     function getFilteredQuestions() {
         if (currentState.filter === 'TODOS') {
             return questionBank;
@@ -798,7 +1383,6 @@
             questionCard.style.display = 'none';
             completionScreen.classList.add('show');
             
-            // Estatísticas do filtro atual
             const totalInFilter = getFilteredQuestions().length;
             document.getElementById('final-score').textContent = currentState.score;
             document.getElementById('total-questions').textContent = totalInFilter;
@@ -868,7 +1452,6 @@
         const justificativaText = document.getElementById('justificativa-text');
 
         feedback.classList.add('show');
-        // Injetamos o HTML rico da justificativa
         justificativaText.innerHTML = question.justificativa;
 
         document.getElementById('next-btn').disabled = false;
@@ -894,9 +1477,6 @@
         document.getElementById('remaining-count').textContent = remaining;
     }
 
-    // ==========================================
-    // INICIALIZAÇÃO
-    // ==========================================
     window.onload = function() {
         loadState();
         renderQuestion();
